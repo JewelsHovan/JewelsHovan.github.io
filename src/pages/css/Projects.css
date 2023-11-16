@@ -1,0 +1,28 @@
+.projects {
+  padding: 2rem 0;
+}
+
+.project-grid {
+  margin-top: 2rem;
+}
+
+.project-card {
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+.project-card a {
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.project-card a:hover {
+  color: #0056b3;
+  text-decoration: none;
+}

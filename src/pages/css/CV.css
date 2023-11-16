@@ -1,0 +1,17 @@
+/* Styling the badges */
+.bg-primary {
+  background: none !important;
+}
+
+/* Styling the CV */
+.cv {
+  border: 2px solid #007bff; /* Blue border */
+  padding: 20px; /* Space inside the border */
+  border-radius: 10px; /* Rounded corners for the CV */
+  background-color: #fff; /* White background for the CV content */
+}
+
+/* If you want a shadow effect for the CV */
+.cv {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
