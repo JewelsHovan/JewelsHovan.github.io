@@ -5,18 +5,18 @@ import Footer from "./components/Footer";
 import RoutesContainer from "./pages/RoutesContainer";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container } from 'react-bootstrap';
+import './index.css';
 
 const App = () => {
   return (
     <Router>
-      <Container fluid className="d-flex flex-column min-vh-100">
+      <div className="min-h-screen flex flex-col">
         <Header />
-        <div className="flex-column"> {/* Add this div */}
+        <main className="flex-grow">
           <RoutesContainer />
-        </div>
+        </main>
         <Footer />
-      </Container>
+      </div>
     </Router>
   );
 };
