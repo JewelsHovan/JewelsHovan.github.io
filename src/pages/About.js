@@ -1,6 +1,5 @@
 import React from "react";
-import "./css/About.css"; // Ensure your CSS file includes the new styles
-import { Container, Row, Col } from "react-bootstrap";
+import { motion } from "framer-motion";
 import {
   FaHiking,
   FaMountain,
@@ -11,86 +10,127 @@ import {
 } from "react-icons/fa";
 
 const About = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.3 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.5 }
+    }
+  };
+
   return (
-    <Container className="about px-3 py-3">
-      <h1 className="title">About Julien M. Hovan</h1>
+    <motion.div 
+      className="container mx-auto px-4 py-8"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+    >
+      <motion.h1 
+        className="text-4xl font-bold text-center mb-8 text-gray-800"
+        variants={itemVariants}
+      >
+        About Julien M. Hovan
+      </motion.h1>
 
-      <Row>
-        <Col md={6}>
-          <h2 className="about-title">About Me</h2>
-          <div className="about-content">
-            <p>
-              I am a dynamic Computer Science and Biology graduate from McGill
-              University, blending my passion for biological research with the
-              power of AI and Machine Learning. With hands-on experience in data
-              mining, web development, and bioinformatics, I have crafted
-              solutions from React.js websites to intricate data analysis
-              projects. My journey has been driven by curiosity, exploring the
-              intricacies of the Drosophila genome and designing sleek,
-              user-friendly websites. As I continue to delve into the world of
-              data science and web development, I am always eager to take on new
-              challenges and collaborate on innovative projects.
-            </p>
-          </div>
-        </Col>
+      <motion.section 
+        className="mb-12"
+        variants={itemVariants}
+      >
+        <h2 className="text-2xl font-semibold mb-4 text-gray-700">About Me</h2>
+        <p className="text-gray-600 leading-relaxed">
+          I'm a passionate Computer Science and Biology graduate from McGill University with a strong focus on combining data science and web development to create impactful applications. My current journey involves diving deep into applied data science, where I'm honing my skills in designing data-driven solutions to solve real-world problems. I enjoy blending my love for technology and data science to develop intuitive, user-friendly applications that bring insights to life.
+        </p>
+      </motion.section>
 
-        <Col md={6}>
-          <h2 className="hobby-title">Hobbies</h2>
-          <div className="about-content">
-            {" "}
-            {/* Used the same style for consistency */}
-            <ul className="hobbies-list">
-              <li>
-                <FaHiking className="hobby-icon" />
-                Hiking
-              </li>
-              <li>
-                <FaFistRaised className="hobby-icon" />
-                Judo
-              </li>
-              <li>
-                <FaMountain className="hobby-icon" />
-                Wrestling
-              </li>
-            </ul>
-          </div>
-        </Col>
-      </Row>
+      <motion.section 
+        className="mb-12"
+        variants={itemVariants}
+      >
+        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Current Pursuits</h2>
+        <p className="text-gray-600 leading-relaxed">
+          Currently, I'm pursuing a Masters of Applied Data Science at the University of Michigan, where I'm exploring how machine learning, data visualization, and AI can be harnessed to create solutions that are both functional and innovative. I'm particularly interested in building projects that bridge the gap between data science and web development, integrating modern machine learning models into responsive, interactive applications.
+        </p>
+      </motion.section>
 
-      <div className="education">
-        <h2 className="education-title">
-          Education <FaGraduationCap className="section-icon" />
+      <motion.section 
+        className="mb-12"
+        variants={itemVariants}
+      >
+        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Passion for Teaching</h2>
+        <p className="text-gray-600 leading-relaxed">
+          In addition to my technical interests, I'm also passionate about tutoring and mentoring others. I love sharing knowledge, simplifying complex topics, and helping others develop their own skills in data science, programming, and beyond.
+        </p>
+      </motion.section>
+
+      <motion.section 
+        className="mb-12"
+        variants={itemVariants}
+      >
+        <h2 className="text-2xl font-semibold mb-4 text-gray-700">Hobbies</h2>
+        <ul className="flex justify-center space-x-8">
+          <motion.li className="flex flex-col items-center" whileHover={{ scale: 1.1 }}>
+            <FaHiking className="text-4xl text-blue-500 mb-2" />
+            <span>Hiking</span>
+          </motion.li>
+          <motion.li className="flex flex-col items-center" whileHover={{ scale: 1.1 }}>
+            <FaFistRaised className="text-4xl text-blue-500 mb-2" />
+            <span>Judo</span>
+          </motion.li>
+          <motion.li className="flex flex-col items-center" whileHover={{ scale: 1.1 }}>
+            <FaMountain className="text-4xl text-blue-500 mb-2" />
+            <span>Wrestling</span>
+          </motion.li>
+        </ul>
+      </motion.section>
+
+      <motion.section 
+        className="mb-12"
+        variants={itemVariants}
+      >
+        <h2 className="text-2xl font-semibold mb-4 text-gray-700 flex items-center">
+          <FaGraduationCap className="mr-2 text-blue-500" />
+          Education
         </h2>
-        <p>
-          McGill University Bachelors of Science in Computer Science and Biology
-          2018-2023
-        </p>
-        <p>
-          Prospective Student in the Masters of Applied Data Science (MADS) at
-          University of Michigan starting in January 2024
-        </p>
-      </div>
+        <ul className="list-disc list-inside text-gray-600">
+          <li>McGill University - B.Sc. in Computer Science and Biology (2018-2023)</li>
+          <li>University of Michigan - Masters of Applied Data Science (Starting January 2024)</li>
+        </ul>
+      </motion.section>
 
-      <div className="interests">
-        <h2 className="interests-title">
-          Interests <FaLightbulb className="section-icon" />
+      <motion.section 
+        className="mb-12"
+        variants={itemVariants}
+      >
+        <h2 className="text-2xl font-semibold mb-4 text-gray-700 flex items-center">
+          <FaLightbulb className="mr-2 text-blue-500" />
+          Interests
         </h2>
-        <p>
-          I like learning about AI tools, such as large language models and
-          generative AI...
+        <p className="text-gray-600">
+          I'm fascinated by AI tools, particularly large language models and generative AI. I'm always exploring new ways to apply these technologies in practical, innovative projects.
         </p>
-      </div>
+      </motion.section>
 
-      <div className="goals">
-        <h2 className="goals-title">
-          Goals <FaRocket className="section-icon" />
+      <motion.section 
+        variants={itemVariants}
+      >
+        <h2 className="text-2xl font-semibold mb-4 text-gray-700 flex items-center">
+          <FaRocket className="mr-2 text-blue-500" />
+          Goals
         </h2>
-        <p>
-          Integrating my Front-End Skills with Machine Learning creating
-          interfaces and systems...
+        <p className="text-gray-600">
+          My primary goal is to integrate my front-end skills with machine learning, creating interfaces and systems that make complex data accessible and actionable for users across various domains.
         </p>
-      </div>
-    </Container>
+      </motion.section>
+    </motion.div>
   );
 };
 

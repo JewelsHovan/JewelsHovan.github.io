@@ -6,10 +6,27 @@ import ImageFiller from 'react-image-filler';
 
 const FeaturedProjects = () => {
   const projects = [
-    { id: 1, title: 'Project 1', description: 'Description for Project 1' },
-    { id: 2, title: 'Project 2', description: 'Description for Project 2' },
-    { id: 3, title: 'Project 3', description: 'Description for Project 3' },
-    { id: 4, title: 'Project 4', description: 'Description for Project 4' },
+    {
+      id: 1,
+      title: "GSAikido",
+      description: "A website for Granite State Aikido Club, an aikido club in southern New Hampshire run by a small tight-knit community.",
+      link: "https://gsaikido.com/",
+      codeLink: "#",
+    },
+    {
+      id: 2,
+      title: "LuccasBooth",
+      description: "A website showcasing Luccas Booth's art portfolio, involving photography, paintings, collage, and drawings.",
+      link: "https://luccasartsite.web.app/",
+      codeLink: "#",
+    },
+    {
+      id: 3,
+      title: "Fresh Meat Classifier",
+      description: "A ML model to classify fresh meat types. Built with advanced techniques and hosted on Hugging Face Spaces.",
+      link: "https://huggingface.co/spaces/yourusername/fresh-meat-classifier",
+      codeLink: "https://github.com/yourusername/fresh-meat-classifier",
+    },
   ];
 
   const settings = {
@@ -43,19 +60,24 @@ const FeaturedProjects = () => {
         <h2 className="text-3xl font-bold mb-8 text-center">Featured Projects</h2>
         <Slider {...settings}>
           {projects.map((project) => (
-            <div key={project.id} className="px-2">
-              <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div key={project.id} className="px-2 h-full">
+              <div className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
                 <ImageFiller 
                   width={400} 
                   height={200} 
-                  text={`Project ${project.id}`}
+                  text={project.title}
                   background="#f0f0f0"
                   color="#333333"
                 />
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-grow">
                   <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                  <p className="text-gray-600 mb-4">{project.description}</p>
-                  <a href="/projects" className="text-blue-600 hover:underline">Learn More</a>
+                  <p className="text-gray-600 mb-4 flex-grow">{project.description}</p>
+                  <div className="mt-auto">
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline mr-4">Visit Project</a>
+                    {project.codeLink && project.codeLink !== "#" && (
+                      <a href={project.codeLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">Source Code</a>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
