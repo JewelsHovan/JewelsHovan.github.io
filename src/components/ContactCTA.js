@@ -1,16 +1,14 @@
 import React from 'react';
-import './css/ContactCTA.css'; // Separate CSS file for styling
-
+  
 const ContactCTA = () => {
   return (
-    <div className="cta">
-      <h2>Contact Me</h2>
-      <p>Thank you for looking at my page. If you want to contact me for any reason, I welcome it. I'm open to any collaboration.</p>
-      <p>You can reach me at:</p>
-      <p><strong>Email</strong>: julienh15@icloud.com</p>
-      <p><strong>Phone</strong>: +1-603-320-3104</p>
-      {/* Optionally, add a contact form or buttons linking to your social profiles */}
-    </div>
+    <section class="bg-blue-600 text-white py-16">
+      <div class="container mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Let's Connect</h2>
+        <p class="text-xl mb-8">Whether you're looking to collaborate on a project or need tutoring assistance, I'm here to help.</p>
+        <a href="/contact" class="bg-white text-blue-600 px-6 py-2 rounded-lg hover:bg-gray-100">Get in Touch</a>
+      </div>
+    </section>
   );
 };
 
