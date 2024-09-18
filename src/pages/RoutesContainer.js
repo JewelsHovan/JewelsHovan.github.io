@@ -6,6 +6,7 @@ import Projects from './Projects';
 import About from './About';
 import Contact from './Contact';
 import Tutor from './Tutor';
+import Form from './Form';
 
 const RoutesContainer = () => {
     return (
@@ -16,6 +17,7 @@ const RoutesContainer = () => {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/tutor" element={<Tutor />} />
+        <Route path="/form" element={<Form />} />
       </Routes>
     );
   };

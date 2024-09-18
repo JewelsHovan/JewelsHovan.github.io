@@ -112,6 +112,9 @@ module.exports = {
         'DEFAULT': 'var(--border-radius-base)',
         'lg': 'var(--border-radius-lg)',
       },
+      textColor: {
+        'header': '#374151', // This is the color used in the Projects page
+      },
     },
   },
   plugins: [],

@@ -4,6 +4,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ImageFiller from 'react-image-filler';
 import TextHeader from './TextHeader';
+import gsaikidoImage from '../assets/images/gsaikido.jpg';
+import luccasboothImage from '../assets/images/luccasbooth.jpg';
 
 const FeaturedProjects = () => {
   const projects = [
@@ -13,6 +15,7 @@ const FeaturedProjects = () => {
       description: "A website for Granite State Aikido Club, an aikido club in southern New Hampshire run by a small tight-knit community.",
       link: "https://gsaikido.com/",
       codeLink: "#",
+      image: gsaikidoImage,
     },
     {
       id: 2,
@@ -20,6 +23,7 @@ const FeaturedProjects = () => {
       description: "A website showcasing Luccas Booth's art portfolio, involving photography, paintings, collage, and drawings.",
       link: "https://luccasartsite.web.app/",
       codeLink: "#",
+      image: luccasboothImage,
     },
     {
       id: 3,
@@ -63,13 +67,21 @@ const FeaturedProjects = () => {
           {projects.map((project) => (
             <div key={project.id} className="px-2 h-full">
               <div className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
-                <ImageFiller 
-                  width={400} 
-                  height={200} 
-                  text={project.title}
-                  background="#f0f0f0"
-                  color="#333333"
-                />
+                {project.image ? (
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-48 object-cover"
+                  />
+                ) : (
+                  <ImageFiller 
+                    width={400} 
+                    height={200} 
+                    text={project.title}
+                    background="#f0f0f0"
+                    color="#333333"
+                  />
+                )}
                 <div className="p-6 flex flex-col flex-grow">
                   <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                   <p className="text-gray-600 mb-4 flex-grow">{project.description}</p>

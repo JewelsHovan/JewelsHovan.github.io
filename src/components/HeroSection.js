@@ -16,11 +16,11 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="bg-neutral-100 py-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-0">
+    <section className="bg-gray-100 py-20">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between">
           <div className="text-center lg:text-left mb-8 lg:mb-0 lg:w-1/2">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-primary-800">
+            <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-gray-800">
               Where{' '}
               <span className={`${colors[colorIndex]} transition-colors duration-300`}>
                 Computer Science
@@ -34,10 +34,10 @@ const HeroSection = () => {
                 AI Converge
               </span>
             </h1>
-            <p className="text-xl mb-6 text-neutral-700">
+            <p className="text-xl mb-6 text-gray-600">
               Aspiring Data Scientist with a passion for innovation and problem-solving
             </p>
-            <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
               {/* Use Link to handle routing without page reload */}
               <Link to="/projects" className="w-full sm:w-auto">
                 <Button variant="primary">View Projects</Button>

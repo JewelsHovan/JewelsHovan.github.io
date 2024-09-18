@@ -1,7 +1,18 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaCode, FaCalculator, FaDna, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaCode, FaCalculator, FaLaptopCode, FaChalkboardTeacher } from 'react-icons/fa';
 import Button from '../components/Button';
+
+const CodeBlock = ({ children }) => (
+  <motion.div
+    className="bg-gray-800 text-green-400 p-4 rounded-lg shadow-lg font-mono text-sm"
+    initial={{ opacity: 0, y: 20 }}
+    animate={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+  >
+    {children}
+  </motion.div>
+);
 
 const SubjectCard = ({ icon, title, description }) => (
   <motion.div
@@ -17,84 +28,83 @@ const SubjectCard = ({ icon, title, description }) => (
 
 const Tutor = () => {
   const subjects = [
-    { icon: <FaCode className="text-4xl text-blue-500 mb-4" />, title: "Computer Science", description: "From basic programming to advanced algorithms" },
-    { icon: <FaCalculator className="text-4xl text-green-500 mb-4" />, title: "Mathematics", description: "Algebra, calculus, and statistics" },
-    { icon: <FaDna className="text-4xl text-purple-500 mb-4" />, title: "Biology", description: "Molecular biology, genetics, and more" },
-    { icon: <FaChalkboardTeacher className="text-4xl text-red-500 mb-4" />, title: "General Sciences", description: "Physics, chemistry, and earth sciences" },
+    { icon: <FaCode className="text-4xl text-blue-500 mb-4" />, title: "Computer Science", description: "Data Structures, Algorithms, and Python Programming" },
+    { icon: <FaCalculator className="text-4xl text-green-500 mb-4" />, title: "Mathematics & Statistics", description: "For data science and programming applications" },
+    { icon: <FaLaptopCode className="text-4xl text-purple-500 mb-4" />, title: "UMSI Courses", description: "SI 106, SI 206, SI 506, SI 507, SIADS 505" },
+    { icon: <FaChalkboardTeacher className="text-4xl text-red-500 mb-4" />, title: "General Python Support", description: "From basics to advanced concepts" },
   ];
 
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <section className="bg-blue-700 text-white py-20">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold mb-4">Expert Tutoring Services</h1>
-          <p className="text-xl mb-8">Unlock your potential with personalized learning experiences</p>
-          <Button href="#contact" variant="secondary">Book a Session</Button>
-        </div>
-      </section>
-
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">Subjects I Tutor</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {subjects.map((subject, index) => (
-              <SubjectCard key={index} {...subject} />
-            ))}
+    <div className="bg-gray-100 min-h-screen py-12">
+      <div className="container mx-auto px-4">
+        <motion.div
+          className="bg-white rounded-xl shadow-2xl overflow-hidden"
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+        >
+          <div className="bg-blue-700 text-white py-8 px-6">
+            <h1 className="text-4xl font-bold mb-4">Julien Hovan - UMSI Programming Peer Tutor</h1>
+            <p className="text-xl mb-4">Unlock your potential with personalized Python and Data Science tutoring</p>
+            <Button href="mailto:jhovan@umich.edu" variant="secondary">Book a Session</Button>
           </div>
-        </div>
-      </section>
+          
+          <div className="p-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className="md:col-span-2">
+                <h2 className="text-3xl font-bold mb-6">About Me</h2>
+                <p className="mb-4">
+                  Hi! I'm a current MADS student, with an undergraduate background in Bioinformatics. I first learned Python six years ago and have been enamored by its capabilities ever since. I'm here to help with everything from basic Python to more advanced concepts.
+                </p>
+                <p className="mb-4">
+                  I believe in using small, concrete examples to gain intuition before diving into more mathematical terms. When I'm not coding, you can find me reading a good book (usually fiction), practicing Jiu-Jitsu, or enjoying the outdoors on a hike.
+                </p>
+                <div className="mt-6 space-x-4">
+                  <Button href="https://calendar.app.google/Ehw9Ta5TH5DVNRv87" variant="primary">View My Availability</Button>
+                  <Button href="mailto:jhovan@umich.edu" variant="secondary">Contact Me</Button>
+                </div>
+              </div>
+              <div>
+                <CodeBlock>
+                  {`def tutor_session(student):
+    knowledge = student.current_knowledge
+    goals = student.learning_goals
+    
+    while not goals.achieved:
+        lesson = plan_lesson(knowledge, goals)
+        knowledge = teach(student, lesson)
+        goals.update_progress(knowledge)
+    
+    return student.success()`}
+                </CodeBlock>
+              </div>
+            </div>
 
-      <section className="bg-white py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">Why Choose Me?</h2>
-          <div className="flex flex-wrap justify-center">
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-              <h3 className="text-xl font-semibold mb-2">Experienced Educator</h3>
-              <p>With years of tutoring experience and a strong academic background.</p>
+            <h2 className="text-3xl font-bold mt-12 mb-6">Areas of Expertise</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {subjects.map((subject, index) => (
+                <SubjectCard key={index} {...subject} />
+              ))}
             </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-              <h3 className="text-xl font-semibold mb-2">Personalized Approach</h3>
-              <p>Tailored lessons to meet your unique learning style and goals.</p>
-            </div>
-            <div className="w-full md:w-1/2 lg:w-1/3 px-4 mb-8">
-              <h3 className="text-xl font-semibold mb-2">Proven Results</h3>
-              <p>Track record of helping students improve their grades and understanding.</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-8 text-center">Tutoring Packages</h2>
-          <div className="flex flex-wrap justify-center">
-            <div className="w-full md:w-1/3 px-4 mb-8">
+            <h2 className="text-3xl font-bold mt-12 mb-6">Why Choose Me?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <h3 className="text-xl font-semibold mb-2">Basic Package</h3>
-                <p className="text-gray-600 mb-4">4 sessions per month</p>
-                <p className="text-2xl font-bold mb-4">$200/month</p>
-                <Button href="#contact" variant="primary" className="w-full">Get Started</Button>
+                <h3 className="text-xl font-semibold mb-2">Experienced Educator</h3>
+                <p>UMSI Programming Peer Tutor with 6+ years of Python experience.</p>
               </div>
-            </div>
-            <div className="w-full md:w-1/3 px-4 mb-8">
-              <div className="bg-white p-6 rounded-lg shadow-md border-2 border-blue-500">
-                <h3 className="text-xl font-semibold mb-2">Premium Package</h3>
-                <p className="text-gray-600 mb-4">8 sessions per month</p>
-                <p className="text-2xl font-bold mb-4">$350/months</p>
-                <Button href="#contact" variant="primary" className="w-full">Get Started</Button>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-2">Diverse Background</h3>
+                <p>Web Developer, Data Scientist, and Bioinformatics graduate.</p>
+              </div>
+              <div className="bg-white p-6 rounded-lg shadow-md">
+                <h3 className="text-xl font-semibold mb-2">Top-Tier Education</h3>
+                <p>McGill University (CS) and University of Michigan (MADS) alumnus.</p>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      <section id="contact" className="bg-blue-700 text-white py-16">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-          <p className="text-xl mb-8">Book your first session today and take the first step towards academic success!</p>
-          <Button href="/contact" variant="secondary">Contact Me</Button>
-        </div>
-      </section>
+        </motion.div>
+      </div>
     </div>
   );
 };

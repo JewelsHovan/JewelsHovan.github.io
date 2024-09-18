@@ -6,17 +6,18 @@ import RoutesContainer from "./pages/RoutesContainer";
 import "./App.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+
 const App = () => {
   return (
-    <Router>
+      <Router>
       <div className="min-h-screen flex flex-col">
-        <Header />
-        <main className="flex-grow">
-          <RoutesContainer />
-        </main>
-        <Footer />
-      </div>
-    </Router>
+          <Header />
+          <main className="flex-grow">
+            <RoutesContainer />
+          </main>
+          <Footer />
+        </div>
+      </Router>
   );
 };
 
