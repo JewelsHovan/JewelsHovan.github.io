@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const ContactForm = () => {
   const navigate = useNavigate();
@@ -16,10 +17,18 @@ const ContactForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log('Form submitted:', formData);
-    // After sending, redirect to a thank you page or home page
-    navigate('/');
+    try {
+      const response = await axios.post('https://jh-portfolio-backend-fd79aa55d6cc.herokuapp.com/api/send-email', formData);
+      if (response.data.success) {
+        alert('Email sent successfully!');
+        // Clear form or redirect
+      } else {
+        alert('Failed to send email. Please try again.');
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+      alert('An error occurred. Please try again later.');
+    }
   };
 
   return (

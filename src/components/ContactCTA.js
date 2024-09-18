@@ -11,8 +11,8 @@ const ContactCTA = () => {
       transition={{ duration: 0.3 }}
     >
       <div className="container mx-auto text-center px-4">
-        <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-        <p className="mb-8">Let's discuss how we can help you achieve your goals.</p>
+        <h2 className="text-3xl font-bold mb-4">Have any questions?</h2>
+        <p className="mb-8">If it's either about my projects, tutoring, or anything else, feel free to contact me.</p>
         <Link to="/Form">
           <motion.button 
             className="bg-white text-blue-600 px-6 py-2 rounded-full hover:bg-gray-100 inline-block"
