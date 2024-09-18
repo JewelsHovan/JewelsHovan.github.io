@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import heroImage from '../assets/backgrounds/hero-image.jpg';
 import Button from './Button';
 
@@ -33,10 +34,17 @@ const HeroSection = () => {
                 AI Converge
               </span>
             </h1>
-            <p className="text-xl mb-6 text-neutral-700">Aspiring Data Scientist with a passion for innovation and problem-solving</p>
+            <p className="text-xl mb-6 text-neutral-700">
+              Aspiring Data Scientist with a passion for innovation and problem-solving
+            </p>
             <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-              <Button href="/projects" variant="primary" className="w-full sm:w-auto">View Projects</Button>
-              <Button href="#tutoring" variant="secondary" className="w-full sm:w-auto">Tutoring Services</Button>
+              {/* Use Link to handle routing without page reload */}
+              <Link to="/projects" className="w-full sm:w-auto">
+                <Button variant="primary">View Projects</Button>
+              </Link>
+              <Link to="/tutor" className="w-full sm:w-auto">
+                <Button variant="secondary">Tutoring Services</Button>
+              </Link>
             </div>
           </div>
           <div className="w-full lg:w-1/2 max-w-2xl lg:max-w-none">

@@ -1,93 +1,89 @@
-import React, {useEffect } from "react";
-import "./css/Projects.css";
-import { Container, Row, Col, Card } from "react-bootstrap";
+import React from "react";
+import { motion } from "framer-motion";
+import { FaExternalLinkAlt, FaGithub } from "react-icons/fa";
+import TextHeader from "../components/TextHeader";
+
+const ProjectCard = ({ project }) => (
+  <motion.div
+    className="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col"
+    whileHover={{ scale: 1.05 }}
+    transition={{ duration: 0.3 }}
+  >
+    <div className="p-6 flex flex-col flex-grow">
+      <h3 className="text-xl font-semibold mb-2 text-paynes_gray-500">{project.title}</h3>
+      <p className="text-gray-600 mb-4 flex-grow">{project.description}</p>
+      <div className="mt-auto flex justify-between">
+        <a
+          href={project.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-moonstone-500 hover:text-moonstone-700 flex items-center"
+        >
+          <FaExternalLinkAlt className="mr-2" />
+          Visit Project
+        </a>
+        {project.codeLink && project.codeLink !== "#" && (
+          <a
+            href={project.codeLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-moonstone-500 hover:text-moonstone-700 flex items-center"
+          >
+            <FaGithub className="mr-2" />
+            Source Code
+          </a>
+        )}
+      </div>
+    </div>
+  </motion.div>
+);
+
+const ProjectSection = ({ title, projects }) => (
+  <section className="mb-16">
+    <TextHeader level={2}>{title}</TextHeader>
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {projects.map((project, index) => (
+        <ProjectCard key={index} project={project} />
+      ))}
+    </div>
+  </section>
+);
 
 const Projects = () => {
-  // Array of website projects
   const websiteProjects = [
     {
       title: "GSAikido",
       description: "A website for Granite State Aikido Club.",
       link: "https://gsaikido.com/",
-      codeLink: "#", // Replace with actual link when available
+      codeLink: "#",
     },
     {
       title: "LuccasBooth",
       description:
         "A website showcasing Luccas Booth's art portfolio, involving photography, paintings, collage, and drawings.",
       link: "https://luccasartsite.web.app/",
-      codeLink: "#", // Replace with actual link when available
+      codeLink: "#",
     },
-    // You can add more projects here in the same format
+    // Add more website projects here
   ];
-  // Initialize your ML projects array
+
   const mlProjects = [
     {
       title: "Fresh Meat Classifier",
       description:
         "A machine learning model to classify different types of fresh meat. Built using advanced ML techniques and hosted on Hugging Face Spaces with a Gradio interface.",
-      link: "https://huggingface.co/spaces/yourusername/fresh-meat-classifier", // Replace with the actual link
-      // You can also include a link to the source code if available
-      codeLink: "https://github.com/yourusername/fresh-meat-classifier", // Replace with actual GitHub link if available
+      link: "https://huggingface.co/spaces/yourusername/fresh-meat-classifier",
+      codeLink: "https://github.com/yourusername/fresh-meat-classifier",
     },
-    // Add more ML projects here in the same format
+    // Add more ML projects here
   ];
 
-  useEffect(() => {
-    // Fetch ML projects data from Hugging Face API
-    // setMlProjects(fetchedData);
-  }, []);
-
-  const renderProjectCard = (project) => (
-    <Col xs={12} md={6} lg={4}>
-      <Card className="project-card">
-        <Card.Body>
-          <Card.Title>{project.title}</Card.Title>
-          <Card.Text>{project.description}</Card.Text>
-          <Card.Link
-            href={project.link}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Visit Website
-          </Card.Link>
-          {project.codeLink && (
-            <Card.Link
-              href={project.codeLink}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Source Code
-            </Card.Link>
-          )}
-        </Card.Body>
-      </Card>
-    </Col>
-  );
-
   return (
-    <Container className="projects">
-      <h1>Projects</h1>
-      <section>
-        <h2>Websites</h2>
-        <p>
-          Here are some of the freelance websites I've created using React.js
-          and Google Firebase:
-        </p>
-        <Row className="project-grid">
-          {websiteProjects.map(renderProjectCard)}
-        </Row>
-      </section>
-
-      <section>
-        <h2>Machine Learning Projects</h2>
-        <p>
-          Here are some machine learning models I've worked on and deployed to
-          Hugging Face Spaces:
-        </p>
-        <Row className="project-grid">{mlProjects.map(renderProjectCard)}</Row>
-      </section>
-    </Container>
+    <div className="container mx-auto px-4 py-16">
+      <TextHeader level={1} className="text-center">My Projects</TextHeader>
+      <ProjectSection title="Website Projects" projects={websiteProjects} />
+      <ProjectSection title="Machine Learning Projects" projects={mlProjects} />
+    </div>
   );
 };
 

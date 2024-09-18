@@ -4,6 +4,7 @@ import HeroSection from '../components/HeroSection';
 import Skills from '../components/Skills';
 import FeaturedProjects from '../components/FeaturedProjects';
 import ContactCTA from '../components/ContactCTA';
+import TextHeader from '../components/TextHeader';
 
 const Home = () => {
   return (

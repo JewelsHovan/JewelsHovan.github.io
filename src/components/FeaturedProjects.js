@@ -3,6 +3,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import ImageFiller from 'react-image-filler';
+import TextHeader from './TextHeader';
 
 const FeaturedProjects = () => {
   const projects = [
@@ -57,7 +58,7 @@ const FeaturedProjects = () => {
   return (
     <section id="projects" className="py-16">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-0">
-        <h2 className="text-3xl font-bold mb-8 text-center">Featured Projects</h2>
+        <TextHeader level={2} className="text-center">Featured Projects</TextHeader>
         <Slider {...settings}>
           {projects.map((project) => (
             <div key={project.id} className="px-2 h-full">

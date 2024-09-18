@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-
+import TextHeader from './TextHeader';
 const SkillCard = ({ title, skills }) => (
   <motion.div
     className="bg-white p-6 rounded-lg shadow-md"
@@ -42,7 +42,7 @@ const Skills = () => {
   return (
     <section className="py-16 bg-gray-100">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-0">
-        <h2 className="text-3xl font-bold mb-12 text-center">Skills & Expertise</h2>
+        <TextHeader level={2} className="text-center">Skills & Expertise</TextHeader>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {skillsData.map((skillSet, index) => (
             <SkillCard key={index} title={skillSet.title} skills={skillSet.skills} />

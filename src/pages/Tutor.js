@@ -80,7 +80,7 @@ const Tutor = () => {
               <div className="bg-white p-6 rounded-lg shadow-md border-2 border-blue-500">
                 <h3 className="text-xl font-semibold mb-2">Premium Package</h3>
                 <p className="text-gray-600 mb-4">8 sessions per month</p>
-                <p className="text-2xl font-bold mb-4">$350/month</p>
+                <p className="text-2xl font-bold mb-4">$350/months</p>
                 <Button href="#contact" variant="primary" className="w-full">Get Started</Button>
               </div>
             </div>
