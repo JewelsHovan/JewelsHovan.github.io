@@ -16,11 +16,11 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="bg-gray-100 py-20">
+    <section className="bg-gray-100 py-10 sm:py-20">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row items-center justify-between">
           <div className="text-center lg:text-left mb-8 lg:mb-0 lg:w-1/2">
-            <h1 className="text-4xl lg:text-5xl font-bold mb-4 text-gray-800">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-gray-800">
               Where{' '}
               <span className={`${colors[colorIndex]} transition-colors duration-300`}>
                 Computer Science
@@ -34,20 +34,20 @@ const HeroSection = () => {
                 AI Converge
               </span>
             </h1>
-            <p className="text-xl mb-6 text-gray-600">
+            <p className="text-lg sm:text-xl mb-6 text-gray-600">
               Aspiring Data Scientist with a passion for innovation and problem-solving
             </p>
             <div className="flex flex-col sm:flex-row justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-4">
               {/* Use Link to handle routing without page reload */}
-              <Link to="/projects" className="w-full sm:w-auto">
-                <Button variant="primary">View Projects</Button>
+              <Link to="/projects" className="w-full sm:w-auto mb-4 sm:mb-0">
+                <Button variant="primary" className="text-sm sm:text-base w-full">View Projects</Button>
               </Link>
               <Link to="/tutor" className="w-full sm:w-auto">
-                <Button variant="secondary">Tutoring Services</Button>
+                <Button variant="secondary" className="text-sm sm:text-base w-full">Tutoring Services</Button>
               </Link>
             </div>
           </div>
-          <div className="w-full lg:w-1/2 max-w-2xl lg:max-w-none">
+          <div className="w-full lg:w-1/2 max-w-md lg:max-w-none mt-8 lg:mt-0">
             <img src={heroImage} alt="AI and Biology convergence" className="rounded-lg shadow-lg w-full" />
           </div>
         </div>
