@@ -1,19 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-const Button = ({ children, href, variant = 'primary', className = '' }) => {
-  const baseClasses = 'px-6 py-2 rounded-lg text-center transition duration-300 ease-in-out';
+const Button = ({ href, variant, children, className }) => {
+  const baseClasses = "px-4 py-2 rounded-md font-semibold transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2";
   const variantClasses = {
-    // Updated primary colors to darker blue
-    primary: 'bg-blue-700 text-white hover:bg-blue-800',
-    // Updated secondary border and text color
-    secondary: 'bg-white text-blue-700 border border-blue-700 hover:bg-neutral-100',
+    primary: "bg-pastel-green text-charcoal hover:bg-pastel-green-dark focus:ring-pastel-green",
+    secondary: "bg-beige text-charcoal hover:bg-beige-dark focus:ring-beige",
+    gold: "bg-gold text-white hover:bg-gold-dark focus:ring-gold",
   };
 
   return (
-    <a href={href} className={`${baseClasses} ${variantClasses[variant]} ${className}`}>
+    <a href={href} className={classNames(baseClasses, variantClasses[variant], className)}>
       {children}
     </a>
   );
+};
+
+Button.propTypes = {
+  href: PropTypes.string.isRequired,
+  variant: PropTypes.oneOf(['primary', 'secondary', 'gold']),
+  children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+};
+
+Button.defaultProps = {
+  variant: 'primary',
+  className: '',
 };
 
 export default Button;

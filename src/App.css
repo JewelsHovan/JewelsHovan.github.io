@@ -2,12 +2,3 @@
 @tailwind components;
 @tailwind utilities;
 
-.min-vh-100 {
-  min-height: 100vh;
-}
-
-.flex-column {
-  display: flex;
-  flex-direction: column;
-  flex: 1; /* Add this line to make the RoutesContainer take up the remaining space */
-}

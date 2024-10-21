@@ -1,0 +1,4 @@
+/* Add perspective to the image container for better 3D effect */
+.image-container {
+    perspective: 1000px;
+  }

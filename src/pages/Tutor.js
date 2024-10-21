@@ -43,7 +43,7 @@ const Tutor = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.5 }}
         >
-          <div className="bg-blue-700 text-white py-8 px-6">
+          <div className="bg-beige-500 text-white py-8 px-6">
             <h1 className="text-4xl font-bold mb-4">Julien Hovan - UMSI Programming Peer Tutor</h1>
             <p className="text-xl mb-4">Unlock your potential with personalized Python and Data Science tutoring</p>
             <Button href="mailto:jhovan@umich.edu" variant="secondary">Book a Session</Button>
@@ -52,16 +52,16 @@ const Tutor = () => {
           <div className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="md:col-span-2">
-                <h2 className="text-3xl font-bold mb-6">About Me</h2>
+                <h2 className="text-3xl font-bold mb-6 text-beige-700">About Me</h2>
                 <p className="mb-4">
                   Hi! I'm a current MADS student, with an undergraduate background in Bioinformatics. I first learned Python six years ago and have been enamored by its capabilities ever since. I'm here to help with everything from basic Python to more advanced concepts.
                 </p>
                 <p className="mb-4">
                   I believe in using small, concrete examples to gain intuition before diving into more mathematical terms. When I'm not coding, you can find me reading a good book (usually fiction), practicing Jiu-Jitsu, or enjoying the outdoors on a hike.
                 </p>
-                <div className="mt-6 space-x-4">
-                  <Button href="https://calendar.app.google/Ehw9Ta5TH5DVNRv87" variant="primary">View My Availability</Button>
-                  <Button href="mailto:jhovan@umich.edu" variant="secondary">Contact Me</Button>
+                <div className="mt-6 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                  <Button href="https://calendar.app.google/Ehw9Ta5TH5DVNRv87" variant="primary" className="w-full sm:w-auto">View My Availability</Button>
+                  <Button href="mailto:jhovan@umich.edu" variant="secondary" className="w-full sm:w-auto">Contact Me</Button>
                 </div>
               </div>
               <div>
@@ -80,14 +80,14 @@ const Tutor = () => {
               </div>
             </div>
 
-            <h2 className="text-3xl font-bold mt-12 mb-6">Areas of Expertise</h2>
+            <h2 className="text-3xl font-bold mt-12 mb-6 text-beige-700">Areas of Expertise</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {subjects.map((subject, index) => (
                 <SubjectCard key={index} {...subject} />
               ))}
             </div>
 
-            <h2 className="text-3xl font-bold mt-12 mb-6">Why Choose Me?</h2>
+            <h2 className="text-3xl font-bold mt-12 mb-6 text-beige-700">Why Choose Me?</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-white p-6 rounded-lg shadow-md">
                 <h3 className="text-xl font-semibold mb-2">Experienced Educator</h3>

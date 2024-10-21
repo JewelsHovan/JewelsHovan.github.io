@@ -3,13 +3,13 @@ import { FaLinkedin, FaGithub, FaTwitter } from 'react-icons/fa';
 
 const Footer = () => {
   return (
-    <footer className="bg-neutral-800 text-white py-8">
+    <footer className="bg-beige-100 text-charcoal-400 py-16">
       <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center">
-        <p className="mb-4 md:mb-0">&copy; 2024 Julien Hovan. All rights reserved.</p>
+        <p className="mb-4 text-xl text-charcoal md:mb-0">&copy; 2024 Julien Hovan. All rights reserved.</p>
         <div className="flex space-x-6">
           <a
             href="https://www.linkedin.com/in/julien-hovan/"
-            className="hover:text-neutral-400 transition-colors duration-200"
+            className="hover:text-pastel-green-400 transition-colors duration-200"
             aria-label="LinkedIn"
             target="_blank"
             rel="noopener noreferrer"
@@ -18,7 +18,7 @@ const Footer = () => {
           </a>
           <a
             href="https://github.com/JewelsHovan"
-            className="hover:text-neutral-400 transition-colors duration-200"
+            className="hover:text-pastel-green-400 transition-colors duration-200"
             aria-label="GitHub"
             target="_blank"
             rel="noopener noreferrer"
@@ -27,7 +27,7 @@ const Footer = () => {
           </a>
           <a
             href="https://x.com/"
-            className="hover:text-neutral-400 transition-colors duration-200"
+            className="hover:text-pastel-green-400 transition-colors duration-200"
             aria-label="Twitter"
             target="_blank"
             rel="noopener noreferrer"

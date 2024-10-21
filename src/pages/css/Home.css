@@ -9,71 +9,79 @@ body {
     font-weight: bold;
   }
   
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .home-container {
+      scroll-snap-type: none;
+    }
+
+    .home-section {
+      scroll-snap-align: none;
+    }
+  }
+
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+
   /* Hero section */
   .hero {
-    background-color: #f4f4f4;
-    padding: 50px 0;
-    text-align: center;
+    @apply bg-gray-100 py-12 text-center rounded-lg;
   }
   
   .hero h1 {
-    font-size: 36px;
-    margin-bottom: 20px;
+    @apply text-3xl mb-5;
+  }
+  
+  /* Add this new class for the button container */
+  .hero-buttons {
+    @apply flex justify-center gap-5 mt-5;
   }
   
   /* About Me section */
   .about-me {
-    padding: 50px 0;
+    @apply py-12;
   }
   
   .about-me h2 {
-    font-size: 30px;
-    margin-bottom: 20px;
+    @apply text-2xl mb-5;
   }
   
   /* Skills & Expertise section */
   .skills {
-    background-color: #f4f4f4;
-    padding: 50px 0;
+    @apply bg-gray-100 py-12;
   }
   
   .skills h2 {
-    font-size: 30px;
-    margin-bottom: 20px;
+    @apply text-2xl mb-5;
   }
   
   .skills ul {
-    list-style-type: none;
-    padding: 0;
+    @apply list-none p-0;
   }
   
   .skills li {
-    margin-bottom: 10px;
+    @apply mb-2;
   }
   
   /* Recent Work or Featured Projects section */
   .projects {
-    padding: 50px 0;
+    @apply py-12;
   }
   
   .projects h2 {
-    font-size: 30px;
-    margin-bottom: 20px;
+    @apply text-2xl mb-5;
   }
   
   .projects ul {
-    list-style-type: none;
-    padding: 0;
+    @apply list-none p-0;
   }
   
   .projects li {
-    margin-bottom: 10px;
+    @apply mb-2;
   }
   
   /* Call to Action section */
   .cta {
-    background-color: #f4f4f4;
-    padding: 50px 0;
-    text-align: center;
+    @apply bg-gray-100 py-12 text-center;
   }
-  

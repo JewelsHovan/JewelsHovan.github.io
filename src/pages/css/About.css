@@ -1,43 +1,43 @@
 .about {
-  background-color: #f9f9f9;
+  background-color: #f9f9f9; /* Adjusted to match bg-beige-100 */
   padding: 20px;
   border-radius: 10px;
-  font-family: 'Arial', sans-serif; /* Example font */
+  font-family: 'Arial', sans-serif;
 }
 
 .title {
-  color: #333;
+  color: #333333; /* Changed to charcoal */
   text-align: center;
   margin-bottom: 20px;
-  font-size: 2em; /* Larger font for title */
+  font-size: 2em;
 }
 
 .about-content, .hobbies-list, .education, .interests, .goals {
-  background-color: #fff;
+  background-color: #ffffff; /* Changed to white */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 20px; /* Spacing between sections */
+  margin-bottom: 20px;
 }
 
 .hobby-title, .education-title, .interests-title, .goals-title, .about-title {
-  color: #333;
+  color: #333333;
   text-align: center;
   margin-top: 20px;
-  font-size: 1.5em; /* Consistent font size for subtitles */
+  font-size: 1.5em;
 }
 
 .hobbies-list {
   list-style-type: none;
   padding: 0;
-  text-align: center; /* Centering list items */
+  text-align: center;
 }
 
 .hobby-icon, .section-icon {
-  color: #007bff;
+  color: #A8C69F; /* pastel-green */
   margin-right: 10px;
-  vertical-align: middle; /* Align icons with text */
-  font-size: 1.2em; /* Uniform icon size */
+  vertical-align: middle;
+  font-size: 1.2em;
 }
 
 /* Responsive design adjustments */

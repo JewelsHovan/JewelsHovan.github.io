@@ -4,6 +4,13 @@
     sans-serif;
   --font-family-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+  --color-beige: #F5F2EB;
+  --color-white: #FFFFFF;
+  --color-charcoal: #333333;
+  --color-gray: #666666;
+  --color-pastel-green: #A8C69F;
+  --color-gold: #D4AF37;
+  --color-light-gray: #E0E0E0;
 }
 
 body {
@@ -11,7 +18,8 @@ body {
   font-family: var(--font-family-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #f0f4f8;
+  background-color: var(--color-beige);
+  color: var(--color-charcoal);
 }
 
 code {

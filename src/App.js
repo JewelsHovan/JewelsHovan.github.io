@@ -11,10 +11,12 @@ const App = () => {
   return (
       <Router>
       <div className="min-h-screen flex flex-col">
-          <Header />
-          <main className="flex-grow">
-            <RoutesContainer />
-          </main>
+          <div className="pt-16">
+            <Header />
+            <main className="flex-grow py-4">
+              <RoutesContainer />
+            </main>
+          </div>
           <Footer />
         </div>
       </Router>
@@ -22,4 +24,3 @@ const App = () => {
 };
 
 export default App;
-
