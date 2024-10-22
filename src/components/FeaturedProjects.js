@@ -74,7 +74,7 @@ const FeaturedProjects = () => {
     pauseOnHover: true,
     responsive: [
       {
-        breakpoint: 1280, // Adjusted breakpoint for larger screens
+        breakpoint: 1280,
         settings: {
           slidesToShow: 3,
         }
@@ -82,19 +82,23 @@ const FeaturedProjects = () => {
       {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 2.5,
+          slidesToShow: 2,
         }
       },
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
+          centerMode: true,
+          centerPadding: '40px',
         }
       },
       {
         breakpoint: 640,
         settings: {
-          slidesToShow: 1.2,
+          slidesToShow: 1,
+          centerMode: true,
+          centerPadding: '20px',
         }
       }
     ]
@@ -122,7 +126,7 @@ const FeaturedProjects = () => {
 
   return (
     <section id="projects" className="py-16 rounded-3xl bg-beige-100">
-      <div className="container mx-auto px-6 sm:px-8 lg:px-10 xl:px-0 mb-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-0 mb-16">
         <TextHeader
           level={2} 
           className="text-center text-4xl font-bold text-beige-700 mb-8"
@@ -132,7 +136,7 @@ const FeaturedProjects = () => {
         <Slider {...settings}>
           {projects.map((project) => (
             <div key={project.id} className="px-2 h-full">
-              <div className="bg-white rounded-2xl shadow-md overflow-hidden h-[500px] flex flex-col transform transition-transform duration-300 hover:scale-105 hover:shadow-xl border-4 border-beige-200">
+              <div className="bg-white rounded-2xl shadow-md overflow-hidden h-[500px] flex flex-col transform transition-transform duration-300 hover:scale-105 hover:shadow-xl border-4 border-beige-200 mx-auto max-w-sm">
                 {project.image ? (
                   <div className="overflow-hidden h-64">
                     <img 

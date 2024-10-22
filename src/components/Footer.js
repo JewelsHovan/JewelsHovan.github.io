@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="flex space-x-6">
           <a
             href="https://www.linkedin.com/in/julien-hovan/"
-            className="hover:text-pastel-green-400 transition-colors duration-200"
+            className="text-beige-700 hover:text-pastel-green-400 transition-colors duration-200"
             aria-label="LinkedIn"
             target="_blank"
             rel="noopener noreferrer"
@@ -18,7 +18,7 @@ const Footer = () => {
           </a>
           <a
             href="https://github.com/JewelsHovan"
-            className="hover:text-pastel-green-400 transition-colors duration-200"
+            className="text-beige-700 hover:text-pastel-green-400 transition-colors duration-200"
             aria-label="GitHub"
             target="_blank"
             rel="noopener noreferrer"
@@ -27,7 +27,7 @@ const Footer = () => {
           </a>
           <a
             href="https://x.com/"
-            className="hover:text-pastel-green-400 transition-colors duration-200"
+            className="text-beige-700 hover:text-pastel-green-400 transition-colors duration-200"
             aria-label="Twitter"
             target="_blank"
             rel="noopener noreferrer"
