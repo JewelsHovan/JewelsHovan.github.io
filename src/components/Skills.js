@@ -40,22 +40,22 @@ const skillsData = [
   {
     title: "Programming Languages",
     icon: FaPython,
-    skills: ["Python", "Java", "C++", "R", "MATLAB"]
+    skills: ["Python", "Java", "C++"]
   },
   {
     title: "Machine Learning",
     icon: SiTensorflow,
-    skills: ["TensorFlow", "PyTorch", "FastAI", "Gradio", "Huggingface"]
+    skills: ["TensorFlow", "PyTorch", "Scikit-Learn", "FastAI", "LangChain", "Huggingface", "RAPIDS-CuPy"]
   },
   {
     title: "Web Development",
     icon: FaReact,
-    skills: ["React", "Next.js", "HTML/CSS", "MongoDB"]
+    skills: ["React", "Next.js", "HTML/CSS", "PostgreSQL", "Cloudflare", "Firebase"]
   },
   {
     title: "Data Analysis",
     icon: SiPandas,
-    skills: ["Pandas", "NumPy", "SQL", "Tableau"]
+    skills: ["Pandas", "NumPy", "Matplotlib", "SQL", "Tableau"]
   }
 ];
 

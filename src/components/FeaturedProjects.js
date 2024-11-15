@@ -5,7 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import ImageFiller from 'react-image-filler';
 import TextHeader from './TextHeader';
 import gsaikidoImage from '../assets/images/gsaikido.jpg';
-import luccasboothImage from '../assets/images/luccasbooth.jpg';
+import luccasboothImage from '../assets/images/luccas_website.png';
 import mangaRecapImage from '../assets/images/manga-recap.png';
 import meatImage from '../assets/images/meat-classifier.png';
 import gdpImage from '../assets/images/GDP-Life.png';
@@ -33,7 +33,7 @@ const FeaturedProjects = () => {
       id: 2,
       title: "LuccasBooth",
       description: "Showcases Luccas Booth's diverse art portfolio, including photography, paintings, collages, and drawings.",
-      link: "https://luccasartsite.web.app/",
+      link: "https://luccasbooth.com/",
       codeLink: "#",
       image: luccasboothImage,
     },
