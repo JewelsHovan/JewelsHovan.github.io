@@ -1,9 +1,9 @@
 {
   "files": {
-    "main.css": "/static/css/main.3fc08615.css",
-    "main.js": "/static/js/main.0a59697c.js",
-    "static/js/787.2dcca737.chunk.js": "/static/js/787.2dcca737.chunk.js",
-    "static/media/luccasbooth.jpg": "/static/media/luccasbooth.9cc58f677baa480853b4.jpg",
+    "main.css": "/static/css/main.a0af1351.css",
+    "main.js": "/static/js/main.b7ba4ad2.js",
+    "static/js/453.acca0757.chunk.js": "/static/js/453.acca0757.chunk.js",
+    "static/media/luccas_website.png": "/static/media/luccas_website.93d46f2fd365b1d81621.png",
     "static/media/hero-image.jpg": "/static/media/hero-image.7a0ca467cf822e1ea1f7.jpg",
     "static/media/gsaikido.jpg": "/static/media/gsaikido.89dc8f78484cd687c2f1.jpg",
     "static/media/manga-recap.png": "/static/media/manga-recap.49a77705b9972d7d1b60.png",
@@ -14,12 +14,12 @@
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.3fc08615.css.map": "/static/css/main.3fc08615.css.map",
-    "main.0a59697c.js.map": "/static/js/main.0a59697c.js.map",
-    "787.2dcca737.chunk.js.map": "/static/js/787.2dcca737.chunk.js.map"
+    "main.a0af1351.css.map": "/static/css/main.a0af1351.css.map",
+    "main.b7ba4ad2.js.map": "/static/js/main.b7ba4ad2.js.map",
+    "453.acca0757.chunk.js.map": "/static/js/453.acca0757.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.3fc08615.css",
-    "static/js/main.0a59697c.js"
+    "static/css/main.a0af1351.css",
+    "static/js/main.b7ba4ad2.js"
   ]
 }
