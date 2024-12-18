@@ -5,7 +5,7 @@ import TextHeader from '../components/TextHeader';
 
 const ContactItem = ({ icon, label, value, link }) => (
   <motion.div
-    className="w-full"
+    className="w-full contact-card"
     whileHover={{
       scale: 1.05,
       rotateX: 5,
@@ -30,7 +30,7 @@ const ContactItem = ({ icon, label, value, link }) => (
       rel="noopener noreferrer"
       className="flex items-center p-6 bg-white rounded-lg shadow-md transition-shadow duration-300 h-full"
     >
-      <div className="text-3xl text-pastel-green mr-4">{icon}</div>
+      <div className="text-3xl text-pastel-green mr-4 contact-icon">{icon}</div>
       <div>
         <p className="text-sm text-gray-600">{label}</p>
         <p className="text-lg font-semibold text-charcoal">{value}</p>
