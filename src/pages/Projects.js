@@ -76,7 +76,13 @@ const Projects = () => {
       link: "#", // Add the live link if available
       codeLink: "https://github.com/JewelsHovan/manga-recap-site", // Add the GitHub link if available
     },
-    // Add more website projects here
+    {
+      title: "Repo to Clipboard",
+      description:
+        "A full-stack web app that allows users to copy code from GitHub repositories to their clipboard. Built using Vite+React.js, Tailwind.css, and working with Github API for access to repositories.",
+      link: "https://repotoclipboard.com/", // Add the live link if available
+      codeLink: "https://github.com/JewelsHovan/RepoToClipboard", // Add the GitHub link if available
+    },
   ];
 
   const mlProjects = [
@@ -108,6 +114,37 @@ const Projects = () => {
       link: "https://huggingface.co/spaces/yourusername/fresh-meat-classifier",
       codeLink: "https://github.com/JewelsHovan/FreshMeatClassifier",
     },
+    {
+      title: "AI RPG Storyteller Game",
+      description:
+        "This project uses LangChain and GPT-4o to build an AI-powered text adventure game. The dynamic Storyteller creates unique narratives based on player decisions. Deployed with Streamlit.",
+      link: "https://jewelshovan-sds-cp012-ai-adventure-game-app-1ff7rj.streamlit.app/",
+      codeLink: "https://github.com/JewelsHovan/SDS-CP012-ai-adventure-game", // Add the GitHub link if available
+    },
+  ];
+
+  const scrapingProjects = [
+    {
+      title: "Scraping Reddit Data",
+      description:
+        "This project is a Python-based Reddit scraper designed to extract data from the r/ChronicPain subreddit. It focuses on collecting posts and their complete comment threads, handling pagination, rate limiting, and nested replies. The scraped data is stored in structured JSON files. An optional, basic web-based visualization tool using D3.js is included to explore the comment tree.",
+      link: "#",
+      codeLink: "https://github.com/JewelsHovan/chronic_reddit_scraper",
+    },
+    {
+      title: "SensCritique Book Collection Scraper",
+      description:
+        "This Python project scrapes book data from SensCritique using their API, including details like title, author, ratings, and more. It features proxy rotation, checkpoints, and asynchronous processing.",
+      link: "#",
+      codeLink: "https://github.com/JewelsHovan/books_senscritique",
+    },
+    {
+      title: "Architects Register Scraper",
+      description:
+        "An asynchronous Python web scraper for the UK Architects Register, collecting data on architects with rate limiting, real-time progress tracking, and structured JSON output.",
+      link: "#",
+      codeLink: "https://github.com/JewelsHovan/architects_scrape",
+    },
   ];
 
   return (
@@ -116,10 +153,17 @@ const Projects = () => {
         <TextHeader level={1} className="text-center text-beige-700 mb-12">
           My Projects
         </TextHeader>
-        <ProjectSection title="Website Projects" projects={websiteProjects} />
+        <p className="text-center text-charcoal-500 mb-12">
+          I enjoy working on a variety of projects, with a particular focus on web development, machine learning/AI, and data scraping. Here's a showcase of some of my work.
+        </p>
         <ProjectSection
-          title="Machine Learning Projects"
+          title="Machine Learning and AI Projects"
           projects={mlProjects}
+        />
+        <ProjectSection title="Website" projects={websiteProjects} />
+        <ProjectSection
+          title="Scraping Projects"
+          projects={scrapingProjects}
         />
       </div>
     </div>
