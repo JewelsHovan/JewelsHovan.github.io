@@ -1,25 +1,31 @@
 {
   "files": {
-    "main.css": "/static/css/main.a0af1351.css",
-    "main.js": "/static/js/main.b7ba4ad2.js",
+    "main.css": "/static/css/main.80e00ad1.css",
+    "main.js": "/static/js/main.eadaa2d1.js",
     "static/js/453.acca0757.chunk.js": "/static/js/453.acca0757.chunk.js",
+    "static/media/headshot_hovan.png": "/static/media/headshot_hovan.1b6d7c1246d93941f756.png",
     "static/media/luccas_website.png": "/static/media/luccas_website.93d46f2fd365b1d81621.png",
     "static/media/hero-image.jpg": "/static/media/hero-image.7a0ca467cf822e1ea1f7.jpg",
     "static/media/gsaikido.jpg": "/static/media/gsaikido.89dc8f78484cd687c2f1.jpg",
     "static/media/manga-recap.png": "/static/media/manga-recap.49a77705b9972d7d1b60.png",
+    "static/media/repo-to-clipboard.png": "/static/media/repo-to-clipboard.c5821ea956c2a0794500.png",
     "static/media/GDP-Life.png": "/static/media/GDP-Life.a588af00355ba6b5574f.png",
+    "static/media/hospital-dynamics.png": "/static/media/hospital-dynamics.7daf670147d8d9a81c3e.png",
+    "static/media/reddit-scrape.png": "/static/media/reddit-scrape.ffa9984b1dab5e75c5e5.png",
     "static/media/meat-classifier.png": "/static/media/meat-classifier.f83a5e8e6062b1583954.png",
+    "static/media/architect-scrape.png": "/static/media/architect-scrape.b2dfe84f69aad10ed234.png",
+    "static/media/senscritique-scrape.png": "/static/media/senscritique-scrape.b3d5d8dcc03827cea1bd.png",
     "static/media/slick.svg": "/static/media/slick.2630a3e3eab21c607e21.svg",
     "static/media/slick.eot": "/static/media/slick.a4e97f5a2a64f0ab1323.eot",
     "static/media/slick.ttf": "/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/index.html",
-    "main.a0af1351.css.map": "/static/css/main.a0af1351.css.map",
-    "main.b7ba4ad2.js.map": "/static/js/main.b7ba4ad2.js.map",
+    "main.80e00ad1.css.map": "/static/css/main.80e00ad1.css.map",
+    "main.eadaa2d1.js.map": "/static/js/main.eadaa2d1.js.map",
     "453.acca0757.chunk.js.map": "/static/js/453.acca0757.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a0af1351.css",
-    "static/js/main.b7ba4ad2.js"
+    "static/css/main.80e00ad1.css",
+    "static/js/main.eadaa2d1.js"
   ]
 }
