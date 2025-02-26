@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import heroImage from '../assets/backgrounds/hero-image.jpg';
 import Button from './Button';
@@ -9,6 +9,7 @@ import { FaDatabase, FaCode, FaChartLine } from 'react-icons/fa';
 const HeroSection = () => {
   const [colorIndex, setColorIndex] = useState(0);
   const colors = ['text-accent-cyan', 'text-accent-purple', 'text-accent-teal'];
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -52,6 +53,12 @@ const HeroSection = () => {
   };
 
   const isMobile = windowDimensions.width < 768;
+
+  const handleContactClick = (e) => {
+    e.preventDefault();
+    navigate('/contact');
+    window.scrollTo(0, 0);
+  };
 
   return (
     <section
@@ -125,14 +132,14 @@ const HeroSection = () => {
                   View Projects
                 </Button>
               </Link>
-              <Link to="/contact" className="w-full sm:w-auto">
+              <a href="/contact" onClick={handleContactClick} className="w-full sm:w-auto">
                 <Button
                   variant="secondary"
                   className="text-sm sm:text-base w-full sm:w-auto transition duration-300 ease-in-out transform hover:scale-105 rounded-2xl"
                 >
                   Contact Me
                 </Button>
-              </Link>
+              </a>
             </div>
           </div>
           <div className="w-full lg:w-1/2 max-w-md lg:max-w-none mt-10 lg:mt-0 image-container z-10">

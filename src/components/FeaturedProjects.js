@@ -24,48 +24,47 @@ const FeaturedProjects = () => {
   const projects = [
     {
       id: 1,
-      title: "Data Pipeline Orchestration",
-      description: "Designed and implemented a scalable ETL pipeline using Apache Airflow, AWS S3, and Redshift to process 10TB+ of daily transaction data for a financial services company.",
-      link: "#",
-      codeLink: "https://github.com/yourusername/data-pipeline-project",
+      title: "GDP and Life Expectancy Analysis",
+      description: "Analyzed the relationship between GDP and life expectancy across six countries from 2000-2015 using WHO and World Bank data. Created visualizations and statistical analysis to uncover trends and patterns.",
+      link: "https://medium.com/@redhawk1230/exploring-the-relationship-between-gdp-and-life-expectancy-a-comparative-study-of-six-countries-eed6c4301082",
+      codeLink: "https://github.com/JewelsHovan/GDP_LifeExpectancy-Analysis",
       image: gdpImage,
-      tags: ["Airflow", "AWS", "Python", "Redshift"]
+      tags: ["Python", "Pandas", "Data Analysis", "Visualization"]
     },
-    {
+    { 
       id: 2,
-      title: "Real-time Analytics Platform",
-      description: "Built a real-time analytics platform using Kafka, Spark Streaming, and Elasticsearch to process and visualize streaming data with sub-second latency for a retail client.",
-      link: "#",
-      codeLink: "https://github.com/yourusername/realtime-analytics",
+      title: "Fresh Meat Classification Model",
+      description: "Developed a computer vision model using PyTorch and FastAI to classify fresh vs spoiled meat from images. Deployed as a mobile-friendly web app with 95% accuracy to help consumers assess meat quality.",
+      link: "https://huggingface.co/spaces/yourusername/fresh-meat-classifier",
+      codeLink: "https://github.com/JewelsHovan/FreshMeatClassifier", 
       image: meatImage,
-      tags: ["Kafka", "Spark", "Elasticsearch", "Docker"]
+      tags: ["PyTorch", "FastAI", "Computer Vision", "Gradio"]
     },
     {
       id: 3,
-      title: "Cloud Data Warehouse Migration",
-      description: "Led the migration of an on-premises data warehouse to Snowflake, implementing a modern ELT architecture with dbt for transformation, resulting in 70% cost reduction and 3x performance improvement.",
+      title: "Manga Recaps Hub",
+      description: "A centralized platform that aggregates and organizes YouTube manga recap videos using automated Python scrapers. Helps users easily find and watch recaps of their favorite manga series from various content creators.",
       link: "#",
-      codeLink: "https://github.com/yourusername/warehouse-migration",
+      codeLink: "https://github.com/JewelsHovan/manga-recap-site",
       image: mangaRecapImage,
-      tags: ["Snowflake", "dbt", "Python", "Terraform"]
+      tags: ["Python", "YouTube API", "Web Scraping", "Next.js"]
     },
     {
       id: 4,
-      title: "IoT Data Processing Framework",
-      description: "Developed a scalable IoT data processing framework using AWS IoT Core, Kinesis, and Lambda to ingest, process, and analyze sensor data from thousands of connected devices.",
-      link: "#",
-      codeLink: "https://github.com/yourusername/iot-data-framework",
+      title: "Artist Portfolio Website",
+      description: "A responsive portfolio website built with HTML, CSS and JavaScript to showcase an artist's work. Features a dynamic gallery, contact form, and custom animations for an engaging user experience.",
+      link: "https://luccasartsite.web.app/",
+      codeLink: "https://github.com/JewelsHovan/Luccas-Portfolio",
       image: luccasboothImage,
-      tags: ["AWS IoT", "Kinesis", "Lambda", "DynamoDB"]
+      tags: ["HTML", "CSS", "JavaScript", "Web Components"]
     },
     {
       id: 5,
-      title: "ML Model Deployment Pipeline",
-      description: "Created an end-to-end ML model deployment pipeline using MLflow, Docker, and Kubernetes to automate the training, testing, and deployment of machine learning models.",
-      link: "#",
-      codeLink: "https://github.com/yourusername/ml-deployment-pipeline",
+      title: "Granite State Aikido Website",
+      description: "A modern, responsive website for a local Aikido dojo in New Hampshire. Features class schedules, instructor bios, photo gallery, and beginner information. Built with React and Firebase hosting.",
+      link: "https://granitestateaikido.web.app/",
       image: gsaikidoImage,
-      tags: ["MLflow", "Docker", "Kubernetes", "Python"]
+      tags: ["React", "Firebase", "Tailwind CSS", "Web Design"]
     },
   ];
 

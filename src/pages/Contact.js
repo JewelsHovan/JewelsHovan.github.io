@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaEnvelope, FaInstagram, FaLinkedin, FaIdCard, FaPhone } from 'react-icons/fa';
+import { FaEnvelope, FaInstagram, FaLinkedin, FaIdCard, FaPhone, FaGithub } from 'react-icons/fa';
 import TextHeader from '../components/TextHeader';
 
 const ContactItem = ({ icon, label, value, link }) => (
@@ -44,6 +44,7 @@ const Contact = () => {
     { icon: <FaEnvelope />, label: 'Email', value: 'JulienH15@icloud.com', link: 'mailto:JulienH15@icloud.com' },
     { icon: <FaInstagram />, label: 'Instagram', value: '@julienhovan', link: 'https://www.instagram.com/julienhovan/' },
     { icon: <FaLinkedin />, label: 'LinkedIn', value: 'Julien M. Hovan', link: 'https://www.linkedin.com/in/julien-hovan/' },
+    { icon: <FaGithub />, label: 'GitHub', value: 'JulienH', link: 'https://github.com/JewelsHovan' },
     { icon: <FaIdCard />, label: 'Indeed', value: 'Julien Hovan', link: 'https://www.indeed.com/r/Julien-Hovan/' },
     { icon: <FaPhone />, label: 'Phone', value: '603-320-3104', link: 'tel:+16033203104' },
   ];
