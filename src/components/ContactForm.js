@@ -32,18 +32,18 @@ const ContactForm = () => {
     }
   };
 
-  const inputClasses = "w-full p-3 mb-4 border border-light-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-pastel-green-400 focus:border-transparent transition duration-300";
-  const buttonClasses = "px-6 py-3 bg-gold-400 text-white rounded-lg hover:bg-gold-500 transition duration-300 transform hover:scale-105";
+  const inputClasses = "w-full p-3 mb-4 border border-slate bg-navy text-text-light rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-cyan focus:border-transparent transition duration-300";
+  const buttonClasses = "px-6 py-3 bg-accent-cyan text-dark-blue font-bold rounded-lg hover:bg-accent-teal transition duration-300 transform hover:scale-105";
 
   return (
     <motion.form 
       onSubmit={handleSubmit} 
-      className="max-w-md mx-auto bg-white p-8 rounded-xl shadow-lg"
+      className="max-w-md mx-auto bg-card p-8 rounded-xl shadow-lg border border-slate"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <h2 className="text-2xl font-bold mb-6 text-charcoal-400 text-center">Contact Me</h2>
+      <h2 className="text-2xl font-bold mb-6 text-text-light text-center text-shadow">Contact Me</h2>
       <motion.input
         type="text"
         name="name"

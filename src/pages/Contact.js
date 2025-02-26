@@ -28,12 +28,12 @@ const ContactItem = ({ icon, label, value, link }) => (
       href={link}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex items-center p-6 bg-white rounded-lg shadow-md transition-shadow duration-300 h-full"
+      className="flex items-center p-6 bg-card rounded-lg shadow-md transition-shadow duration-300 h-full border border-slate"
     >
-      <div className="text-3xl text-pastel-green mr-4 contact-icon">{icon}</div>
+      <div className="text-3xl text-accent-cyan mr-4 contact-icon">{icon}</div>
       <div>
-        <p className="text-sm text-gray-600">{label}</p>
-        <p className="text-lg font-semibold text-charcoal">{value}</p>
+        <p className="text-sm text-text-muted">{label}</p>
+        <p className="text-lg font-semibold text-text-light">{value}</p>
       </div>
     </a>
   </motion.div>
@@ -50,13 +50,13 @@ const Contact = () => {
 
   return (
     <motion.div 
-      className="min-h-screen bg-beige-50 py-16 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen bg-dark-blue py-16 px-4 sm:px-6 lg:px-8"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
     >
       <div className="max-w-6xl mx-auto">
-        <TextHeader level={1} className="text-center mb-12 text-beige-700">Contact Information</TextHeader>
+        <TextHeader level={1} className="text-center mb-12 text-text-light text-shadow">Contact Information</TextHeader>
         <motion.div 
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
           initial={{ y: 20, opacity: 0 }}

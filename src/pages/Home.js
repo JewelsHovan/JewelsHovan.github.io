@@ -7,7 +7,7 @@ import ContactCTA from '../components/ContactCTA';
 
 const Home = () => {
   return (
-    <div className="bg-beige-50">
+    <div className="bg-dark-blue tech-grid-bg">
       <section className="py-16">
         <HeroSection />
       </section>
