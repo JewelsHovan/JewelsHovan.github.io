@@ -4,25 +4,21 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import RoutesContainer from "./pages/RoutesContainer";
 import "./App.css";
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const App = () => {
-  // Apply background color to the entire document body
   useEffect(() => {
-    // Set background color and text styles for the entire body
-    document.body.classList.add('bg-dark-blue');
-    document.body.classList.add('text-text-light');
-    
-    // Clean up function to remove classes when component unmounts
+    document.body.classList.add('bg-cyber-bg');
+    document.body.classList.add('text-cyber-fg');
     return () => {
-      document.body.classList.remove('bg-dark-blue');
-      document.body.classList.remove('text-text-light');
+      document.body.classList.remove('bg-cyber-bg');
+      document.body.classList.remove('text-cyber-fg');
     };
   }, []);
 
   return (
     <Router>
-      <div className="min-h-screen flex flex-col bg-dark-blue text-text-light">
+      <div className="min-h-screen flex flex-col bg-cyber-bg text-cyber-fg font-cyber-body">
+        <div className="cyber-scanline-overlay" aria-hidden="true" />
         <div className="pt-16">
           <Header />
           <main className="flex-grow py-4">

@@ -1,30 +1,31 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-const Card = ({ icon: Icon, title, children, className = '' }) => {
+const glowColors = {
+  green:   { border: '#00ff88', shadow: '0 0 15px #00ff88, 0 0 30px #00ff8840' },
+  magenta: { border: '#ff00ff', shadow: '0 0 15px #ff00ff, 0 0 30px #ff00ff40' },
+  cyan:    { border: '#00d4ff', shadow: '0 0 15px #00d4ff, 0 0 30px #00d4ff40' },
+};
+
+const Card = ({ icon: Icon, title, children, className = '', glow = 'green' }) => {
+  const { border, shadow } = glowColors[glow] ?? glowColors.green;
   return (
     <motion.div
-      className={`bg-card rounded-lg shadow-md p-6 cursor-pointer overflow-hidden border border-slate ${className}`}
-      whileHover={{ 
-        y: -10,
-        boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
-        borderColor: 'var(--color-accent-cyan)'
-      }}
+      className={`bg-cyber-card p-6 border border-cyber-border cyber-chamfer cursor-pointer overflow-hidden ${className}`}
+      whileHover={{ y: -8, borderColor: border, boxShadow: shadow }}
       transition={{ duration: 0.3 }}
     >
       <div className="flex items-center mb-4">
         {Icon && (
-          <motion.div
-            className="mr-4 text-3xl text-accent-cyan"
-            whileHover={{ rotate: 360 }}
-            transition={{ duration: 0.5 }}
-          >
+          <motion.div className="mr-4 text-3xl text-cyber-accent">
             <Icon />
           </motion.div>
         )}
-        <h3 className="text-xl font-semibold text-text-light mb-2">{title}</h3>
+        <h3 className="font-mono text-lg font-semibold uppercase tracking-wider text-cyber-fg">
+          {title}
+        </h3>
       </div>
-      <div className="text-text-muted mt-4">{children}</div>
+      <div className="text-cyber-muted-fg font-mono text-sm leading-relaxed">{children}</div>
     </motion.div>
   );
 };

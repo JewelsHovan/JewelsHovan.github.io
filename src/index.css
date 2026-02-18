@@ -1,96 +1,182 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   CYBERPUNK DESIGN SYSTEM — Global Styles
+   ============================================ */
+
 :root {
-  --font-family-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  --font-family-mono: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-  
-  /* Dark blue-gray tech theme with improved contrast */
-  --color-dark-blue: #121A2B;
-  --color-navy: #1E2A45;
-  --color-slate: #2D3A57;
-  --color-steel-blue: #4A5B89;
-  --color-light-blue: #8D9CC4;
-  --color-accent-cyan: #38AECC;
-  --color-accent-teal: #0090A8;
-  --color-accent-purple: #9D4EDD;
-  --color-text-light: #F0F4F8;
-  --color-text-muted: #B8C4D9;
-  --color-white: #FFFFFF;
-  --color-black: #0A0F1A;
-  --color-card-bg: #1A2438;
-  --color-card-hover: #243048;
+  --cyber-bg:           #0a0a0f;
+  --cyber-fg:           #e0e0e0;
+  --cyber-card:         #12121a;
+  --cyber-card-hover:   #1a1a2e;
+  --cyber-muted:        #1c1c2e;
+  --cyber-muted-fg:     #6b7280;
+  --cyber-accent:       #00ff88;
+  --cyber-magenta:      #ff00ff;
+  --cyber-cyan:         #00d4ff;
+  --cyber-border:       #2a2a3a;
+  --cyber-destructive:  #ff3366;
+
+  --font-heading: 'Orbitron', 'Share Tech Mono', monospace;
+  --font-body:    'JetBrains Mono', 'Fira Code', monospace;
+  --font-label:   'Share Tech Mono', monospace;
 }
+
+/* ── Base ── */
 
 body {
   margin: 0;
-  font-family: var(--font-family-sans);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: var(--color-dark-blue);
-  color: var(--color-text-light);
+  background-color: var(--cyber-bg);
+  color: var(--cyber-fg);
   line-height: 1.6;
-  letter-spacing: 0.015em;
-  font-weight: 400;
+  letter-spacing: 0.03em;
 }
 
-code {
-  font-family: var(--font-family-mono);
-}
-
-/* Tech theme utility classes */
-.bg-dark-blue { background-color: var(--color-dark-blue); }
-.bg-navy { background-color: var(--color-navy); }
-.bg-slate { background-color: var(--color-slate); }
-.bg-steel-blue { background-color: var(--color-steel-blue); }
-.bg-light-blue { background-color: var(--color-light-blue); }
-.bg-accent-cyan { background-color: var(--color-accent-cyan); }
-.bg-accent-teal { background-color: var(--color-accent-teal); }
-.bg-accent-purple { background-color: var(--color-accent-purple); }
-.bg-card { background-color: var(--color-card-bg); }
-
-.text-light { color: var(--color-text-light); }
-.text-muted { color: var(--color-text-muted); }
-.text-accent-cyan { color: var(--color-accent-cyan); }
-.text-accent-teal { color: var(--color-accent-teal); }
-.text-accent-purple { color: var(--color-accent-purple); }
-
-/* Improved text legibility */
 h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
   font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.2;
   margin-bottom: 0.5em;
-  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--cyber-fg);
 }
 
-p {
-  margin-bottom: 1.5em;
+a {
+  color: var(--cyber-accent);
+  text-decoration: none;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
-/* Add subtle tech-themed grid background */
+a:hover {
+  color: var(--cyber-cyan);
+  text-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+button, .btn {
+  font-family: var(--font-label);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+::selection {
+  background: rgba(0, 255, 136, 0.3);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar       { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cyber-bg); }
+::-webkit-scrollbar-thumb { background: var(--cyber-border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--cyber-accent); }
+
+/* ── CRT Scanline Overlay ── */
+
+.cyber-scanline-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.03) 0px,
+    rgba(0, 0, 0, 0.03) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+}
+
+/* ── Chamfered Corners ── */
+
+.cyber-chamfer {
+  clip-path: polygon(
+    0 12px, 12px 0,
+    calc(100% - 12px) 0, 100% 12px,
+    100% calc(100% - 12px), calc(100% - 12px) 100%,
+    12px 100%, 0 calc(100% - 12px)
+  );
+}
+
+.cyber-chamfer-sm {
+  clip-path: polygon(
+    0 6px, 6px 0,
+    calc(100% - 6px) 0, 100% 6px,
+    100% calc(100% - 6px), calc(100% - 6px) 100%,
+    6px 100%, 0 calc(100% - 6px)
+  );
+}
+
+/* ── Neon Glow Utilities ── */
+
+.glow-green    { box-shadow: 0 0 5px #00ff88, 0 0 20px rgba(0,255,136,0.3); }
+.glow-green-lg { box-shadow: 0 0 10px #00ff88, 0 0 40px rgba(0,255,136,0.4); }
+.glow-magenta  { box-shadow: 0 0 5px #ff00ff, 0 0 20px rgba(255,0,255,0.3); }
+.glow-cyan     { box-shadow: 0 0 5px #00d4ff, 0 0 20px rgba(0,212,255,0.3); }
+
+.neon-text-green   { text-shadow: 0 0 7px #00ff88, 0 0 20px rgba(0,255,136,0.5); }
+.neon-text-magenta { text-shadow: 0 0 7px #ff00ff, 0 0 20px rgba(255,0,255,0.5); }
+.neon-text-cyan    { text-shadow: 0 0 7px #00d4ff, 0 0 20px rgba(0,212,255,0.5); }
+
+/* ── Glitch / Chromatic Aberration ── */
+/* Usage: <h1 class="cyber-glitch" data-text="YOUR TEXT">YOUR TEXT</h1> */
+
+.cyber-glitch { position: relative; }
+
+.cyber-glitch::before,
+.cyber-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.cyber-glitch::before {
+  color: #ff00ff;
+  z-index: -1;
+  animation: glitchBefore 3s infinite;
+}
+
+.cyber-glitch::after {
+  color: #00d4ff;
+  z-index: -1;
+  animation: glitchAfter 3s infinite;
+}
+
+@keyframes glitchBefore {
+  0%, 25%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  5%  { clip-path: inset(30% 0 40% 0); transform: translate(-2px, 1px); }
+  10% { clip-path: inset(70% 0 10% 0); transform: translate(2px, -1px); }
+  15% { clip-path: inset(10% 0 80% 0); transform: translate(-1px, 2px); }
+  20% { clip-path: inset(50% 0 30% 0); transform: translate(1px, 0); }
+}
+
+@keyframes glitchAfter {
+  0%, 25%, 100% { clip-path: inset(100% 0 0 0); transform: translate(0); }
+  5%  { clip-path: inset(40% 0 30% 0); transform: translate(2px, -1px); }
+  10% { clip-path: inset(10% 0 70% 0); transform: translate(-1px, 2px); }
+  15% { clip-path: inset(80% 0 10% 0); transform: translate(1px, -1px); }
+  20% { clip-path: inset(30% 0 50% 0); transform: translate(-2px, 0); }
+}
+
+/* ── Grid Background ── */
+
 .tech-grid-bg {
-  background-image: 
-    linear-gradient(rgba(58, 76, 107, 0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(58, 76, 107, 0.07) 1px, transparent 1px);
-  background-size: 20px 20px;
+  background-image:
+    linear-gradient(rgba(0,255,136,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,255,136,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
 
-/* Add glow effects for tech theme */
-.glow-cyan {
-  box-shadow: 0 0 15px rgba(56, 174, 204, 0.5);
-}
+/* ── Gradient Text ── */
 
-.glow-purple {
-  box-shadow: 0 0 15px rgba(157, 78, 221, 0.5);
-}
-
-.glow-teal {
-  box-shadow: 0 0 15px rgba(0, 144, 168, 0.5);
-}
-
-/* Gradient text for highlights */
 .gradient-text {
-  background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-purple));
+  background: linear-gradient(90deg, var(--cyber-accent), var(--cyber-magenta));
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -98,36 +184,19 @@ p {
   font-weight: 700;
 }
 
-/* Improved card styling for better readability */
+/* ── Legacy utilities (backward compat) ── */
+
 .card-improved {
-  border: 1px solid var(--color-slate);
-  background-color: var(--color-card-bg);
+  border: 1px solid var(--cyber-border);
+  background-color: var(--cyber-card);
   transition: all 0.3s ease;
 }
 
 .card-improved:hover {
-  background-color: var(--color-card-hover);
-  transform: translateY(-5px);
+  background-color: var(--cyber-card-hover);
+  border-color: var(--cyber-accent);
+  box-shadow: 0 0 15px rgba(0,255,136,0.15);
+  transform: translateY(-3px);
 }
 
-/* Improved button text */
-button, .btn {
-  font-weight: 600;
-  letter-spacing: 0.02em;
-}
-
-/* Add text shadow for better contrast on colored backgrounds */
-.text-shadow {
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-}
-
-/* Improved link styling */
-a {
-  color: var(--color-accent-cyan);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-
-a:hover {
-  color: var(--color-accent-teal);
-}
+.text-shadow { text-shadow: 0 2px 4px rgba(0,0,0,0.5); }

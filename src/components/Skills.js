@@ -1,34 +1,38 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import TextHeader from './TextHeader';
-import { FaPython, FaAws, FaDocker, FaDatabase } from 'react-icons/fa';
-import { SiApachekafka, SiApachespark, SiTerraform, SiGooglecloud } from 'react-icons/si';
+import { FaPython, FaAws, FaDatabase } from 'react-icons/fa';
+import { SiApachespark } from 'react-icons/si';
 
 const SkillCard = ({ title, skills, icon: Icon }) => (
   <motion.div
-    className="bg-card p-6 rounded-lg shadow-md border border-slate card-improved"
-    whileHover={{ scale: 1.05, y: -5 }}
+    className="bg-cyber-card p-6 border border-cyber-border cyber-chamfer"
+    whileHover={{
+      y: -5,
+      borderColor: '#00ff88',
+      boxShadow: '0 0 15px #00ff8840',
+    }}
     transition={{ duration: 0.3 }}
   >
-    <div className="flex items-center mb-4">
-      <motion.div
-        whileHover={{ rotate: 360 }}
-        transition={{ duration: 0.5 }}
-        className="mr-4 text-3xl text-accent-cyan"
-      >
-        <Icon />
-      </motion.div>
-      <h3 className="text-xl font-bold text-text-light">{title}</h3>
+    <div className="flex items-center mb-5">
+      {/* Icon in neon-bordered square */}
+      <div className="w-12 h-12 flex items-center justify-center border border-cyber-accent mr-4 shadow-[0_0_8px_#00ff8840]">
+        <Icon className="text-2xl text-cyber-accent" />
+      </div>
+      <h3 className="font-mono text-lg font-bold uppercase tracking-wider text-cyber-fg">
+        {title}
+      </h3>
     </div>
     <div className="flex flex-wrap gap-2">
       {skills.map((skill, index) => (
         <motion.span
           key={index}
-          className="bg-navy text-text-light text-sm font-medium px-2.5 py-0.5 rounded border border-steel-blue hover:bg-slate hover:text-accent-cyan transition-colors duration-200"
-          initial={{ opacity: 0, y: 20 }}
+          className="font-mono text-xs uppercase tracking-wider px-2.5 py-1 border border-cyber-border text-cyber-muted-fg hover:text-cyber-accent hover:border-cyber-accent hover:shadow-[0_0_6px_#00ff8840] transition-all duration-200 cursor-default"
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: index * 0.1 }}
+          transition={{ duration: 0.4, delay: index * 0.05 }}
         >
+          <span className="text-cyber-accent mr-1">&gt;</span>
           {skill}
         </motion.span>
       ))}
@@ -38,38 +42,37 @@ const SkillCard = ({ title, skills, icon: Icon }) => (
 
 const skillsData = [
   {
-    title: "Data Engineering",
+    title: 'Data Engineering',
     icon: FaDatabase,
-    skills: ["ETL/ELT", "Data Pipelines", "Data Modeling", "SQL", "NoSQL", "Data Warehousing", "Data Lakes"]
+    skills: ['ETL/ELT', 'Data Pipelines', 'Data Modeling', 'SQL', 'NoSQL', 'Data Warehousing', 'Data Lakes'],
   },
   {
-    title: "Cloud & Infrastructure",
+    title: 'Cloud & Infrastructure',
     icon: FaAws,
-    skills: ["AWS", "GCP", "Azure", "Terraform", "Docker", "Kubernetes", "CI/CD"]
+    skills: ['AWS', 'GCP', 'Azure', 'Terraform', 'Docker', 'Kubernetes', 'CI/CD'],
   },
   {
-    title: "Big Data Technologies",
+    title: 'Big Data Technologies',
     icon: SiApachespark,
-    skills: ["Apache Spark", "Hadoop", "Kafka", "Airflow", "dbt", "Databricks"]
+    skills: ['Apache Spark', 'Hadoop', 'Kafka', 'Airflow', 'dbt', 'Databricks'],
   },
   {
-    title: "Programming & Tools",
+    title: 'Programming & Tools',
     icon: FaPython,
-    skills: ["Python", "SQL", "Bash", "Git", "REST APIs", "GraphQL", "Java"]
-  }
+    skills: ['Python', 'SQL', 'Bash', 'Git', 'REST APIs', 'GraphQL', 'Java'],
+  },
 ];
 
 const Skills = () => {
   return (
-    <section className="py-16 bg-navy mb-8 rounded-3xl relative overflow-hidden">
-      {/* Tech-themed background elements */}
-      <div className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none">
-        <div className="absolute top-10 right-10 w-32 h-32 rounded-full bg-accent-teal blur-3xl"></div>
-        <div className="absolute bottom-10 left-10 w-40 h-40 rounded-full bg-accent-cyan blur-3xl"></div>
-      </div>
-      
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-0 rounded-3xl relative z-10">
-        <TextHeader level={2} className="text-center mb-12 text-text-light text-shadow">Skills & Expertise</TextHeader>
+    <section className="py-16 bg-cyber-bg relative overflow-hidden">
+      <div className="absolute top-10 right-10 w-32 h-32 bg-cyber-cyan rounded-full blur-[100px] opacity-[0.04] pointer-events-none" />
+      <div className="absolute bottom-10 left-10 w-40 h-40 bg-cyber-accent rounded-full blur-[100px] opacity-[0.04] pointer-events-none" />
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center mb-12">
+          <TextHeader level={2}>SKILLS &amp; EXPERTISE</TextHeader>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {skillsData.map((skillSet, index) => (
             <SkillCard key={index} title={skillSet.title} skills={skillSet.skills} icon={skillSet.icon} />
