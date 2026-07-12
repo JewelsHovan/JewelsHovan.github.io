@@ -25,4 +25,5 @@ yarn-error.log*
 # editor/tool configs
 .claude/
 .claude-plans/
+.pi/
 .cursorrules

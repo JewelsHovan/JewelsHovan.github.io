@@ -1,6 +1,6 @@
 {
-  "short_name": "JH Portfolio",
-  "name": "Julien Hovan Portfolio",
+  "short_name": "Julien Hovan",
+  "name": "Julien Hovan | projects and field notes",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#0b2435",
+  "background_color": "#f5f6f0"
 }

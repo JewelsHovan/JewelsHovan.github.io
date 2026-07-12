@@ -1,8 +1,21 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders Julien’s personal project garden and public newsletter', () => {
   render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+
+  expect(screen.getByRole('heading', { name: /i build useful systems and make odd little things/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /things i've made, am making/i })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /subscribe/i })).toHaveAttribute(
+    'href',
+    'https://jewelshovan.github.io/AI-News-Reports/'
+  );
+  expect(screen.getByRole('button', { name: /working with agents/i })).toHaveAttribute('aria-pressed', 'false');
+  expect(screen.getByRole('button', { name: /luccas studio agent/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /i didn't arrive at ai/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /compass data is where difficult ideas/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /i like the difficult bit/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /the model is one instrument/i })).toBeInTheDocument();
+  expect(screen.getByText(/ambiguity is the enemy of agentic workflows/i)).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /ai agent systems: architectures/i })).toHaveAttribute('href', 'https://arxiv.org/abs/2601.01743');
 });
