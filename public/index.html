@@ -1,49 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en-CA">
   <head>
     <meta charset="utf-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0b2435" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#061b25" />
+    <meta name="application-name" content="Julien Hovan" />
+    <meta name="author" content="Julien Hovan" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta
       name="description"
-      content="Julien Hovan is an AI engineer at Compass Data exploring agentic systems, data, delivery workflows, useful software, and Field Notes."
+      content="Julien Hovan builds agentic AI systems, context engineering tools, data products, and useful software. Explore projects, diagrams, and Field Notes."
     />
-    <link rel="canonical" href="https://julienhovan.com/" />
-    <meta property="og:type" content="website" />
-    <meta property="og:title" content="Julien Hovan | projects, systems, and field notes" />
-    <meta property="og:description" content="A personal project garden about agentic systems, data, delivery workflows, useful software, and Field Notes." />
-    <meta property="og:url" content="https://julienhovan.com/" />
-    <meta name="twitter:card" content="summary" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>Julien Hovan | projects, systems, and field notes</title>
+    <title>Julien Hovan | AI systems, projects &amp; field notes</title>
+    <link rel="canonical" href="https://julienhovan.com/" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Julien Hovan" />
+    <meta property="og:locale" content="en_CA" />
+    <meta property="og:title" content="Julien Hovan | AI systems, projects &amp; field notes" />
+    <meta property="og:description" content="A personal project garden about agentic AI, context engineering, useful software, diagrams, and Field Notes." />
+    <meta property="og:url" content="https://julienhovan.com/" />
+    <meta property="og:image" content="https://julienhovan.com/social-card.png" />
+    <meta property="og:image:secure_url" content="https://julienhovan.com/social-card.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Julien Hovan. Projects, systems, and field notes. Agentic AI, context engineering, and useful software." />
+    <meta property="profile:first_name" content="Julien" />
+    <meta property="profile:last_name" content="Hovan" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Julien Hovan | AI systems, projects &amp; field notes" />
+    <meta name="twitter:description" content="A personal project garden about agentic AI, context engineering, useful software, diagrams, and Field Notes." />
+    <meta name="twitter:image" content="https://julienhovan.com/social-card.png" />
+    <meta name="twitter:image:alt" content="Julien Hovan. Projects, systems, and field notes." />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Person",
+            "@id": "https://julienhovan.com/#person",
+            "name": "Julien Hovan",
+            "url": "https://julienhovan.com/",
+            "jobTitle": "AI engineer and systems builder",
+            "description": "Julien Hovan builds agentic AI systems, context engineering tools, data products, and useful software.",
+            "sameAs": [
+              "https://github.com/JewelsHovan",
+              "https://www.linkedin.com/in/julien-hovan/"
+            ],
+            "worksFor": {
+              "@type": "Organization",
+              "name": "Compass Data",
+              "url": "https://compassdata.ca/"
+            },
+            "knowsAbout": [
+              "Agentic AI systems",
+              "Context engineering",
+              "AI engineering harnesses",
+              "Data engineering",
+              "Software delivery"
+            ]
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://julienhovan.com/#website",
+            "url": "https://julienhovan.com/",
+            "name": "Julien Hovan",
+            "description": "Projects, systems, diagrams, and field notes by Julien Hovan.",
+            "inLanguage": "en-CA",
+            "author": { "@id": "https://julienhovan.com/#person" }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://julienhovan.com/#profile",
+            "url": "https://julienhovan.com/",
+            "name": "Julien Hovan | projects, systems, and field notes",
+            "isPartOf": { "@id": "https://julienhovan.com/#website" },
+            "mainEntity": { "@id": "https://julienhovan.com/#person" },
+            "dateModified": "2026-07-12"
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>This site needs JavaScript for the interactive project map. You can still find Julien on <a href="https://github.com/JewelsHovan">GitHub</a> and <a href="https://www.linkedin.com/in/julien-hovan/">LinkedIn</a>.</noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>

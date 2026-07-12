@@ -311,7 +311,7 @@ function App() {
   const [harnessAtlasOpen, setHarnessAtlasOpen] = useState(false);
 
   useEffect(() => {
-    document.title = 'Julien Hovan | projects, systems, and field notes';
+    document.title = 'Julien Hovan | AI systems, projects & field notes';
   }, []);
 
   useEffect(() => {
