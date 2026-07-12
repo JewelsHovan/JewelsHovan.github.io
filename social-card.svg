@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0" stop-color="#168373" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#061b25" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M42 0H0V42" fill="none" stroke="#9ce8c4" stroke-opacity=".055"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="#061b25"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="920" cy="300" r="300" fill="url(#glow)"/>
+  <rect x="48" y="48" width="1104" height="534" fill="none" stroke="#9ce8c4" stroke-opacity=".25" stroke-width="2"/>
+
+  <g font-family="Arial, Helvetica, sans-serif">
+    <text x="92" y="118" fill="#69cdd2" font-size="20" font-weight="700" letter-spacing="5">JULIEN HOVAN</text>
+    <text x="88" y="224" fill="#e4f8ed" font-size="66" font-weight="700" letter-spacing="-2">Projects, systems,</text>
+    <text x="88" y="298" fill="#e4f8ed" font-size="66" font-weight="700" letter-spacing="-2">and field notes.</text>
+    <text x="92" y="378" fill="#9ab6b4" font-size="26">Agentic AI · context engineering · useful software</text>
+    <text x="92" y="532" fill="#d9f66c" font-size="20" font-family="monospace" letter-spacing="2">JULIENHOVAN.COM</text>
+  </g>
+
+  <g transform="translate(930 295)">
+    <ellipse rx="144" ry="68" fill="none" stroke="#69cdd2" stroke-width="3" transform="rotate(-28)"/>
+    <ellipse rx="68" ry="144" fill="none" stroke="#9ce8c4" stroke-width="3" transform="rotate(-28)"/>
+    <circle r="48" fill="#061b25" stroke="#d9f66c" stroke-width="4"/>
+    <circle r="13" fill="#d9f66c"/>
+    <circle cx="119" cy="-78" r="15" fill="#f28973" stroke="#061b25" stroke-width="5"/>
+    <circle cx="-124" cy="54" r="9" fill="#a4a2e6"/>
+    <circle cx="48" cy="130" r="8" fill="#69cdd2"/>
+  </g>
+</svg>
