@@ -4,6 +4,19 @@
 
 export const fieldNotes = [
   {
+    id: 'build-for-someone-real',
+    label: 'Coding note',
+    date: 'Now',
+    readTime: '1 min read',
+    title: 'Build for someone real.',
+    excerpt: 'My best coding advice is to make something for yourself or someone you know, then let their real needs shape the work.',
+    body: [
+      'The best coding advice I have is to build something for yourself or someone you know. A real person gives the work a purpose. You stop adding things because they sound impressive and start paying attention to what would make the tool genuinely useful.',
+      'Whether you are thinking about the product or the engineering underneath it, the person at the other end is still human. Can they understand it? Can they use it without fighting it? Can they trust it when something goes wrong?',
+      'Perfect code is not the goal. The goal is software that works for someone today, holds up in real use, and has room to grow. That does not mean predicting every future need. It means leaving the code sturdy and clear enough for the next change.',
+    ],
+  },
+  {
     id: 'the-difficult-bit',
     label: 'Personal note',
     date: 'Now',

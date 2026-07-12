@@ -14,6 +14,9 @@ test('renders Julien’s personal project garden and public newsletter', () => {
   expect(screen.getByRole('button', { name: /luccas studio agent/i })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: /i didn't arrive at ai/i })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: /compass data is where difficult ideas/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /build for someone real/i })).toBeInTheDocument();
+  expect(screen.getByText(/perfect code is not the goal/i)).toBeInTheDocument();
+  fireEvent.click(screen.getByRole('button', { name: /i like the difficult bit/i }));
   expect(screen.getByRole('heading', { name: /i like the difficult bit/i })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: /the model is one instrument/i })).toBeInTheDocument();
   expect(screen.getByText(/ambiguity is the enemy of agentic workflows/i)).toBeInTheDocument();
