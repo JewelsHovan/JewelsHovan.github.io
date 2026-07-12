@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   FiArrowDown,
   FiArrowUpRight,
@@ -291,12 +291,72 @@ const waypoints = [
 function GeneratedDiagram({ alt, image, notes = [], variant }) {
   return (
     <div className="atlas-visual-block">
-      <div className={`generated-diagram generated-diagram--${variant}`}>
+      <p className="diagram-pan-hint">Swipe sideways to inspect the diagram.</p>
+      {/* biome-ignore lint/a11y/noNoninteractiveTabindex: Horizontal diagrams need a keyboard-scrollable viewport. */}
+      <section className={`generated-diagram generated-diagram--${variant}`} tabIndex={0} aria-label="Scrollable teaching diagram">
         <img src={image} alt={alt} loading="eager" />
-      </div>
+      </section>
       {notes.length > 0 && <ul className="atlas-callouts">{notes.map((note) => <li key={note}><span />{note}</li>)}</ul>}
     </div>
   );
+}
+
+function ProjectDetail({ className = '', id, project }) {
+  return (
+    <article className={`project-detail detail-${project.color} ${className}`.trim()} id={id} aria-live="polite">
+      <div className="detail-topline"><span>{project.type}</span><span className="detail-mark">✦</span></div>
+      <p className="detail-label">{project.eyebrow}</p>
+      <h3>{project.name}</h3>
+      <p className="detail-body">{project.detail}</p>
+      <div className="detail-proof"><span>Why it matters</span><p>{project.proof}</p></div>
+      {project.link ? (
+        <a className="detail-link" href={project.link} target="_blank" rel="noreferrer">{project.linkLabel} <FiArrowUpRight size={17} /></a>
+      ) : (
+        <p className="detail-private"><FiCheck size={15} /> The useful parts are real. The private parts stay private.</p>
+      )}
+    </article>
+  );
+}
+
+function useMediaQuery(query) {
+  const readMatch = () => typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia(query).matches;
+  const [matches, setMatches] = useState(readMatch);
+
+  useEffect(() => {
+    if (typeof window.matchMedia !== 'function') return undefined;
+    const media = window.matchMedia(query);
+    const update = () => setMatches(media.matches);
+    update();
+    if (media.addEventListener) media.addEventListener('change', update);
+    else media.addListener?.(update);
+    return () => {
+      if (media.removeEventListener) media.removeEventListener('change', update);
+      else media.removeListener?.(update);
+    };
+  }, [query]);
+
+  return matches;
+}
+
+function moveTabFocus(event, ids, activeId, selectId, prefix) {
+  const moves = {
+    ArrowDown: 1,
+    ArrowLeft: -1,
+    ArrowRight: 1,
+    ArrowUp: -1,
+  };
+  if (!(event.key in moves) && event.key !== 'Home' && event.key !== 'End') return;
+
+  event.preventDefault();
+  const currentIndex = Math.max(0, ids.indexOf(activeId));
+  const nextIndex = event.key === 'Home'
+    ? 0
+    : event.key === 'End'
+      ? ids.length - 1
+      : (currentIndex + moves[event.key] + ids.length) % ids.length;
+  const nextId = ids[nextIndex];
+  selectId(nextId);
+  requestAnimationFrame(() => document.getElementById(`${prefix}-${nextId}`)?.focus());
 }
 
 function App() {
@@ -309,6 +369,11 @@ function App() {
   const [activeHarnessId, setActiveHarnessId] = useState('context');
   const [activeHeroModeId, setActiveHeroModeId] = useState('context');
   const [harnessAtlasOpen, setHarnessAtlasOpen] = useState(false);
+  const fieldMapPanelRef = useRef(null);
+  const fieldMapTriggerRef = useRef(null);
+  const atlasDialogRef = useRef(null);
+  const atlasTriggerRef = useRef(null);
+  const useInlineProjectDetails = useMediaQuery('(max-width: 930px)');
 
   useEffect(() => {
     document.title = 'Julien Hovan | AI systems, projects & field notes';
@@ -323,7 +388,9 @@ function App() {
         .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
       if (mostVisible) setActiveWaypointId(mostVisible.target.id);
     }, { rootMargin: '-18% 0px -58%', threshold: [0, .15, .45, .75] });
-    observed.forEach((section) => observer.observe(section));
+    observed.forEach((section) => {
+      observer.observe(section);
+    });
     return () => observer.disconnect();
   }, []);
 
@@ -339,8 +406,79 @@ function App() {
   }, []);
 
   useEffect(() => {
+    document.body.classList.toggle('field-map-open', fieldMapOpen);
+    if (!fieldMapOpen) return () => document.body.classList.remove('field-map-open');
+
+    const background = [...document.querySelectorAll('.site-header, main, .site-footer')];
+    background.forEach((element) => {
+      element.setAttribute('inert', '');
+      element.setAttribute('aria-hidden', 'true');
+    });
+
+    const keepFocusInMap = (event) => {
+      if (event.key !== 'Tab' || !fieldMapPanelRef.current) return;
+      const focusable = [...fieldMapPanelRef.current.querySelectorAll('a[href], button:not([disabled])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !fieldMapPanelRef.current.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    fieldMapPanelRef.current?.querySelector('button')?.focus();
+    document.addEventListener('keydown', keepFocusInMap);
+    return () => {
+      document.body.classList.remove('field-map-open');
+      document.removeEventListener('keydown', keepFocusInMap);
+      background.forEach((element) => {
+        element.removeAttribute('inert');
+        element.removeAttribute('aria-hidden');
+      });
+      fieldMapTriggerRef.current?.focus();
+    };
+  }, [fieldMapOpen]);
+
+  useEffect(() => {
     document.body.classList.toggle('atlas-open', harnessAtlasOpen);
-    return () => document.body.classList.remove('atlas-open');
+    if (!harnessAtlasOpen) return () => document.body.classList.remove('atlas-open');
+
+    const background = [...document.querySelectorAll('.site-header, main, .site-footer, .field-map')];
+    background.forEach((element) => {
+      element.setAttribute('inert', '');
+      element.setAttribute('aria-hidden', 'true');
+    });
+
+    const keepFocusInDialog = (event) => {
+      if (event.key !== 'Tab' || !atlasDialogRef.current) return;
+      const focusable = [...atlasDialogRef.current.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && (document.activeElement === first || !atlasDialogRef.current.contains(document.activeElement))) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    atlasDialogRef.current?.querySelector('button')?.focus();
+    document.addEventListener('keydown', keepFocusInDialog);
+    return () => {
+      document.body.classList.remove('atlas-open');
+      document.removeEventListener('keydown', keepFocusInDialog);
+      background.forEach((element) => {
+        element.removeAttribute('inert');
+        element.removeAttribute('aria-hidden');
+      });
+      atlasTriggerRef.current?.focus();
+    };
   }, [harnessAtlasOpen]);
 
   const visibleProjects = useMemo(
@@ -360,6 +498,13 @@ function App() {
     if (firstVisible) setSelectedProject(firstVisible.id);
   };
 
+  const toggleFieldMap = (event) => {
+    if (!fieldMapOpen) fieldMapTriggerRef.current = event.currentTarget;
+    setFieldMapOpen((open) => !open);
+  };
+
+  const closeFieldMap = () => setFieldMapOpen(false);
+
   const goToWaypoint = (event, waypointId) => {
     event.preventDefault();
     setActiveWaypointId(waypointId);
@@ -367,13 +512,28 @@ function App() {
     window.history.pushState(null, '', `#${waypointId}`);
     requestAnimationFrame(() => {
       const destination = document.getElementById(waypointId);
-      if (destination) window.scrollTo({ top: destination.getBoundingClientRect().top + window.scrollY - 24, behavior: 'smooth' });
+      const reduceMotion = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (destination) {
+        window.scrollTo({ top: destination.getBoundingClientRect().top + window.scrollY - 24, behavior: reduceMotion ? 'auto' : 'smooth' });
+        const hadTabIndex = destination.hasAttribute('tabindex');
+        destination.setAttribute('tabindex', '-1');
+        destination.focus({ preventScroll: true });
+        if (!hadTabIndex) destination.addEventListener('blur', () => destination.removeAttribute('tabindex'), { once: true });
+      }
     });
   };
 
+  const openHarnessAtlas = (event) => {
+    atlasTriggerRef.current = event.currentTarget;
+    setFieldMapOpen(false);
+    setHarnessAtlasOpen(true);
+  };
+
+  const closeHarnessAtlas = () => setHarnessAtlasOpen(false);
+
   return (
     <div className="site-shell">
-      <a className="skip-link" href="#main-content" onClick={() => requestAnimationFrame(() => document.getElementById('main-content')?.focus())}>
+      <a className="skip-link" href="#main-content">
         Skip to the good part
       </a>
 
@@ -384,27 +544,30 @@ function App() {
         </a>
 
         <div className="header-actions">
-          <button className="header-map-trigger" type="button" aria-expanded={fieldMapOpen} aria-controls="field-map" onClick={() => setFieldMapOpen((open) => !open)}>
+          <button className="header-map-trigger" type="button" aria-label={`${fieldMapOpen ? 'Close' : 'Open'} field map`} aria-expanded={fieldMapOpen} aria-controls="field-map" onClick={toggleFieldMap}>
             <FiCompass size={16} /><span>Field map</span>
           </button>
-          <a className="nav-note" href={`mailto:${email}?subject=Hello%20Julien`}><span>Say hello</span> <FiArrowUpRight size={15} /></a>
+          <a className="nav-note" aria-label="Say hello by email" href={`mailto:${email}?subject=Hello%20Julien`}><span>Say hello</span> <FiArrowUpRight size={15} /></a>
         </div>
       </header>
 
       <aside className={`field-map ${fieldMapOpen ? 'is-open' : ''}`} aria-label="Navigate the project garden">
-        <button className="field-map-toggle" type="button" aria-expanded={fieldMapOpen} aria-controls="field-map" onClick={() => setFieldMapOpen((open) => !open)}>
+        {fieldMapOpen && <button className="field-map-scrim" type="button" tabIndex={-1} aria-label="Close field map" onClick={closeFieldMap} />}
+        <button className="field-map-toggle" type="button" tabIndex={fieldMapOpen ? -1 : 0} aria-label={`${fieldMapOpen ? 'Close' : 'Open'} field map. Current waypoint: ${activeWaypoint.label}`} aria-expanded={fieldMapOpen} aria-controls="field-map" onClick={toggleFieldMap}>
           <span className="map-radar"><i /><i /><i /></span>
           <span><small>You are here</small><b>{activeWaypoint.label}</b></span>
           <FiCompass size={16} />
         </button>
         {fieldMapOpen && (
-          <nav className="field-map-panel" id="field-map" aria-label="Field map waypoints">
-            <div className="field-map-panel-head"><span>Field map</span><button type="button" aria-label="Close field map" onClick={() => setFieldMapOpen(false)}><FiX size={16} /></button></div>
-            <p>Pick a waypoint. The map follows you as you move through the garden.</p>
-            <ol>
-              {waypoints.map((waypoint) => <li className={activeWaypoint.id === waypoint.id ? 'active' : ''} key={waypoint.id}><a href={`#${waypoint.id}`} aria-current={activeWaypoint.id === waypoint.id ? 'location' : undefined} onClick={(event) => goToWaypoint(event, waypoint.id)}><span>{waypoint.index}</span><b>{waypoint.label}</b><small>{waypoint.detail}</small></a></li>)}
-            </ol>
-          </nav>
+          <div className="field-map-panel" id="field-map" ref={fieldMapPanelRef} role="dialog" aria-modal="true" aria-labelledby="field-map-title" aria-describedby="field-map-description">
+            <div className="field-map-panel-head"><span id="field-map-title">Field map</span><button type="button" aria-label="Close field map" onClick={closeFieldMap}><FiX size={18} /></button></div>
+            <p id="field-map-description">Pick a waypoint. The map follows you as you move through the garden.</p>
+            <nav aria-label="Field map waypoints">
+              <ol>
+                {waypoints.map((waypoint) => <li className={activeWaypoint.id === waypoint.id ? 'active' : ''} key={waypoint.id}><a href={`#${waypoint.id}`} aria-current={activeWaypoint.id === waypoint.id ? 'location' : undefined} onClick={(event) => goToWaypoint(event, waypoint.id)}><span>{waypoint.index}</span><b>{waypoint.label}</b><small>{waypoint.detail}</small></a></li>)}
+              </ol>
+            </nav>
+          </div>
         )}
       </aside>
 
@@ -422,18 +585,20 @@ function App() {
             </div>
           </div>
 
-          <div className={`hero-orbital mode-${activeHeroMode.id}`} aria-label="An interactive map of Julien's current work">
-            <div className="orbit-glow" />
-            <div className="orbit-ring orbit-ring-one" />
-            <div className="orbit-ring orbit-ring-two" />
-            <span className="star star-one" /><span className="star star-two" /><span className="star star-three" />
-            <div className="orbital-core"><small>current lens</small><strong>{activeHeroMode.center.map((line, index) => <React.Fragment key={line}>{line}{index < activeHeroMode.center.length - 1 && <br />}</React.Fragment>)}</strong></div>
-            <article className="orbit-card card-fluence"><span>{activeHeroMode.cards[0].index}</span><b>{activeHeroMode.cards[0].title}</b><small>{activeHeroMode.cards[0].detail}</small></article>
-            <article className="orbit-card card-pi"><span>{activeHeroMode.cards[1].index}</span><b>{activeHeroMode.cards[1].title}</b><small>{activeHeroMode.cards[1].detail}</small></article>
-            <article className="orbit-card card-news"><span>{activeHeroMode.cards[2].index}</span><b>{activeHeroMode.cards[2].title}</b><small>{activeHeroMode.cards[2].detail}</small></article>
-            <p className="orbit-caption">{activeHeroMode.caption}</p>
+          <div className={`hero-orbital mode-${activeHeroMode.id}`}>
+            <div className="orbit-scene" id="hero-lens-panel" role="tabpanel" aria-labelledby={`hero-tab-${activeHeroMode.id}`}>
+              <div className="orbit-glow" />
+              <div className="orbit-ring orbit-ring-one" />
+              <div className="orbit-ring orbit-ring-two" />
+              <span className="star star-one" /><span className="star star-two" /><span className="star star-three" />
+              <div className="orbital-core"><small>current lens</small><strong>{activeHeroMode.center.map((line, index) => <React.Fragment key={line}>{line}{index < activeHeroMode.center.length - 1 && <br />}</React.Fragment>)}</strong></div>
+              <article className="orbit-card card-fluence"><span>{activeHeroMode.cards[0].index}</span><b>{activeHeroMode.cards[0].title}</b><small>{activeHeroMode.cards[0].detail}</small></article>
+              <article className="orbit-card card-pi"><span>{activeHeroMode.cards[1].index}</span><b>{activeHeroMode.cards[1].title}</b><small>{activeHeroMode.cards[1].detail}</small></article>
+              <article className="orbit-card card-news"><span>{activeHeroMode.cards[2].index}</span><b>{activeHeroMode.cards[2].title}</b><small>{activeHeroMode.cards[2].detail}</small></article>
+              <p className="orbit-caption">{activeHeroMode.caption}</p>
+            </div>
             <div className="orbit-mode-picker" role="tablist" aria-label="Choose a lens for Julien's work">
-              {heroModes.map((mode) => <button type="button" role="tab" aria-selected={activeHeroMode.id === mode.id} className={activeHeroMode.id === mode.id ? 'active' : ''} key={mode.id} onClick={() => setActiveHeroModeId(mode.id)}>{mode.label}</button>)}
+              {heroModes.map((mode) => <button type="button" id={`hero-tab-${mode.id}`} role="tab" tabIndex={activeHeroMode.id === mode.id ? 0 : -1} aria-controls="hero-lens-panel" aria-selected={activeHeroMode.id === mode.id} className={activeHeroMode.id === mode.id ? 'active' : ''} key={mode.id} onClick={() => setActiveHeroModeId(mode.id)} onKeyDown={(event) => moveTabFocus(event, heroModes.map(({ id }) => id), activeHeroMode.id, setActiveHeroModeId, 'hero-tab')}>{mode.label}</button>)}
             </div>
           </div>
         </section>
@@ -485,7 +650,7 @@ function App() {
               <p>My role sits close to the build: I lead software delivery, help turn ambiguous needs into workable systems, and bring the context, checks, and care that make an AI idea hold up outside a demo.</p>
               <a className="compass-link" href="https://compassdata.ca" target="_blank" rel="noreferrer">Meet Compass Data <FiArrowUpRight size={17} /></a>
             </div>
-            <div className="compass-bearings" aria-label="How Julien's work connects to Compass Data">
+            <div className="compass-bearings">
               <article><span>N / Foundations</span><h3>Data that can carry the work.</h3><p>Models, pipelines, and infrastructure that turn scattered inputs into a useful base.</p></article>
               <article><span>E / Intelligence</span><h3>AI with a job to do.</h3><p>Agents, analytical systems, and automation built around a real decision or workflow.</p></article>
               <article><span>S / Software</span><h3>Tools people want to open.</h3><p>Business applications and interfaces that make a complicated process feel clearer.</p></article>
@@ -500,25 +665,29 @@ function App() {
             <p>When I say “harness engineering,” I mean designing the context, tools, memory, checks, and human moments that let an AI system do useful work without becoming a black box.</p>
           </div>
 
-          <aside className="harness-axiom"><span>Working rule</span><p>Ambiguity is the enemy of agentic workflows.</p><small>A coding agent cannot resolve a boundary that nobody has named. Give it a clear outcome, the relevant context, and a way to prove the work.</small></aside>
+          <div className="harness-axiom"><span>Working rule</span><p>Ambiguity is the enemy of agentic workflows.</p><small>A coding agent cannot resolve a boundary that nobody has named. Give it a clear outcome, the relevant context, and a way to prove the work.</small></div>
 
           <div className="harness-explorer">
             <div className="harness-map" role="tablist" aria-label="Explore a practical AI engineering harness">
               {harnessStages.map((stage) => (
                 <button
                   type="button"
+                  id={`harness-tab-${stage.id}`}
                   key={stage.id}
                   role="tab"
+                  tabIndex={activeHarnessStage.id === stage.id ? 0 : -1}
+                  aria-controls="harness-stage-panel"
                   aria-selected={activeHarnessStage.id === stage.id}
                   className={activeHarnessStage.id === stage.id ? 'active' : ''}
                   onClick={() => setActiveHarnessId(stage.id)}
+                  onKeyDown={(event) => moveTabFocus(event, harnessStages.map(({ id }) => id), activeHarnessStage.id, setActiveHarnessId, 'harness-tab')}
                 >
                   <span>{stage.label}</span><b>{stage.title}</b>
                 </button>
               ))}
             </div>
 
-            <article className="harness-inspector" role="tabpanel" aria-live="polite">
+            <div className="harness-inspector" id="harness-stage-panel" role="tabpanel" aria-labelledby={`harness-tab-${activeHarnessStage.id}`} aria-live="polite">
               <div className="harness-inspector-top"><span>{activeHarnessStage.label}</span><span>Live lens</span></div>
               <h3>{activeHarnessStage.title}</h3>
               <p>{activeHarnessStage.summary}</p>
@@ -526,7 +695,7 @@ function App() {
                 <div><span>Building blocks</span><ul>{activeHarnessStage.buildingBlocks.map((item) => <li key={item}>{item}</li>)}</ul></div>
                 <div><span>When it&apos;s missing</span><p>{activeHarnessStage.failure}</p></div>
               </div>
-            </article>
+            </div>
           </div>
 
           <article className="harness-diagram-teaser">
@@ -534,9 +703,10 @@ function App() {
               <p className="eyebrow">A picture before the jargon</p>
               <h3>A useful run leaves the next person better prepared.</h3>
               <p>Turn a human need into shared context, bounded work, evidence, and a handoff. The point is not automation theatre—it&apos;s making useful progress easier to inspect and continue.</p>
-              <button className="diagram-atlas-button" type="button" onClick={() => setHarnessAtlasOpen(true)}>Open the diagram atlas <FiArrowUpRight size={15} /></button>
+              <button className="diagram-atlas-button" type="button" onClick={openHarnessAtlas}>Open the diagram atlas <FiArrowUpRight size={15} /></button>
             </div>
-            <div className="diagram-teaser-canvas"><SessionLoopSketch id="main-session-loop" /></div>
+            {/* biome-ignore lint/a11y/noNoninteractiveTabindex: Horizontal diagrams need a keyboard-scrollable viewport. */}
+            <section className="diagram-teaser-canvas" tabIndex={0} aria-label="Scrollable request-to-handoff diagram"><span className="diagram-pan-hint">Swipe sideways to follow the loop.</span><SessionLoopSketch id="main-session-loop" /></section>
           </article>
 
           <div className="harness-footer-grid">
@@ -578,38 +748,28 @@ function App() {
           </div>
 
           <div className="project-layout">
-            <div className="project-grid" aria-label="Project map">
+            <div className="project-grid">
               {visibleProjects.map((project, index) => (
-                <button
-                  className={`project-node node-${project.color} ${selected?.id === project.id ? 'selected' : ''}`}
-                  key={project.id}
-                  type="button"
-                  aria-pressed={selected?.id === project.id}
-                  onClick={() => setSelectedProject(project.id)}
-                >
-                  <span className="node-index">{String(index + 1).padStart(2, '0')}</span>
-                  <span className="node-type">{project.eyebrow}</span>
-                  <strong>{project.name}</strong>
-                  <span className="node-short">{project.short}</span>
-                  <span className="node-open">Take a look <FiChevronRight size={15} /></span>
-                </button>
+                <React.Fragment key={project.id}>
+                  <button
+                    className={`project-node node-${project.color} ${selected?.id === project.id ? 'selected' : ''}`}
+                    type="button"
+                    aria-controls={selected?.id === project.id ? (useInlineProjectDetails ? `project-detail-${project.id}` : 'project-detail-panel') : undefined}
+                    aria-expanded={selected?.id === project.id}
+                    onClick={() => setSelectedProject(project.id)}
+                  >
+                    <span className="node-index">{String(index + 1).padStart(2, '0')}</span>
+                    <span className="node-type">{project.eyebrow}</span>
+                    <strong>{project.name}</strong>
+                    <span className="node-short">{project.short}</span>
+                    <span className="node-open">{selected?.id === project.id ? (useInlineProjectDetails ? 'Open below' : 'Viewing now') : 'Take a look'} <FiChevronRight size={15} /></span>
+                  </button>
+                  {useInlineProjectDetails && selected?.id === project.id && <ProjectDetail className="project-detail--inline" id={`project-detail-${project.id}`} project={project} />}
+                </React.Fragment>
               ))}
             </div>
 
-            {selected && (
-              <aside className={`project-detail detail-${selected.color}`} aria-live="polite">
-                <div className="detail-topline"><span>{selected.type}</span><span className="detail-mark">✦</span></div>
-                <p className="detail-label">{selected.eyebrow}</p>
-                <h3>{selected.name}</h3>
-                <p className="detail-body">{selected.detail}</p>
-                <div className="detail-proof"><span>Why it matters</span><p>{selected.proof}</p></div>
-                {selected.link ? (
-                  <a className="detail-link" href={selected.link} target="_blank" rel="noreferrer">{selected.linkLabel} <FiArrowUpRight size={17} /></a>
-                ) : (
-                  <p className="detail-private"><FiCheck size={15} /> The useful parts are real. The private parts stay private.</p>
-                )}
-              </aside>
-            )}
+            {!useInlineProjectDetails && selected && <ProjectDetail id="project-detail-panel" project={selected} />}
           </div>
 
           <a className="archive-link" href="https://github.com/JewelsHovan?tab=repositories" target="_blank" rel="noreferrer">
@@ -629,17 +789,21 @@ function App() {
                 {Object.entries(workflowViews).map(([id, view]) => (
                   <button
                     type="button"
+                    id={`workflow-tab-${id}`}
                     key={id}
                     role="tab"
+                    tabIndex={activeWorkflow === id ? 0 : -1}
+                    aria-controls="workflow-stage-panel"
                     aria-selected={activeWorkflow === id}
                     className={activeWorkflow === id ? 'active' : ''}
                     onClick={() => setActiveWorkflow(id)}
+                    onKeyDown={(event) => moveTabFocus(event, Object.keys(workflowViews), activeWorkflow, setActiveWorkflow, 'workflow-tab')}
                   >
                     <span>{view.label}</span>{id === 'context' ? 'Roots' : id === 'motion' ? 'Motion' : 'Release'}
                   </button>
                 ))}
               </div>
-              <div className="workflow-stage" role="tabpanel">
+              <div className="workflow-stage" id="workflow-stage-panel" role="tabpanel" aria-labelledby={`workflow-tab-${activeWorkflow}`}>
                 <div className="stage-copy"><p>{activeView.label}</p><h3>{activeView.title}</h3><p>{activeView.body}</p></div>
                 <ol className="trace-list">
                   {activeView.trace.map((step, index) => <li key={step}><span>{String(index + 1).padStart(2, '0')}</span><b>{step}</b></li>)}
@@ -698,7 +862,7 @@ function App() {
           )}
         </section>
 
-        <section className="about-section">
+        <section className="about-section" id="about">
           <div className="section-wrap about-inner">
             <div className="about-copy"><p className="eyebrow"><span className="pulse-dot" /> A bit more about me</p><h2>I care enough about a problem to stay with it.</h2><p>I&apos;m happiest somewhere between a product question, a messy workflow, and a blank repository. My path through software and data engineering is why I care as much about reliable foundations as I do about what AI can unlock.</p><p>I tend to get personally attached to the things I build. If a problem is difficult and worth solving, I&apos;ll happily hyperfocus on the tricky part until there&apos;s a useful way through—whether it&apos;s a personal experiment or a serious piece of work for someone else.</p><p>Outside work, I build my own computers and keep learning because I&apos;m interested in the whole shape of technology: the parts inside the machine, the design around it, and the way it changes culture and everyday life.</p><p>Change is coming fast. I want to help people use AI responsibly, with enough context and agency to respond thoughtfully. That&apos;s why consulting fits me: I love making things for people—tools that remove friction from a day, systems that make a hard decision clearer, and workflows that let someone participate without having to become an engineer first.</p><div className="tenet-list"><p className="tenet-title">Core tenets</p><div><span>01</span><p><b>Respect human time.</b><small>Use it carefully, share it well, and spend it where judgment, care, and conversation really matter.</small></p></div><div><span>02</span><p><b>Automate for more life.</b><small>Automate the repeatable parts so there is more room for the work, people, and ideas I actually enjoy.</small></p></div><div><span>03</span><p><b>Keep creative energy in the loop.</b><small>Good systems should make more space for curiosity and making, not turn every minute into output.</small></p></div><p className="tenet-close">It&apos;s a constant struggle. It&apos;s also a fulfilling one.</p></div></div>
             <div className="about-actions">
@@ -714,15 +878,15 @@ function App() {
 
       {harnessAtlasOpen && (
         <div className="harness-atlas-backdrop" role="presentation">
-          <section className="harness-atlas" role="dialog" aria-modal="true" aria-labelledby="harness-atlas-title">
-            <header className="atlas-header"><div><p className="eyebrow">Expanded field guide</p><h2 id="harness-atlas-title">The harness atlas</h2><p>Working models from the systems I make: make work legible, give context a shape, build trust through proof, and leave the next person better prepared.</p></div><button type="button" autoFocus onClick={() => setHarnessAtlasOpen(false)} aria-label="Close the diagram atlas"><FiX size={20} /><span>Close</span></button></header>
+          <section className="harness-atlas" ref={atlasDialogRef} role="dialog" aria-modal="true" aria-labelledby="harness-atlas-title" aria-describedby="harness-atlas-description">
+            <header className="atlas-header"><div><p className="eyebrow">Expanded field guide</p><h2 id="harness-atlas-title">The harness atlas</h2><p id="harness-atlas-description">Working models from the systems I make: make work legible, give context a shape, build trust through proof, and leave the next person better prepared.</p></div><button type="button" onClick={closeHarnessAtlas} aria-label="Close the diagram atlas"><FiX size={20} /><span>Close</span></button></header>
             <div className="atlas-plates">
               <figure className="atlas-plate"><figcaption><span>Plate 01 · Harness</span><h3>The model is one instrument.</h3><p>A dependable harness gives a model a designed environment: memory, capabilities, protocols, permission boundaries, visibility, and human control.</p></figcaption><GeneratedDiagram variant="harness" image={harnessSystemImage} alt="A circular harness diagram with six labelled areas surrounding a central model core: Memory, Skills + Tools, Observability, Permissions, Human Control, and Protocols." notes={['The model does not get to define its own boundaries.', 'Useful work should leave traces a person can inspect.']} /></figure>
               <figure className="atlas-plate"><figcaption><span>Plate 02 · Shared work</span><h3>Uncertainty deserves a real loop.</h3><p>Good work does not rush through ambiguity. It discovers, clarifies, plans, reviews, and hands off something the next person can confidently start from.</p></figcaption><GeneratedDiagram variant="discovery" image={discoveryLoopImage} alt="A five-stage discovery and planning flow: Discover, Clarify, Plan, Review, Ready, with arrows showing clarification and revision loops." notes={['Ambiguity is a signal to investigate—not an invitation to guess.', 'A plan can be rejected safely before costly work begins.']} /></figure>
               <figure className="atlas-plate"><figcaption><span>Plate 03 · Capability</span><h3>Make knowledge usable outside a single mind.</h3><p>We have always extended thought through language, writing, records, and tools. Agentic systems extend capability through shared memory, skills, protocols, and a harness that coordinates them.</p></figcaption><GeneratedDiagram variant="externalization" image={externalizedCapabilityImage} alt="Two parallel timelines: Human externalization (Thought, Writing, Records, Tools, Data) and Agentic externalization (Model, Memory, Skills, Protocols, Harness), connected by flows of knowledge." notes={['Human side: make an idea recordable, inspectable, and shareable.', 'System side: make capability reusable without hiding the human decision.']} /></figure>
               <figure className="atlas-plate"><figcaption><span>Plate 04 · Trust</span><h3>Keep people present at every gate.</h3><p>Plain-language intent becomes a shared specification, scoped work, visible evidence, and an explicit decision—not a black-box leap to “done.”</p></figcaption><GeneratedDiagram variant="delivery" image={humanGuidedDeliveryImage} alt="A six-stage delivery pipeline with a human guide connected to every stage: Need, Shared Spec, Design, Scoped Work, Evidence, Handoff." notes={['People can clarify, redirect, review, and approve at any point.', 'Evidence earns confidence; automation does not replace accountability.']} /></figure>
             </div>
-            <footer className="atlas-footer"><span>These are teaching diagrams, not a one-size-fits-all architecture.</span><button type="button" onClick={() => setHarnessAtlasOpen(false)}>Back to the garden <FiArrowDown size={15} /></button></footer>
+            <footer className="atlas-footer"><span>These are teaching diagrams, not a one-size-fits-all architecture.</span><button type="button" onClick={closeHarnessAtlas}>Back to the garden <FiArrowDown size={15} /></button></footer>
           </section>
         </div>
       )}
