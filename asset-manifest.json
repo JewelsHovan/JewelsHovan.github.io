@@ -1,27 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.25ac426b.css",
-    "main.js": "/static/js/main.ef1b737c.js",
+    "main.css": "/static/css/main.ecc38ff9.css",
+    "main.js": "/static/js/main.ea2a577e.js",
     "static/js/453.15a626a8.chunk.js": "/static/js/453.15a626a8.chunk.js",
-    "static/media/headshot_hovan.png": "/static/media/headshot_hovan.1b6d7c1246d93941f756.png",
-    "static/media/luccas_website.png": "/static/media/luccas_website.93d46f2fd365b1d81621.png",
-    "static/media/hero-image.jpg": "/static/media/hero-image.7a0ca467cf822e1ea1f7.jpg",
-    "static/media/gsaikido.jpg": "/static/media/gsaikido.89dc8f78484cd687c2f1.jpg",
-    "static/media/manga-recap.png": "/static/media/manga-recap.49a77705b9972d7d1b60.png",
-    "static/media/repo-to-clipboard.png": "/static/media/repo-to-clipboard.c5821ea956c2a0794500.png",
-    "static/media/GDP-Life.png": "/static/media/GDP-Life.a588af00355ba6b5574f.png",
-    "static/media/hospital-dynamics.png": "/static/media/hospital-dynamics.7daf670147d8d9a81c3e.png",
-    "static/media/reddit-scrape.png": "/static/media/reddit-scrape.ffa9984b1dab5e75c5e5.png",
-    "static/media/meat-classifier.png": "/static/media/meat-classifier.f83a5e8e6062b1583954.png",
-    "static/media/architect-scrape.png": "/static/media/architect-scrape.b2dfe84f69aad10ed234.png",
-    "static/media/senscritique-scrape.png": "/static/media/senscritique-scrape.b3d5d8dcc03827cea1bd.png",
+    "static/media/externalized-capability.webp": "/static/media/externalized-capability.82e0df0ad7e12e103699.webp",
+    "static/media/human-guided-delivery.webp": "/static/media/human-guided-delivery.dc99e0907af0a3f97828.webp",
+    "static/media/discovery-loop.webp": "/static/media/discovery-loop.cdb8eac750326b3576c8.webp",
+    "static/media/harness-system.webp": "/static/media/harness-system.4aeae8159acdc214b533.webp",
     "index.html": "/index.html",
-    "main.25ac426b.css.map": "/static/css/main.25ac426b.css.map",
-    "main.ef1b737c.js.map": "/static/js/main.ef1b737c.js.map",
+    "main.ecc38ff9.css.map": "/static/css/main.ecc38ff9.css.map",
+    "main.ea2a577e.js.map": "/static/js/main.ea2a577e.js.map",
     "453.15a626a8.chunk.js.map": "/static/js/453.15a626a8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.25ac426b.css",
-    "static/js/main.ef1b737c.js"
+    "static/css/main.ecc38ff9.css",
+    "static/js/main.ea2a577e.js"
   ]
 }
