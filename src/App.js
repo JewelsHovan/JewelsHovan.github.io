@@ -13,6 +13,11 @@ import {
 import './App.css';
 import { fieldNotes, nextNotePrompt } from './content/fieldNotes';
 import { harnessResearch, harnessStages } from './content/harnessGuide';
+import { SessionLoopSketch } from './components/HarnessDiagrams';
+import discoveryLoopImage from './assets/harness/discovery-loop.webp';
+import externalizedCapabilityImage from './assets/harness/externalized-capability.webp';
+import harnessSystemImage from './assets/harness/harness-system.webp';
+import humanGuidedDeliveryImage from './assets/harness/human-guided-delivery.webp';
 
 const email = 'JulienH15@icloud.com';
 const newsletterUrl = 'https://jewelshovan.github.io/AI-News-Reports/';
@@ -283,6 +288,17 @@ const waypoints = [
   { id: 'about', index: '07', label: 'A bit more', detail: 'the person in the loop' },
 ];
 
+function GeneratedDiagram({ alt, image, notes = [], variant }) {
+  return (
+    <div className="atlas-visual-block">
+      <div className={`generated-diagram generated-diagram--${variant}`}>
+        <img src={image} alt={alt} loading="eager" />
+      </div>
+      {notes.length > 0 && <ul className="atlas-callouts">{notes.map((note) => <li key={note}><span />{note}</li>)}</ul>}
+    </div>
+  );
+}
+
 function App() {
   const [fieldMapOpen, setFieldMapOpen] = useState(false);
   const [activeWaypointId, setActiveWaypointId] = useState('top');
@@ -292,6 +308,7 @@ function App() {
   const [activeNoteId, setActiveNoteId] = useState(fieldNotes[0].id);
   const [activeHarnessId, setActiveHarnessId] = useState('context');
   const [activeHeroModeId, setActiveHeroModeId] = useState('context');
+  const [harnessAtlasOpen, setHarnessAtlasOpen] = useState(false);
 
   useEffect(() => {
     document.title = 'Julien Hovan | projects, systems, and field notes';
@@ -312,11 +329,19 @@ function App() {
 
   useEffect(() => {
     const onKeyDown = (event) => {
-      if (event.key === 'Escape') setFieldMapOpen(false);
+      if (event.key === 'Escape') {
+        setFieldMapOpen(false);
+        setHarnessAtlasOpen(false);
+      }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
   }, []);
+
+  useEffect(() => {
+    document.body.classList.toggle('atlas-open', harnessAtlasOpen);
+    return () => document.body.classList.remove('atlas-open');
+  }, [harnessAtlasOpen]);
 
   const visibleProjects = useMemo(
     () => projects.filter((project) => activeFilter === 'all' || project.tags.includes(activeFilter)),
@@ -504,6 +529,16 @@ function App() {
             </article>
           </div>
 
+          <article className="harness-diagram-teaser">
+            <div className="diagram-teaser-copy">
+              <p className="eyebrow">A picture before the jargon</p>
+              <h3>A useful run leaves the next person better prepared.</h3>
+              <p>Turn a human need into shared context, bounded work, evidence, and a handoff. The point is not automation theatre—it&apos;s making useful progress easier to inspect and continue.</p>
+              <button className="diagram-atlas-button" type="button" onClick={() => setHarnessAtlasOpen(true)}>Open the diagram atlas <FiArrowUpRight size={15} /></button>
+            </div>
+            <div className="diagram-teaser-canvas"><SessionLoopSketch id="main-session-loop" /></div>
+          </article>
+
           <div className="harness-footer-grid">
             <article className="workshop-card">
               <p className="eyebrow"><span className="pulse-dot" /> I teach this too</p>
@@ -676,6 +711,21 @@ function App() {
       </main>
 
       <footer className="site-footer section-wrap"><span>© {new Date().getFullYear()} Julien Hovan</span><span>Built with curiosity, context, and a decent amount of tea.</span></footer>
+
+      {harnessAtlasOpen && (
+        <div className="harness-atlas-backdrop" role="presentation">
+          <section className="harness-atlas" role="dialog" aria-modal="true" aria-labelledby="harness-atlas-title">
+            <header className="atlas-header"><div><p className="eyebrow">Expanded field guide</p><h2 id="harness-atlas-title">The harness atlas</h2><p>Working models from the systems I make: make work legible, give context a shape, build trust through proof, and leave the next person better prepared.</p></div><button type="button" autoFocus onClick={() => setHarnessAtlasOpen(false)} aria-label="Close the diagram atlas"><FiX size={20} /><span>Close</span></button></header>
+            <div className="atlas-plates">
+              <figure className="atlas-plate"><figcaption><span>Plate 01 · Harness</span><h3>The model is one instrument.</h3><p>A dependable harness gives a model a designed environment: memory, capabilities, protocols, permission boundaries, visibility, and human control.</p></figcaption><GeneratedDiagram variant="harness" image={harnessSystemImage} alt="A circular harness diagram with six labelled areas surrounding a central model core: Memory, Skills + Tools, Observability, Permissions, Human Control, and Protocols." notes={['The model does not get to define its own boundaries.', 'Useful work should leave traces a person can inspect.']} /></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 02 · Shared work</span><h3>Uncertainty deserves a real loop.</h3><p>Good work does not rush through ambiguity. It discovers, clarifies, plans, reviews, and hands off something the next person can confidently start from.</p></figcaption><GeneratedDiagram variant="discovery" image={discoveryLoopImage} alt="A five-stage discovery and planning flow: Discover, Clarify, Plan, Review, Ready, with arrows showing clarification and revision loops." notes={['Ambiguity is a signal to investigate—not an invitation to guess.', 'A plan can be rejected safely before costly work begins.']} /></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 03 · Capability</span><h3>Make knowledge usable outside a single mind.</h3><p>We have always extended thought through language, writing, records, and tools. Agentic systems extend capability through shared memory, skills, protocols, and a harness that coordinates them.</p></figcaption><GeneratedDiagram variant="externalization" image={externalizedCapabilityImage} alt="Two parallel timelines: Human externalization (Thought, Writing, Records, Tools, Data) and Agentic externalization (Model, Memory, Skills, Protocols, Harness), connected by flows of knowledge." notes={['Human side: make an idea recordable, inspectable, and shareable.', 'System side: make capability reusable without hiding the human decision.']} /></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 04 · Trust</span><h3>Keep people present at every gate.</h3><p>Plain-language intent becomes a shared specification, scoped work, visible evidence, and an explicit decision—not a black-box leap to “done.”</p></figcaption><GeneratedDiagram variant="delivery" image={humanGuidedDeliveryImage} alt="A six-stage delivery pipeline with a human guide connected to every stage: Need, Shared Spec, Design, Scoped Work, Evidence, Handoff." notes={['People can clarify, redirect, review, and approve at any point.', 'Evidence earns confidence; automation does not replace accountability.']} /></figure>
+            </div>
+            <footer className="atlas-footer"><span>These are teaching diagrams, not a one-size-fits-all architecture.</span><button type="button" onClick={() => setHarnessAtlasOpen(false)}>Back to the garden <FiArrowDown size={15} /></button></footer>
+          </section>
+        </div>
+      )}
     </div>
   );
 }
