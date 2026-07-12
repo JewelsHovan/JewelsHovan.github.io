@@ -114,6 +114,12 @@ test('supports arrow-key tabs and reduced-motion waypoint navigation', async () 
   expect(harnessTab).toHaveAttribute('aria-selected', 'true');
   await waitFor(() => expect(harnessTab).toHaveFocus());
   expect(document.getElementById('hero-lens-panel')).toHaveAttribute('aria-labelledby', 'hero-tab-harness');
+  const piCard = screen.getByRole('button', { name: /pi ecosystem/i });
+  const workshopCard = screen.getByRole('button', { name: /workshop/i });
+  expect(piCard).toHaveAttribute('aria-pressed', 'true');
+  fireEvent.click(workshopCard);
+  expect(workshopCard).toHaveAttribute('aria-pressed', 'true');
+  expect(piCard).toHaveAttribute('aria-pressed', 'false');
 
   fireEvent.click(screen.getByRole('button', { name: /^open field map$/i }));
   fireEvent.click(screen.getByRole('link', { name: /a bit more/i }));

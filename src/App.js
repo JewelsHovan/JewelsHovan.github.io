@@ -11,13 +11,13 @@ import {
   FiX,
 } from 'react-icons/fi';
 import './App.css';
-import { fieldNotes, nextNotePrompt } from './content/fieldNotes';
-import { harnessResearch, harnessStages } from './content/harnessGuide';
-import { SessionLoopSketch } from './components/HarnessDiagrams';
 import discoveryLoopImage from './assets/harness/discovery-loop.webp';
 import externalizedCapabilityImage from './assets/harness/externalized-capability.webp';
 import harnessSystemImage from './assets/harness/harness-system.webp';
 import humanGuidedDeliveryImage from './assets/harness/human-guided-delivery.webp';
+import { SessionLoopSketch } from './components/HarnessDiagrams';
+import { fieldNotes, nextNotePrompt } from './content/fieldNotes';
+import { harnessResearch, harnessStages } from './content/harnessGuide';
 
 const email = 'JulienH15@icloud.com';
 const newsletterUrl = 'https://jewelshovan.github.io/AI-News-Reports/';
@@ -241,6 +241,8 @@ const workflowViews = {
   },
 };
 
+const heroCardPositions = ['card-fluence', 'card-pi', 'card-news'];
+
 const heroModes = [
   {
     id: 'context',
@@ -368,6 +370,8 @@ function App() {
   const [activeNoteId, setActiveNoteId] = useState(fieldNotes[0].id);
   const [activeHarnessId, setActiveHarnessId] = useState('context');
   const [activeHeroModeId, setActiveHeroModeId] = useState('context');
+  const [activeHeroCardIndex, setActiveHeroCardIndex] = useState(0);
+  const [heroOrbitPaused, setHeroOrbitPaused] = useState(false);
   const [harnessAtlasOpen, setHarnessAtlasOpen] = useState(false);
   const fieldMapPanelRef = useRef(null);
   const fieldMapTriggerRef = useRef(null);
@@ -378,6 +382,17 @@ function App() {
   useEffect(() => {
     document.title = 'Julien Hovan | AI systems, projects & field notes';
   }, []);
+
+  useEffect(() => {
+    const reduceMotion = typeof window.matchMedia === 'function'
+      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion || heroOrbitPaused) return undefined;
+
+    const orbitTimer = window.setInterval(() => {
+      setActiveHeroCardIndex((index) => (index + 1) % 3);
+    }, 3200);
+    return () => window.clearInterval(orbitTimer);
+  }, [heroOrbitPaused]);
 
   useEffect(() => {
     if (!('IntersectionObserver' in window)) return undefined;
@@ -490,7 +505,13 @@ function App() {
   const activeNote = fieldNotes.find((note) => note.id === activeNoteId) || fieldNotes[0];
   const activeHarnessStage = harnessStages.find((stage) => stage.id === activeHarnessId) || harnessStages[0];
   const activeHeroMode = heroModes.find((mode) => mode.id === activeHeroModeId) || heroModes[0];
+  const activeHeroCard = activeHeroMode.cards[activeHeroCardIndex] || activeHeroMode.cards[0];
   const activeWaypoint = waypoints.find((waypoint) => waypoint.id === activeWaypointId) || waypoints[0];
+
+  const selectHeroMode = (modeId) => {
+    setActiveHeroModeId(modeId);
+    setActiveHeroCardIndex(0);
+  };
 
   const chooseFilter = (filter) => {
     setActiveFilter(filter);
@@ -586,19 +607,32 @@ function App() {
           </div>
 
           <div className={`hero-orbital mode-${activeHeroMode.id}`}>
-            <div className="orbit-scene" id="hero-lens-panel" role="tabpanel" aria-labelledby={`hero-tab-${activeHeroMode.id}`}>
+            <div className="orbit-scene" key={activeHeroMode.id} id="hero-lens-panel" role="tabpanel" aria-labelledby={`hero-tab-${activeHeroMode.id}`}>
               <div className="orbit-glow" />
               <div className="orbit-ring orbit-ring-one" />
               <div className="orbit-ring orbit-ring-two" />
               <span className="star star-one" /><span className="star star-two" /><span className="star star-three" />
-              <div className="orbital-core"><small>current lens</small><strong>{activeHeroMode.center.map((line, index) => <React.Fragment key={line}>{line}{index < activeHeroMode.center.length - 1 && <br />}</React.Fragment>)}</strong></div>
-              <article className="orbit-card card-fluence"><span>{activeHeroMode.cards[0].index}</span><b>{activeHeroMode.cards[0].title}</b><small>{activeHeroMode.cards[0].detail}</small></article>
-              <article className="orbit-card card-pi"><span>{activeHeroMode.cards[1].index}</span><b>{activeHeroMode.cards[1].title}</b><small>{activeHeroMode.cards[1].detail}</small></article>
-              <article className="orbit-card card-news"><span>{activeHeroMode.cards[2].index}</span><b>{activeHeroMode.cards[2].title}</b><small>{activeHeroMode.cards[2].detail}</small></article>
+              <span className={`orbit-probe probe-${activeHeroCardIndex + 1}`} aria-hidden="true" />
+              <div className="orbital-core"><small>current lens</small><strong>{activeHeroMode.center.map((line, index) => <React.Fragment key={line}>{line}{index < activeHeroMode.center.length - 1 && <br />}</React.Fragment>)}</strong><span key={activeHeroCard.title}>{activeHeroCard.title}</span></div>
+              {activeHeroMode.cards.map((card, index) => (
+                <button
+                  className={`orbit-card ${heroCardPositions[index]} ${activeHeroCardIndex === index ? 'is-active' : ''}`}
+                  type="button"
+                  aria-pressed={activeHeroCardIndex === index}
+                  key={card.title}
+                  onClick={() => setActiveHeroCardIndex(index)}
+                  onFocus={() => { setActiveHeroCardIndex(index); setHeroOrbitPaused(true); }}
+                  onBlur={() => setHeroOrbitPaused(false)}
+                  onMouseEnter={() => { setActiveHeroCardIndex(index); setHeroOrbitPaused(true); }}
+                  onMouseLeave={() => setHeroOrbitPaused(false)}
+                >
+                  <span>{card.index}</span><b>{card.title}</b><small>{card.detail}</small>
+                </button>
+              ))}
               <p className="orbit-caption">{activeHeroMode.caption}</p>
             </div>
             <div className="orbit-mode-picker" role="tablist" aria-label="Choose a lens for Julien's work">
-              {heroModes.map((mode) => <button type="button" id={`hero-tab-${mode.id}`} role="tab" tabIndex={activeHeroMode.id === mode.id ? 0 : -1} aria-controls="hero-lens-panel" aria-selected={activeHeroMode.id === mode.id} className={activeHeroMode.id === mode.id ? 'active' : ''} key={mode.id} onClick={() => setActiveHeroModeId(mode.id)} onKeyDown={(event) => moveTabFocus(event, heroModes.map(({ id }) => id), activeHeroMode.id, setActiveHeroModeId, 'hero-tab')}>{mode.label}</button>)}
+              {heroModes.map((mode) => <button type="button" id={`hero-tab-${mode.id}`} role="tab" tabIndex={activeHeroMode.id === mode.id ? 0 : -1} aria-controls="hero-lens-panel" aria-selected={activeHeroMode.id === mode.id} className={activeHeroMode.id === mode.id ? 'active' : ''} key={mode.id} onClick={() => selectHeroMode(mode.id)} onKeyDown={(event) => moveTabFocus(event, heroModes.map(({ id }) => id), activeHeroMode.id, selectHeroMode, 'hero-tab')}>{mode.label}</button>)}
             </div>
           </div>
         </section>
