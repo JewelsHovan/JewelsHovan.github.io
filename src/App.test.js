@@ -152,3 +152,13 @@ test('supports keyboard control of the live sketch and reduced-motion waypoint n
   window.matchMedia = originalMatchMedia;
   window.scrollTo = originalScrollTo;
 });
+
+
+test('adds useful routes to each decorative particle mode', () => {
+  render(<App />);
+  expect(screen.getByRole('link', { name: /a bit about me/i })).toHaveAttribute('href', '#about');
+  fireEvent.click(screen.getByRole('tab', { name: 'Make' }));
+  expect(screen.getAllByRole('link', { name: /see what i make/i }).some((link) => link.classList.contains('playground-route') && link.getAttribute('href') === '#projects')).toBe(true);
+  fireEvent.click(screen.getByRole('tab', { name: 'Play' }));
+  expect(screen.getByRole('link', { name: /read my field notes/i })).toHaveAttribute('href', '#notes');
+});

@@ -553,7 +553,7 @@ function App() {
               <a className="button button-mint" href="#projects">See what I make <FiArrowDown size={18} /></a>
               <a className="soft-link" href={newsletterUrl} target="_blank" rel="noreferrer">Read my AI newsletter <FiArrowUpRight size={16} /></a>
             </div>
-            <p className="hero-sketch-note"><span>Try the sketch</span> Move through the letters and watch them settle back.</p>
+            <p className="hero-sketch-note"><span>Try the sketch</span> Disturb the letters, then follow whichever thread catches your eye.</p>
           </div>
         </section>
 

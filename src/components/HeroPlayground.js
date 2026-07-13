@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { FiArrowDown } from 'react-icons/fi';
 import './HeroPlayground.css';
 
 const sketches = [
@@ -7,18 +8,24 @@ const sketches = [
     label: 'JH',
     word: 'JH',
     note: 'A personal corner of the web.',
+    href: '#about',
+    action: 'A bit about me',
   },
   {
     id: 'make',
     label: 'Make',
     word: 'MAKE',
     note: 'Turn an idea until it becomes tangible.',
+    href: '#projects',
+    action: 'See what I make',
   },
   {
     id: 'play',
     label: 'Play',
     word: 'PLAY',
     note: 'Keep curiosity in the finished thing.',
+    href: '#notes',
+    action: 'Read my field notes',
   },
 ];
 
@@ -363,7 +370,7 @@ function HeroPlayground() {
       }}
     >
       <div className="playground-topline">
-        <p id="hero-playground-title"><span /> A small thing to play with</p>
+        <p id="hero-playground-title"><span /> Play, then follow a thread</p>
         <p>Drag through it · it settles back</p>
       </div>
 
@@ -385,6 +392,7 @@ function HeroPlayground() {
         <div className="playground-copy">
           <span>{particleCount ? `${particleCount} little points` : 'A cloud of little points'}</span>
           <p>{activeSketch.note}</p>
+          <a className="playground-route" href={activeSketch.href}>{activeSketch.action} <FiArrowDown size={13} /></a>
         </div>
         <div className="playground-modes" role="tablist" aria-label="Choose a live sketch">
           {sketches.map((sketch, index) => (

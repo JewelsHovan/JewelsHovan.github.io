@@ -274,6 +274,22 @@
   white-space: nowrap;
 }
 
+.playground-route {
+  display: inline-flex;
+  min-height: 2rem;
+  align-items: center;
+  gap: .3rem;
+  margin-top: .38rem;
+  color: var(--lime);
+  font: 500 .5rem/1 var(--mono);
+  letter-spacing: .045em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.playground-route svg { transition: transform .18s ease; }
+.playground-route:hover { color: var(--mint-pale); }
+.playground-route:hover svg { transform: translateY(2px); }
+
 .playground-modes {
   flex: 0 0 auto;
   display: inline-flex;
@@ -372,6 +388,7 @@
   .playground-footer { padding-inline: .8rem; }
   .playground-topline p:last-child { display: none; }
   .playground-copy p { max-width: min(48vw, 205px); font-size: .79rem; }
+  .playground-route { font-size: .47rem; }
   .playground-modes button { min-width: 2.75rem; min-height: 2.75rem; padding-inline: .54rem; }
 }
 
@@ -381,6 +398,7 @@
   .playground-footer { min-height: 4.3rem; gap: .5rem; padding: .65rem; }
   .playground-copy > span { font-size: .43rem; }
   .playground-copy p { max-width: 8.4rem; font-size: .73rem; }
+  .playground-route { max-width: 8.4rem; font-size: .43rem; }
   .playground-modes button { min-height: 2.75rem; padding-inline: .44rem; font-size: .47rem; }
   .playground-instruction { left: .85rem; right: .85rem; font-size: .43rem; }
 }
@@ -415,5 +433,6 @@
   .hero-playground,
   .playground-topline p:first-child span { animation: none; }
   .playground-cursor { display: none; }
-  .playground-modes button { transition: none; }
+  .playground-modes button,
+  .playground-route svg { transition: none; }
 }
