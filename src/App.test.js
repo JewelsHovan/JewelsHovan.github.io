@@ -95,7 +95,7 @@ test('keeps field-map focus inside the modal and restores it when closed', () =>
   expect(trigger).toHaveFocus();
 });
 
-test('supports arrow-key tabs and reduced-motion waypoint navigation', async () => {
+test('supports keyboard control of the live sketch and reduced-motion waypoint navigation', async () => {
   const originalMatchMedia = window.matchMedia;
   const originalScrollTo = window.scrollTo;
   window.matchMedia = jest.fn().mockImplementation((query) => ({
@@ -107,19 +107,17 @@ test('supports arrow-key tabs and reduced-motion waypoint navigation', async () 
   window.scrollTo = jest.fn();
 
   render(<App />);
-  const contextTab = screen.getByRole('tab', { name: 'Context' });
-  const harnessTab = screen.getByRole('tab', { name: 'Harness' });
-  contextTab.focus();
-  fireEvent.keyDown(contextTab, { key: 'ArrowRight' });
-  expect(harnessTab).toHaveAttribute('aria-selected', 'true');
-  await waitFor(() => expect(harnessTab).toHaveFocus());
-  expect(document.getElementById('hero-lens-panel')).toHaveAttribute('aria-labelledby', 'hero-tab-harness');
-  const piCard = screen.getByRole('button', { name: /pi ecosystem/i });
-  const workshopCard = screen.getByRole('button', { name: /workshop/i });
-  expect(piCard).toHaveAttribute('aria-pressed', 'true');
-  fireEvent.click(workshopCard);
-  expect(workshopCard).toHaveAttribute('aria-pressed', 'true');
-  expect(piCard).toHaveAttribute('aria-pressed', 'false');
+  const monogramTab = screen.getByRole('tab', { name: 'JH' });
+  const makeTab = screen.getByRole('tab', { name: 'Make' });
+  act(() => monogramTab.focus());
+  fireEvent.keyDown(monogramTab, { key: 'ArrowRight' });
+  expect(makeTab).toHaveAttribute('aria-selected', 'true');
+  await waitFor(() => expect(makeTab).toHaveFocus());
+  expect(document.getElementById('hero-sketch-panel')).toHaveAttribute('aria-labelledby', 'hero-sketch-tab-make');
+  const sketch = screen.getByRole('button', { name: /interactive particle sketch showing make/i });
+  fireEvent.click(sketch);
+  expect(screen.getByRole('tab', { name: 'Play' })).toHaveAttribute('aria-selected', 'true');
+  expect(screen.getByRole('button', { name: /interactive particle sketch showing play/i })).toBeInTheDocument();
 
   fireEvent.click(screen.getByRole('button', { name: /^open field map$/i }));
   fireEvent.click(screen.getByRole('link', { name: /a bit more/i }));

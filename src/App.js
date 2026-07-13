@@ -16,6 +16,7 @@ import externalizedCapabilityImage from './assets/harness/externalized-capabilit
 import harnessSystemImage from './assets/harness/harness-system.webp';
 import humanGuidedDeliveryImage from './assets/harness/human-guided-delivery.webp';
 import { SessionLoopSketch } from './components/HarnessDiagrams';
+import HeroPlayground from './components/HeroPlayground';
 import { fieldNotes, nextNotePrompt } from './content/fieldNotes';
 import { harnessResearch, harnessStages } from './content/harnessGuide';
 
@@ -241,44 +242,6 @@ const workflowViews = {
   },
 };
 
-const heroCardPositions = ['card-fluence', 'card-pi', 'card-news'];
-
-const heroModes = [
-  {
-    id: 'context',
-    label: 'Context',
-    center: ['assembling', 'useful', 'context'],
-    cards: [
-      { index: '01', title: 'Fluence', detail: 'context that sticks' },
-      { index: '02', title: 'Compass Hub', detail: 'memory + practice' },
-      { index: '03', title: 'LCO Project OS', detail: 'work close to delivery' },
-    ],
-    caption: 'Follow the context, not the noise.',
-  },
-  {
-    id: 'harness',
-    label: 'Harness',
-    center: ['building', 'the', 'harness'],
-    cards: [
-      { index: '01', title: 'Pi ecosystem', detail: 'skills, tools + memory' },
-      { index: '02', title: 'Workshop', detail: 'make the system visible' },
-      { index: '03', title: 'Verify', detail: 'proof over reassurance' },
-    ],
-    caption: 'Ambiguity is the enemy. A harness makes work legible.',
-  },
-  {
-    id: 'people',
-    label: 'People',
-    center: ['making', 'room', 'for people'],
-    cards: [
-      { index: '01', title: 'Luccas agent', detail: 'an idea to a preview' },
-      { index: '02', title: 'AI News', detail: 'research made shareable' },
-      { index: '03', title: 'Field Notes', detail: 'thinking out loud' },
-    ],
-    caption: 'Useful systems leave people more agency.',
-  },
-];
-
 const waypoints = [
   { id: 'top', index: '00', label: 'Start', detail: 'the front door' },
   { id: 'now', index: '01', label: 'In motion', detail: 'what I am exploring' },
@@ -369,9 +332,6 @@ function App() {
   const [activeWorkflow, setActiveWorkflow] = useState('context');
   const [activeNoteId, setActiveNoteId] = useState(fieldNotes[0].id);
   const [activeHarnessId, setActiveHarnessId] = useState('context');
-  const [activeHeroModeId, setActiveHeroModeId] = useState('context');
-  const [activeHeroCardIndex, setActiveHeroCardIndex] = useState(0);
-  const [heroOrbitPaused, setHeroOrbitPaused] = useState(false);
   const [harnessAtlasOpen, setHarnessAtlasOpen] = useState(false);
   const fieldMapPanelRef = useRef(null);
   const fieldMapTriggerRef = useRef(null);
@@ -382,17 +342,6 @@ function App() {
   useEffect(() => {
     document.title = 'Julien Hovan | AI systems, projects & field notes';
   }, []);
-
-  useEffect(() => {
-    const reduceMotion = typeof window.matchMedia === 'function'
-      && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduceMotion || heroOrbitPaused) return undefined;
-
-    const orbitTimer = window.setInterval(() => {
-      setActiveHeroCardIndex((index) => (index + 1) % 3);
-    }, 3200);
-    return () => window.clearInterval(orbitTimer);
-  }, [heroOrbitPaused]);
 
   useEffect(() => {
     if (!('IntersectionObserver' in window)) return undefined;
@@ -504,14 +453,7 @@ function App() {
   const activeView = workflowViews[activeWorkflow];
   const activeNote = fieldNotes.find((note) => note.id === activeNoteId) || fieldNotes[0];
   const activeHarnessStage = harnessStages.find((stage) => stage.id === activeHarnessId) || harnessStages[0];
-  const activeHeroMode = heroModes.find((mode) => mode.id === activeHeroModeId) || heroModes[0];
-  const activeHeroCard = activeHeroMode.cards[activeHeroCardIndex] || activeHeroMode.cards[0];
   const activeWaypoint = waypoints.find((waypoint) => waypoint.id === activeWaypointId) || waypoints[0];
-
-  const selectHeroMode = (modeId) => {
-    setActiveHeroModeId(modeId);
-    setActiveHeroCardIndex(0);
-  };
 
   const chooseFilter = (filter) => {
     setActiveFilter(filter);
@@ -594,46 +536,22 @@ function App() {
 
       <main id="main-content" tabIndex={-1}>
         <section className="hero section-wrap" id="top">
-          <div className="hero-copy">
+          <div className="hero-copy hero-intro">
             <p className="eyebrow"><span className="pulse-dot" /> Things I&apos;m working on</p>
             <h1>I build useful systems and make <em>odd little things.</em></h1>
-            <p className="hero-summary">
-              Hi, I&apos;m Julien—an AI engineer and systems builder. I came up through data engineering and software engineering, and now lead software delivery at Compass Data while helping shape how we work with AI. Outside work, I make things because I want to understand them better. This is where the projects, research rabbit holes, and half-finished ideas end up.
-            </p>
-            <div className="hero-actions">
-              <a className="button button-mint" href="#projects">See the work <FiArrowDown size={18} /></a>
-              <a className="soft-link" href={newsletterUrl} target="_blank" rel="noreferrer">Read my AI newsletter <FiArrowUpRight size={16} /></a>
-            </div>
           </div>
 
-          <div className={`hero-orbital mode-${activeHeroMode.id}`}>
-            <div className="orbit-scene" key={activeHeroMode.id} id="hero-lens-panel" role="tabpanel" aria-labelledby={`hero-tab-${activeHeroMode.id}`}>
-              <div className="orbit-glow" />
-              <div className="orbit-ring orbit-ring-one" />
-              <div className="orbit-ring orbit-ring-two" />
-              <span className="star star-one" /><span className="star star-two" /><span className="star star-three" />
-              <span className={`orbit-probe probe-${activeHeroCardIndex + 1}`} aria-hidden="true" />
-              <div className="orbital-core"><small>current lens</small><strong>{activeHeroMode.center.map((line, index) => <React.Fragment key={line}>{line}{index < activeHeroMode.center.length - 1 && <br />}</React.Fragment>)}</strong><span key={activeHeroCard.title}>{activeHeroCard.title}</span></div>
-              {activeHeroMode.cards.map((card, index) => (
-                <button
-                  className={`orbit-card ${heroCardPositions[index]} ${activeHeroCardIndex === index ? 'is-active' : ''}`}
-                  type="button"
-                  aria-pressed={activeHeroCardIndex === index}
-                  key={card.title}
-                  onClick={() => setActiveHeroCardIndex(index)}
-                  onFocus={() => { setActiveHeroCardIndex(index); setHeroOrbitPaused(true); }}
-                  onBlur={() => setHeroOrbitPaused(false)}
-                  onMouseEnter={() => { setActiveHeroCardIndex(index); setHeroOrbitPaused(true); }}
-                  onMouseLeave={() => setHeroOrbitPaused(false)}
-                >
-                  <span>{card.index}</span><b>{card.title}</b><small>{card.detail}</small>
-                </button>
-              ))}
-              <p className="orbit-caption">{activeHeroMode.caption}</p>
+          <HeroPlayground />
+
+          <div className="hero-copy hero-support">
+            <p className="hero-summary">
+              Hi, I&apos;m Julien—an AI engineer who came up through software and data. I build useful systems for people, then come here to experiment, make strange things, and keep learning in public.
+            </p>
+            <div className="hero-actions">
+              <a className="button button-mint" href="#projects">Explore the garden <FiArrowDown size={18} /></a>
+              <a className="soft-link" href={newsletterUrl} target="_blank" rel="noreferrer">Read my AI newsletter <FiArrowUpRight size={16} /></a>
             </div>
-            <div className="orbit-mode-picker" role="tablist" aria-label="Choose a lens for Julien's work">
-              {heroModes.map((mode) => <button type="button" id={`hero-tab-${mode.id}`} role="tab" tabIndex={activeHeroMode.id === mode.id ? 0 : -1} aria-controls="hero-lens-panel" aria-selected={activeHeroMode.id === mode.id} className={activeHeroMode.id === mode.id ? 'active' : ''} key={mode.id} onClick={() => selectHeroMode(mode.id)} onKeyDown={(event) => moveTabFocus(event, heroModes.map(({ id }) => id), activeHeroMode.id, selectHeroMode, 'hero-tab')}>{mode.label}</button>)}
-            </div>
+            <p className="hero-sketch-note"><span>Try the sketch</span> Disturb the type. It finds its way home.</p>
           </div>
         </section>
 
