@@ -11,11 +11,13 @@ import {
   FiX,
 } from 'react-icons/fi';
 import './App.css';
-import discoveryLoopImage from './assets/harness/discovery-loop.webp';
-import externalizedCapabilityImage from './assets/harness/externalized-capability.webp';
-import harnessSystemImage from './assets/harness/harness-system.webp';
-import humanGuidedDeliveryImage from './assets/harness/human-guided-delivery.webp';
-import { SessionLoopSketch } from './components/HarnessDiagrams';
+import {
+  CapabilityBridgeSketch,
+  DeliveryLoopSketch,
+  DiscoveryLoopSketch,
+  HarnessMapSketch,
+  SessionLoopSketch,
+} from './components/HarnessDiagrams';
 import HeroPlayground from './components/HeroPlayground';
 import { fieldNotes, nextNotePrompt } from './content/fieldNotes';
 import { harnessResearch, harnessStages } from './content/harnessGuide';
@@ -253,13 +255,13 @@ const waypoints = [
   { id: 'about', index: '07', label: 'A bit more', detail: 'who I am beyond the projects' },
 ];
 
-function GeneratedDiagram({ alt, image, notes = [], variant }) {
+function GeneratedDiagram({ children, notes = [], variant }) {
   return (
     <div className="atlas-visual-block">
       <p className="diagram-pan-hint">Swipe sideways to inspect the diagram.</p>
       {/* biome-ignore lint/a11y/noNoninteractiveTabindex: Horizontal diagrams need a keyboard-scrollable viewport. */}
       <section className={`generated-diagram generated-diagram--${variant}`} tabIndex={0} aria-label="Scrollable teaching diagram">
-        <img src={image} alt={alt} loading="eager" />
+        {children}
       </section>
       {notes.length > 0 && <ul className="atlas-callouts">{notes.map((note) => <li key={note}><span />{note}</li>)}</ul>}
     </div>
@@ -833,10 +835,10 @@ function App() {
           <section className="harness-atlas" ref={atlasDialogRef} role="dialog" aria-modal="true" aria-labelledby="harness-atlas-title" aria-describedby="harness-atlas-description">
             <header className="atlas-header"><div><p className="eyebrow">A closer look</p><h2 id="harness-atlas-title">The harness atlas</h2><p id="harness-atlas-description">Four diagrams that show how I think about AI work: give it context, keep it understandable, check the result, and leave a useful trail for the next person.</p></div><button type="button" onClick={closeHarnessAtlas} aria-label="Close the diagram atlas"><FiX size={20} /><span>Close</span></button></header>
             <div className="atlas-plates">
-              <figure className="atlas-plate"><figcaption><span>Plate 01 · Around the model</span><h3>The model is one part of the system.</h3><p>It also needs memory, tools, clear boundaries, ways to check its work, and a person who can stay in control.</p></figcaption><GeneratedDiagram variant="harness" image={harnessSystemImage} alt="A circular harness diagram with six labelled areas surrounding a central model core: Memory, Skills + Tools, Observability, Permissions, Human Control, and Protocols." notes={['A model should not get to choose its own boundaries.', 'A person should be able to see what the system did.']} /></figure>
-              <figure className="atlas-plate"><figcaption><span>Plate 02 · Shared work</span><h3>Uncertainty needs conversation.</h3><p>When a request is unclear, it helps to investigate, ask questions, make a plan, and look at it together before the costly work begins.</p></figcaption><GeneratedDiagram variant="discovery" image={discoveryLoopImage} alt="A five-stage discovery and planning flow: Discover, Clarify, Plan, Review, Ready, with arrows showing clarification and revision loops." notes={['An unclear detail is a reason to ask, not to guess.', 'It is much easier to change a plan than rebuild the wrong thing.']} /></figure>
-              <figure className="atlas-plate"><figcaption><span>Plate 03 · Shared knowledge</span><h3>Make a useful idea easy to pass on.</h3><p>People have always used writing, records, and tools to share what they know. AI systems also need memory and reusable instructions, but they should not hide the human choices behind them.</p></figcaption><GeneratedDiagram variant="externalization" image={externalizedCapabilityImage} alt="Two parallel timelines: Human externalization (Thought, Writing, Records, Tools, Data) and Agentic externalization (Model, Memory, Skills, Protocols, Harness), connected by flows of knowledge." notes={['Write down enough for another person to understand the idea.', 'Reuse what works without erasing who made the decision.']} /></figure>
-              <figure className="atlas-plate"><figcaption><span>Plate 04 · Staying involved</span><h3>Keep people present at the important moments.</h3><p>A plain-language request can become a plan, a manageable change, something visible to review, and then a real choice about what happens next.</p></figcaption><GeneratedDiagram variant="delivery" image={humanGuidedDeliveryImage} alt="A six-stage delivery pipeline with a human guide connected to every stage: Need, Shared Spec, Design, Scoped Work, Evidence, Handoff." notes={['People can clarify, redirect, review, and approve along the way.', 'A checked result is more useful than a confident answer.']} /></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 01 · Around the model</span><h3>The model is one part of the system.</h3><p>It also needs memory, tools, clear boundaries, ways to check its work, and a person who can stay in control.</p></figcaption><GeneratedDiagram variant="harness" notes={['A model should not get to choose its own boundaries.', 'A person should be able to see what the system did.']}><HarnessMapSketch id="atlas-harness-map" /></GeneratedDiagram></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 02 · Shared work</span><h3>Uncertainty needs conversation.</h3><p>When a request is unclear, it helps to investigate, ask questions, make a plan, and look at it together before the costly work begins.</p></figcaption><GeneratedDiagram variant="discovery" notes={['An unclear detail is a reason to ask, not to guess.', 'It is much easier to change a plan than rebuild the wrong thing.']}><DiscoveryLoopSketch id="atlas-discovery-loop" /></GeneratedDiagram></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 03 · Shared knowledge</span><h3>Make a useful idea easy to pass on.</h3><p>People have always used writing, records, and tools to share what they know. AI systems also need memory and reusable instructions, but they should not hide the human choices behind them.</p></figcaption><GeneratedDiagram variant="externalization" notes={['Write down enough for another person to understand the idea.', 'Reuse what works without erasing who made the decision.']}><CapabilityBridgeSketch id="atlas-capability-bridge" /></GeneratedDiagram></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 04 · Staying involved</span><h3>Keep people present at the important moments.</h3><p>A plain-language request can become a plan, a manageable change, something visible to review, and then a real choice about what happens next.</p></figcaption><GeneratedDiagram variant="delivery" notes={['People can clarify, redirect, review, and approve along the way.', 'A checked result is more useful than a confident answer.']}><DeliveryLoopSketch id="atlas-delivery-loop" /></GeneratedDiagram></figure>
             </div>
             <footer className="atlas-footer"><span>These diagrams are how I explain the ideas today. They are allowed to change.</span><button type="button" onClick={closeHarnessAtlas}>Back to the garden <FiArrowDown size={15} /></button></footer>
           </section>

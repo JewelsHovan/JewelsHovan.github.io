@@ -30,6 +30,13 @@ function prefersReducedMotion() {
     && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+function sendTactileFeedback(duration = 8) {
+  if (prefersReducedMotion()) return;
+  if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') {
+    navigator.vibrate(duration);
+  }
+}
+
 function sampleWord(word, width, height) {
   const buffer = document.createElement('canvas');
   buffer.width = Math.max(1, Math.floor(width));
@@ -234,13 +241,13 @@ function HeroPlayground() {
       rebuild();
     };
 
-    const burst = (originX = width / 2, originY = height / 2) => {
+    const burst = (originX = width / 2, originY = height / 2, intensity = 1) => {
       if (reduceMotion) return;
       particles.forEach((particle, index) => {
         const dx = particle.x - originX;
         const dy = particle.y - originY;
         const distance = Math.max(18, Math.sqrt(dx * dx + dy * dy));
-        const kick = 3.3 + (index % 13) * 0.14;
+        const kick = (3.3 + (index % 13) * 0.14) * intensity;
         particle.velocityX += (dx / distance) * kick;
         particle.velocityY += (dy / distance) * kick;
       });
@@ -282,12 +289,22 @@ function HeroPlayground() {
       }
     };
 
+    const pressPointer = (event) => {
+      setPointer(event);
+      if (event.pointerType === 'touch' || event.pointerType === 'pen') {
+        burst(pointer.x, pointer.y, 0.38);
+      }
+    };
+
     const clearPointer = () => {
       pointer.active = false;
       if (cursorRef.current) cursorRef.current.dataset.visible = 'false';
     };
 
+    stage.addEventListener('pointerdown', pressPointer);
     stage.addEventListener('pointermove', setPointer);
+    stage.addEventListener('pointerup', clearPointer);
+    stage.addEventListener('pointercancel', clearPointer);
     stage.addEventListener('pointerleave', clearPointer);
 
     return () => {
@@ -295,7 +312,10 @@ function HeroPlayground() {
       observer?.disconnect();
       visibilityObserver?.disconnect();
       window.removeEventListener('resize', resize);
+      stage.removeEventListener('pointerdown', pressPointer);
       stage.removeEventListener('pointermove', setPointer);
+      stage.removeEventListener('pointerup', clearPointer);
+      stage.removeEventListener('pointercancel', clearPointer);
       stage.removeEventListener('pointerleave', clearPointer);
       if (frameId) window.cancelAnimationFrame(frameId);
       rebuildRef.current = null;
@@ -304,13 +324,17 @@ function HeroPlayground() {
   }, [reduceMotion]);
 
   const selectSketch = (index, shouldBurst = true) => {
-    if (shouldBurst) burstRef.current?.();
+    if (shouldBurst) {
+      burstRef.current?.();
+      sendTactileFeedback(8);
+    }
     setActiveIndex(index);
   };
 
   const cycleSketch = (event) => {
     const bounds = event.currentTarget.getBoundingClientRect();
     burstRef.current?.(event.clientX ? event.clientX - bounds.left : undefined, event.clientY ? event.clientY - bounds.top : undefined);
+    sendTactileFeedback(12);
     setActiveIndex((index) => (index + 1) % sketches.length);
   };
 
@@ -340,7 +364,7 @@ function HeroPlayground() {
     >
       <div className="playground-topline">
         <p id="hero-playground-title"><span /> A small thing to play with</p>
-        <p>Move it around · it settles back</p>
+        <p>Drag through it · it settles back</p>
       </div>
 
       <div className="playground-stage" id="hero-sketch-panel" role="tabpanel" aria-labelledby={`hero-sketch-tab-${activeSketch.id}`} ref={stageRef}>
@@ -354,7 +378,7 @@ function HeroPlayground() {
           <span className="sr-only">Recompose the particle sketch</span>
         </button>
         <span className="playground-cursor" ref={cursorRef} data-visible="false" aria-hidden="true"><i /></span>
-        <p className="playground-instruction" aria-hidden="true"><span>Move through it</span><span>Click to recompose</span></p>
+        <p className="playground-instruction" aria-hidden="true"><span>Drag through the dots</span><span>Tap to reshape</span></p>
       </div>
 
       <div className="playground-footer">

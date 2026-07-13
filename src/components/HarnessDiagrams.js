@@ -1,155 +1,236 @@
-import React from 'react';
+const toneClass = (tone) => `diagram-node diagram-node--${tone}`;
 
-const nodeRotations = [-1.4, 1.2, -.8, 1.5, -.9, 1.1];
-
-function SketchNode({ x, y, index, title, note, tone = 'default', width = 132 }) {
-  const rotation = nodeRotations[index % nodeRotations.length];
-  return (
-    <g className={`sketch-node sketch-node--${tone}`} transform={`translate(${x} ${y}) rotate(${rotation})`}>
-      <rect width={width} height="66" rx="2" />
-      <rect className="sketch-node-echo" x="3" y="3" width={width - 2} height="64" rx="2" />
-      <text className="sketch-node-index" x="12" y="18">{String(index + 1).padStart(2, '0')}</text>
-      <text className="sketch-node-title" x="12" y="39">{title}</text>
-      <text className="sketch-node-note" x="12" y="54">{note}</text>
-    </g>
-  );
-}
-
-function ArrowDefs({ markerId }) {
+function DiagramDefs({ id }) {
   return (
     <defs>
-      <marker id={markerId} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-        <path d="M 0 0 L 10 5 L 0 10 z" />
+      <pattern id={`${id}-grid`} width="24" height="24" patternUnits="userSpaceOnUse">
+        <path d="M24 0H0V24" className="diagram-grid-line" />
+      </pattern>
+      <marker id={`${id}-arrow`} viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M0 0 10 5 0 10Z" className="diagram-arrow-head" />
       </marker>
+      <filter id={`${id}-glow`} x="-60%" y="-60%" width="220%" height="220%">
+        <feGaussianBlur stdDeviation="5" />
+      </filter>
     </defs>
   );
 }
 
-function SketchLine({ d, markerId, loop = false, reverse = false }) {
-  return <><path className={`sketch-line ${loop ? 'sketch-line--loop' : ''}`} d={d} markerEnd={`url(#${markerId})`} markerStart={reverse ? `url(#${markerId})` : undefined} /><path className="sketch-line-echo" d={d} /></>;
+function DiagramFrame({ id, label }) {
+  return (
+    <>
+      <rect className="diagram-surface" x="1" y="1" width="898" height="348" />
+      <rect className="diagram-grid" x="1" y="1" width="898" height="348" fill={`url(#${id}-grid)`} />
+      <path className="diagram-corner" d="M22 44V22H44 M856 22H878V44 M22 306V328H44 M856 328H878V306" />
+      <text className="diagram-plate-label" x="34" y="42">{label}</text>
+    </>
+  );
+}
+
+function FlowPath({ id, d, returnPath = false, muted = false }) {
+  return (
+    <path
+      className={`diagram-flow${returnPath ? ' diagram-flow--return' : ''}${muted ? ' diagram-flow--muted' : ''}`}
+      d={d}
+      markerEnd={`url(#${id}-arrow)`}
+    />
+  );
+}
+
+function Node({ x, y, width = 132, height = 66, step, title, note, tone = 'aqua', align = 'left' }) {
+  const textX = align === 'center' ? width / 2 : 14;
+  return (
+    <g className={toneClass(tone)} transform={`translate(${x} ${y})`}>
+      <rect className="diagram-node-halo" x="-5" y="-5" width={width + 10} height={height + 10} />
+      <rect className="diagram-node-body" width={width} height={height} />
+      <path className="diagram-node-rule" d={`M0 23H${width}`} />
+      <text className="diagram-node-step" x={align === 'center' ? width / 2 : 14} y="16" textAnchor={align === 'center' ? 'middle' : 'start'}>{step}</text>
+      <text className="diagram-node-title" x={textX} y="43" textAnchor={align === 'center' ? 'middle' : 'start'}>{title}</text>
+      <text className="diagram-node-note" x={textX} y="57" textAnchor={align === 'center' ? 'middle' : 'start'}>{note}</text>
+    </g>
+  );
+}
+
+function Gate({ x, y, label, note, tone = 'lime' }) {
+  return (
+    <g className={`diagram-gate diagram-gate--${tone}`} transform={`translate(${x} ${y})`}>
+      <path className="diagram-gate-halo" d="M0 -30 42 0 0 30 -42 0Z" />
+      <path className="diagram-gate-body" d="M0 -25 35 0 0 25 -35 0Z" />
+      <text className="diagram-gate-title" x="0" y="-2" textAnchor="middle">{label}</text>
+      <text className="diagram-gate-note" x="0" y="11" textAnchor="middle">{note}</text>
+    </g>
+  );
 }
 
 export function SessionLoopSketch({ id = 'session-loop', className = '' }) {
-  const markerId = `${id}-arrow`;
   return (
-    <svg className={`diagram-svg ${className}`} viewBox="0 0 900 330" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
-      <title id={`${id}-title`}>A legible request-to-handoff loop</title>
-      <desc id={`${id}-desc`}>A human need becomes an explicit ticket, selected context, bounded work, visible evidence, and a handoff that makes the next step clearer.</desc>
-      <ArrowDefs markerId={markerId} />
-      <path className="sketch-guide" d="M72 162 C190 52 360 52 464 148 S690 256 817 130" />
-      <SketchLine markerId={markerId} d="M166 170 C188 117 214 103 244 94" />
-      <SketchLine markerId={markerId} d="M385 94 C408 113 427 127 451 145" />
-      <SketchLine markerId={markerId} d="M587 161 C616 129 644 107 679 94" />
-      <SketchLine markerId={markerId} d="M751 135 C753 171 731 196 706 221" />
-      <SketchLine markerId={markerId} d="M581 245 C469 286 318 286 165 225" loop />
-      <SketchNode x={36} y={145} index={0} title="Need" note="person + outcome" tone="warm" />
-      <SketchNode x={244} y={58} index={1} title="Ticket" note="criteria + risk" tone="mint" />
-      <SketchNode x={451} y={133} index={2} title="Context" note="rules + decisions" tone="aqua" />
-      <SketchNode x={657} y={58} index={3} title="Work" note="people + tools" tone="violet" />
-      <SketchNode x={643} y={211} index={4} title="Evidence" note="tests + preview" tone="lime" />
-      <SketchNode x={256} y={211} index={5} title="Handoff" note="status + lesson" tone="coral" />
-      <text className="sketch-whisper" x="352" y="315">the work should be clearer at the end than at the start</text>
+    <svg className={`diagram-svg diagram-svg--schematic ${className}`} viewBox="0 0 900 350" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
+      <title id={`${id}-title`}>From a human need to a useful handoff</title>
+      <desc id={`${id}-desc`}>A six-step loop connects a need to a clear request, selected context, bounded work, visible evidence, and a handoff. The handoff feeds what was learned into the next need.</desc>
+      <DiagramDefs id={id} />
+      <DiagramFrame id={id} label="REQUEST → HANDOFF / ONE TRACEABLE LOOP" />
+      <FlowPath id={id} d="M159 174H221" />
+      <FlowPath id={id} d="M353 174H415" />
+      <FlowPath id={id} d="M547 174H609" />
+      <FlowPath id={id} d="M741 174H790" />
+      <FlowPath id={id} d="M806 224C749 303 212 303 94 224" returnPath />
+      <Node x={35} y={141} step="01 / NEED" title="Need" note="person + outcome" tone="coral" />
+      <Node x={221} y={141} step="02 / REQUEST" title="Make it clear" note="scope + risk" tone="mint" />
+      <Node x={415} y={141} step="03 / CONTEXT" title="Gather" note="rules + decisions" tone="aqua" />
+      <Node x={609} y={141} step="04 / WORK" title="Do the work" note="people + tools" tone="violet" />
+      <Node x={768} y={141} width={100} step="05 / CHECK" title="Evidence" note="tests + preview" tone="lime" />
+      <g transform="translate(350 263)">
+        <rect className="diagram-caption-box" width="200" height="38" />
+        <text className="diagram-caption-title" x="100" y="16" textAnchor="middle">06 / HANDOFF</text>
+        <text className="diagram-caption-note" x="100" y="29" textAnchor="middle">status + lesson + next step</text>
+      </g>
     </svg>
   );
 }
 
 export function HarnessMapSketch({ id = 'harness-map', className = '' }) {
-  const markerId = `${id}-arrow`;
+  const modules = [
+    { x: 68, y: 82, title: 'Intent', note: 'purpose + boundary', tone: 'coral' },
+    { x: 68, y: 210, title: 'Context', note: 'rules + memory', tone: 'mint' },
+    { x: 700, y: 82, title: 'Tools', note: 'allowed actions', tone: 'aqua' },
+    { x: 700, y: 210, title: 'Evidence', note: 'tests + traces', tone: 'violet' },
+  ];
   return (
-    <svg className={`diagram-svg ${className}`} viewBox="0 0 900 350" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
-      <title id={`${id}-title`}>The model sits inside a designed harness</title>
-      <desc id={`${id}-desc`}>A model is surrounded by the intent, curated context, bounded tools, evidence, durable memory, and human judgment that make a system dependable.</desc>
-      <ArrowDefs markerId={markerId} />
-      <path className="sketch-guide" d="M72 114 C220 7 671 5 834 115 M72 239 C219 344 677 345 835 239" />
-      <SketchLine markerId={markerId} d="M176 95 C254 108 303 128 376 160" />
-      <SketchLine markerId={markerId} d="M697 95 C620 108 568 127 526 160" />
-      <SketchLine markerId={markerId} d="M176 250 C252 237 309 211 376 188" />
-      <SketchLine markerId={markerId} d="M526 190 C593 213 646 238 697 250" />
-      <SketchLine markerId={markerId} d="M450 250 C450 239 450 228 450 217" loop />
-      <SketchNode x={44} y={61} index={0} title="Intent" note="outcome + boundary" tone="warm" />
-      <SketchNode x={690} y={61} index={1} title="Context" note="rules + memory" tone="mint" />
-      <SketchNode x={44} y={218} index={2} title="Capabilities" note="skills + tools" tone="aqua" />
-      <SketchNode x={690} y={218} index={3} title="Proof" note="tests + preview" tone="violet" />
-      <SketchNode x={384} y={150} index={4} title="Model" note="one instrument" tone="lime" />
-      <SketchNode x={384} y={250} index={5} title="Judgment" note="human decides" tone="coral" />
-      <text className="sketch-whisper" x="298" y="337">the harness is the operating system around the model</text>
+    <svg className={`diagram-svg diagram-svg--schematic ${className}`} viewBox="0 0 900 350" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
+      <title id={`${id}-title`}>The model is one part of a larger system</title>
+      <desc id={`${id}-desc`}>A model core receives intent and selected context, can use bounded tools, produces evidence, and remains inside a human decision boundary.</desc>
+      <DiagramDefs id={id} />
+      <DiagramFrame id={id} label="SYSTEM MAP / CONTROL FLOWS INWARD, EVIDENCE FLOWS OUT" />
+      <rect className="diagram-boundary" x="247" y="61" width="406" height="234" rx="117" />
+      <text className="diagram-boundary-label" x="450" y="80" textAnchor="middle">HUMAN DECISION BOUNDARY</text>
+      <circle className="diagram-core-glow" cx="450" cy="178" r="75" filter={`url(#${id}-glow)`} />
+      <circle className="diagram-core-ring diagram-core-ring--outer" cx="450" cy="178" r="80" />
+      <circle className="diagram-core-ring" cx="450" cy="178" r="55" />
+      <circle className="diagram-core" cx="450" cy="178" r="37" />
+      <text className="diagram-core-kicker" x="450" y="172" textAnchor="middle">ONE INSTRUMENT</text>
+      <text className="diagram-core-title" x="450" y="191" textAnchor="middle">MODEL</text>
+      <FlowPath id={id} d="M200 115C285 115 330 140 371 161" />
+      <FlowPath id={id} d="M200 243C285 243 330 218 371 196" />
+      <FlowPath id={id} d="M529 161C574 139 616 115 700 115" />
+      <FlowPath id={id} d="M529 196C575 218 617 243 700 243" />
+      {modules.map((module, index) => <Node key={module.title} x={module.x} y={module.y} step={`0${index + 1} / ${module.title.toUpperCase()}`} title={module.title} note={module.note} tone={module.tone} />)}
+      <g className="diagram-human-key" transform="translate(363 287)">
+        <circle cx="10" cy="10" r="5" />
+        <path d="M10 15V25M3 34C4 25 16 25 17 34" />
+        <text x="30" y="15">A person can inspect, stop, or redirect the system</text>
+      </g>
     </svg>
   );
 }
 
-export function TicketHandoffSketch({ id = 'ticket-handoff', className = '' }) {
-  const markerId = `${id}-arrow`;
+export function DiscoveryLoopSketch({ id = 'discovery-loop', className = '' }) {
+  const stages = [
+    { x: 34, title: 'Need', note: 'what should change?', tone: 'coral' },
+    { x: 198, title: 'Explore', note: 'facts + unknowns', tone: 'mint' },
+    { x: 362, title: 'Clarify', note: 'ask, do not guess', tone: 'aqua' },
+    { x: 526, title: 'Plan', note: 'scope + sequence', tone: 'violet' },
+    { x: 690, title: 'Ready', note: 'shared next step', tone: 'lime' },
+  ];
   return (
-    <svg className={`diagram-svg ${className}`} viewBox="0 0 900 350" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
-      <title id={`${id}-title`}>A ticket becomes shared working context</title>
-      <desc id={`${id}-desc`}>A piece of work gains outcome, constraints, risks, a plan, evidence, and a completion lesson. It can then support different views of the same shared work.</desc>
-      <ArrowDefs markerId={markerId} />
-      <path className="sketch-guide" d="M68 217 C221 62 583 63 830 209" />
-      <SketchLine markerId={markerId} d="M171 149 C190 149 205 149 226 149" />
-      <SketchLine markerId={markerId} d="M359 149 C380 149 394 149 415 149" />
-      <SketchLine markerId={markerId} d="M548 149 C569 149 583 149 604 149" />
-      <SketchLine markerId={markerId} d="M737 149 C758 149 771 149 791 149" />
-      <SketchLine markerId={markerId} d="M292 216 C292 241 292 254 292 270" loop />
-      <SketchLine markerId={markerId} d="M480 216 C480 241 480 254 480 270" loop />
-      <SketchLine markerId={markerId} d="M668 216 C668 241 668 254 668 270" loop />
-      <SketchNode x={39} y={116} index={0} title="Outcome" note="what changes" tone="warm" />
-      <SketchNode x={226} y={116} index={1} title="Explore" note="risks + unknowns" tone="mint" />
-      <SketchNode x={415} y={116} index={2} title="Plan" note="scope + sequence" tone="aqua" />
-      <SketchNode x={604} y={116} index={3} title="Evidence" note="what proves it" tone="violet" />
-      <SketchNode x={791} y={116} index={4} title="Handoff" note="what we learned" tone="lime" width={100} />
-      <SketchNode x={226} y={268} index={5} title="Flow view" note="now / next / blocked" tone="coral" />
-      <SketchNode x={414} y={268} index={6} title="Priority view" note="value + urgency" tone="warm" />
-      <SketchNode x={603} y={268} index={7} title="Build view" note="decisions + proof" tone="mint" />
-      <text className="sketch-whisper" x="256" y="342">one work record, many useful ways to see it</text>
+    <svg className={`diagram-svg diagram-svg--schematic ${className}`} viewBox="0 0 900 350" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
+      <title id={`${id}-title`}>Uncertainty becomes a shared plan through discovery</title>
+      <desc id={`${id}-desc`}>A need moves through exploration, clarification, and planning. A human review gate either marks it ready or sends it back to clarify the question.</desc>
+      <DiagramDefs id={id} />
+      <DiagramFrame id={id} label="DISCOVERY LOOP / QUESTIONS ARE PART OF THE WORK" />
+      <path className="diagram-lane" d="M92 174H806" />
+      {stages.slice(0, -1).map((stage, index) => <FlowPath key={stage.title} id={id} d={`M${stage.x + 132} 174H${stages[index + 1].x}`} />)}
+      {stages.map((stage, index) => <Node key={stage.title} x={stage.x} y={141} step={`0${index + 1} / ${stage.title.toUpperCase()}`} title={stage.title} note={stage.note} tone={stage.tone} />)}
+      <FlowPath id={id} d="M756 141C744 72 619 67 592 132" returnPath />
+      <text className="diagram-loop-label" x="680" y="80" textAnchor="middle">REVIEW: WHAT IS STILL UNCLEAR?</text>
+      <FlowPath id={id} d="M428 207C407 280 256 280 264 207" returnPath />
+      <text className="diagram-loop-label" x="344" y="283" textAnchor="middle">NEW INFORMATION CHANGES THE PLAN</text>
+      <g className="diagram-status-key" transform="translate(682 299)">
+        <circle className="status-ask" cx="7" cy="7" r="5" /><text x="18" y="10">ask</text>
+        <circle className="status-agree" cx="72" cy="7" r="5" /><text x="83" y="10">agree</text>
+        <circle className="status-ready" cx="145" cy="7" r="5" /><text x="156" y="10">ready</text>
+      </g>
     </svg>
   );
 }
 
-export function MemoryCycleSketch({ id = 'memory-cycle', className = '' }) {
-  const markerId = `${id}-arrow`;
+export function CapabilityBridgeSketch({ id = 'capability-bridge', className = '' }) {
+  const top = ['Thought', 'Writing', 'Records', 'Tools', 'Shared use'];
+  const bottom = ['Question', 'Prompt', 'Memory', 'Skill', 'Useful run'];
+  const xPositions = [55, 216, 377, 538, 699];
   return (
-    <svg className={`diagram-svg ${className}`} viewBox="0 0 900 350" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
-      <title id={`${id}-title`}>Knowledge compounds through curation</title>
-      <desc id={`${id}-desc`}>A working session creates observations. Valuable patterns are promoted and curated into durable knowledge, then selected as relevant context for later work. Outdated items can be merged, updated, superseded, or archived.</desc>
-      <ArrowDefs markerId={markerId} />
-      <path className="sketch-guide" d="M50 250 C165 50 676 37 846 230" />
-      <SketchLine markerId={markerId} d="M166 151 C188 151 203 151 225 151" />
-      <SketchLine markerId={markerId} d="M357 151 C379 151 394 151 415 151" />
-      <SketchLine markerId={markerId} d="M547 151 C570 151 584 151 604 151" />
-      <SketchLine markerId={markerId} d="M735 151 C764 157 775 190 763 217" />
-      <SketchLine markerId={markerId} d="M626 247 C490 304 264 303 105 214" loop />
-      <SketchLine markerId={markerId} d="M480 216 C480 237 480 250 480 267" loop />
-      <SketchNode x={34} y={118} index={0} title="Session" note="work in motion" tone="warm" />
-      <SketchNode x={225} y={118} index={1} title="Observe" note="notes + signals" tone="mint" />
-      <SketchNode x={415} y={118} index={2} title="Promote" note="keep the pattern" tone="aqua" />
-      <SketchNode x={604} y={118} index={3} title="Recall" note="relevant context" tone="violet" />
-      <SketchNode x={604} y={218} index={4} title="Durable memory" note="curated knowledge" tone="lime" />
-      <SketchNode x={414} y={265} index={5} title="Curate" note="merge / update / retire" tone="coral" />
-      <text className="sketch-whisper" x="256" y="342">keep the lesson, not every word that passed through</text>
+    <svg className={`diagram-svg diagram-svg--schematic ${className}`} viewBox="0 0 900 350" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
+      <title id={`${id}-title`}>Knowledge becomes reusable when people make it explicit</title>
+      <desc id={`${id}-desc`}>Two parallel lanes show a human idea becoming writing, records, tools, and shared use, while an AI task becomes a prompt, selected memory, a reusable skill, and a useful run. Human judgment connects the lanes.</desc>
+      <DiagramDefs id={id} />
+      <DiagramFrame id={id} label="CAPABILITY BRIDGE / MAKE THE USEFUL PART EXPLICIT" />
+      <text className="diagram-lane-title" x="36" y="91">PEOPLE MAKE KNOWLEDGE DURABLE</text>
+      <text className="diagram-lane-title" x="36" y="242">AI REUSES ONLY WHAT PEOPLE CHOOSE</text>
+      <FlowPath id={id} d="M121 143H214 M282 143H375 M443 143H536 M604 143H697" />
+      <FlowPath id={id} d="M121 282H214 M282 282H375 M443 282H536 M604 282H697" />
+      {top.map((title, index) => (
+        <g className={`diagram-chip diagram-chip--${index === 4 ? 'lime' : 'mint'}`} transform={`translate(${xPositions[index]} 116)`} key={title}>
+          <rect width="112" height="54" />
+          <text className="diagram-chip-step" x="12" y="17">0{index + 1}</text>
+          <text className="diagram-chip-title" x="12" y="37">{title}</text>
+        </g>
+      ))}
+      {bottom.map((title, index) => (
+        <g className={`diagram-chip diagram-chip--${index === 4 ? 'lime' : 'aqua'}`} transform={`translate(${xPositions[index]} 255)`} key={title}>
+          <rect width="112" height="54" />
+          <text className="diagram-chip-step" x="12" y="17">0{index + 1}</text>
+          <text className="diagram-chip-title" x="12" y="37">{title}</text>
+        </g>
+      ))}
+      {[111, 272, 433, 594, 755].map((x, index) => (
+        <g key={x}>
+          <path className="diagram-bridge-line" d={`M${x} 173V252`} />
+          <circle className="diagram-bridge-joint" cx={x} cy="211" r="4" />
+          {index === 2 && <text className="diagram-bridge-label" x={x + 10} y="215">human choice</text>}
+        </g>
+      ))}
     </svg>
   );
 }
 
 export function DeliveryLoopSketch({ id = 'delivery-loop', className = '' }) {
-  const markerId = `${id}-arrow`;
   return (
-    <svg className={`diagram-svg ${className}`} viewBox="0 0 900 350" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
-      <title id={`${id}-title`}>A high-trust delivery loop</title>
-      <desc id={`${id}-desc`}>A plain-language request becomes a shared specification, a scoped change, visible evidence, and an explicit human decision. Revision returns to the specification rather than bypassing it.</desc>
-      <ArrowDefs markerId={markerId} />
-      <path className="sketch-guide" d="M67 278 C129 138 300 29 478 72 S737 223 826 99" />
-      <SketchLine markerId={markerId} d="M173 171 C203 134 220 115 254 91" />
-      <SketchLine markerId={markerId} d="M384 90 C425 116 454 136 486 154" />
-      <SketchLine markerId={markerId} d="M620 170 C649 142 680 119 706 93" />
-      <SketchLine markerId={markerId} d="M771 129 C785 170 766 209 733 241" />
-      <SketchLine markerId={markerId} d="M641 268 C524 306 344 301 173 221" loop />
-      <SketchNode x={45} y={145} index={0} title="Request" note="plain language" tone="warm" />
-      <SketchNode x={252} y={55} index={1} title="Shared spec" note="scope + criteria" tone="mint" />
-      <SketchNode x={486} y={145} index={2} title="Scoped work" note="bounded change" tone="aqua" />
-      <SketchNode x={698} y={55} index={3} title="Preview" note="tests + review" tone="violet" />
-      <SketchNode x={642} y={238} index={4} title="Decision" note="approve / redirect" tone="lime" />
-      <SketchNode x={255} y={238} index={5} title="Release note" note="what changed + why" tone="coral" />
-      <text className="sketch-whisper" x="298" y="333">confidence should come from evidence, not a confident answer</text>
+    <svg className={`diagram-svg diagram-svg--schematic ${className}`} viewBox="0 0 900 350" role="img" aria-labelledby={`${id}-title ${id}-desc`}>
+      <title id={`${id}-title`}>People stay involved at the moments that change direction</title>
+      <desc id={`${id}-desc`}>A request becomes a shared specification, scoped work, evidence, and a handoff. Human gates clarify the request before work and approve or redirect the result before release.</desc>
+      <DiagramDefs id={id} />
+      <DiagramFrame id={id} label="HUMAN-GUIDED DELIVERY / TWO DECISIONS, ONE VISIBLE TRAIL" />
+      <text className="diagram-lane-title" x="36" y="96">SHAPE THE WORK</text>
+      <text className="diagram-lane-title" x="538" y="96">CHECK THE RESULT</text>
+      <Node x={35} y={141} step="01 / REQUEST" title="Need" note="plain language" tone="coral" />
+      <Gate x={224} y={174} label="CLARIFY" note="ask + agree" />
+      <Node x={303} y={141} step="02 / SHARED SPEC" title="Plan" note="scope + criteria" tone="mint" />
+      <Node x={493} y={141} step="03 / WORK" title="Build" note="bounded change" tone="aqua" />
+      <Node x={683} y={141} step="04 / EVIDENCE" title="Preview" note="tests + result" tone="violet" />
+      <FlowPath id={id} d="M167 174H184" />
+      <FlowPath id={id} d="M259 174H303" />
+      <FlowPath id={id} d="M435 174H493" />
+      <FlowPath id={id} d="M625 174H683" />
+      <FlowPath id={id} d="M815 174H844" />
+      <Gate x={844} y={174} label="DECIDE" note="keep / revise" tone="coral" />
+      <FlowPath id={id} d="M844 206C809 301 363 304 224 207" returnPath />
+      <text className="diagram-loop-label" x="558" y="294" textAnchor="middle">REDIRECT THE PLAN, NOT JUST THE OUTPUT</text>
+      <g className="diagram-human-key" transform="translate(34 304)">
+        <circle cx="10" cy="10" r="5" />
+        <path d="M10 15V25M3 34C4 25 16 25 17 34" />
+        <text x="30" y="15">Human gates change direction</text>
+      </g>
+      <g className="diagram-trace-key" transform="translate(704 311)">
+        <path d="M0 0H26" /><circle cx="13" cy="0" r="3" />
+        <text x="36" y="4">visible trail</text>
+      </g>
     </svg>
   );
+}
+
+export function TicketHandoffSketch(props) {
+  return <DiscoveryLoopSketch {...props} />;
+}
+
+export function MemoryCycleSketch(props) {
+  return <CapabilityBridgeSketch {...props} />;
 }

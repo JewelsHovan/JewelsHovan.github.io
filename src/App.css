@@ -360,6 +360,113 @@ body.atlas-open { overflow: hidden; }.harness-atlas-backdrop { position: fixed; 
   }
 }
 
+/* Diagram atlas / precise field schematics */
+.diagram-svg--schematic {
+  color: var(--aqua);
+  background: #061d28;
+}
+.diagram-surface { fill: #061d28; stroke: rgba(156, 232, 196, .24); }
+.diagram-grid { opacity: .55; }
+.diagram-grid-line { fill: none; stroke: rgba(105, 205, 210, .075); stroke-width: 1; }
+.diagram-corner { fill: none; stroke: var(--aqua); stroke-width: 1.2; }
+.diagram-plate-label,
+.diagram-node-step,
+.diagram-node-note,
+.diagram-core-kicker,
+.diagram-boundary-label,
+.diagram-loop-label,
+.diagram-lane-title,
+.diagram-chip-step,
+.diagram-caption-title,
+.diagram-caption-note,
+.diagram-status-key,
+.diagram-human-key,
+.diagram-trace-key,
+.diagram-bridge-label {
+  font-family: var(--mono);
+  letter-spacing: .65px;
+}
+.diagram-plate-label { fill: var(--aqua); font-size: 9px; font-weight: 600; }
+.diagram-flow,
+.diagram-lane {
+  fill: none;
+  stroke: var(--aqua);
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.diagram-flow { stroke-dasharray: 5 4; }
+.diagram-flow--return { stroke: var(--lime); stroke-dasharray: 7 5; }
+.diagram-flow--muted { stroke: rgba(105, 205, 210, .35); }
+.diagram-lane { stroke: rgba(105, 205, 210, .22); stroke-width: 8; }
+.diagram-arrow-head { fill: var(--aqua); }
+.diagram-node-halo { fill: rgba(105, 205, 210, .035); stroke: none; }
+.diagram-node-body { fill: rgba(7, 38, 48, .97); stroke: currentColor; stroke-width: 1.25; }
+.diagram-node-rule { stroke: currentColor; stroke-width: .7; opacity: .38; }
+.diagram-node-step { fill: currentColor; font-size: 7.5px; font-weight: 650; }
+.diagram-node-title { fill: var(--mint-pale); font-family: var(--display); font-size: 15px; font-weight: 620; letter-spacing: -.35px; }
+.diagram-node-note { fill: var(--muted); font-size: 7.5px; }
+.diagram-node--mint { color: var(--mint); }
+.diagram-node--aqua { color: var(--aqua); }
+.diagram-node--lime { color: var(--lime); }
+.diagram-node--coral { color: var(--coral); }
+.diagram-node--violet { color: var(--violet); }
+.diagram-caption-box { fill: rgba(217, 246, 108, .075); stroke: rgba(217, 246, 108, .62); }
+.diagram-caption-title { fill: var(--lime); font-size: 8px; font-weight: 650; }
+.diagram-caption-note { fill: var(--muted); font-size: 7px; }
+.diagram-boundary { fill: rgba(156, 232, 196, .025); stroke: rgba(156, 232, 196, .42); stroke-width: 1; stroke-dasharray: 5 6; }
+.diagram-boundary-label { fill: var(--mint); font-size: 8px; }
+.diagram-core-glow { fill: rgba(217, 246, 108, .28); }
+.diagram-core-ring { fill: none; stroke: rgba(105, 205, 210, .65); stroke-width: 1.2; }
+.diagram-core-ring--outer { stroke: rgba(156, 232, 196, .26); stroke-dasharray: 3 6; }
+.diagram-core { fill: #0b4147; stroke: var(--lime); stroke-width: 1.7; }
+.diagram-core-kicker { fill: var(--lime); font-size: 6px; }
+.diagram-core-title { fill: var(--mint-pale); font: 650 14px var(--display); letter-spacing: -.4px; }
+.diagram-loop-label { fill: var(--lime); font-size: 7.5px; }
+.diagram-human-key { fill: none; stroke: var(--coral); stroke-width: 1.15; }
+.diagram-human-key text { fill: var(--muted); stroke: none; font-size: 7.5px; }
+.diagram-status-key text,
+.diagram-trace-key text { fill: var(--muted); font-size: 7px; }
+.diagram-status-key .status-ask { fill: var(--coral); }
+.diagram-status-key .status-agree { fill: var(--aqua); }
+.diagram-status-key .status-ready { fill: var(--lime); }
+.diagram-gate-halo { fill: rgba(217, 246, 108, .05); }
+.diagram-gate-body { fill: #082d38; stroke: var(--lime); stroke-width: 1.25; }
+.diagram-gate--coral .diagram-gate-halo { fill: rgba(242, 137, 115, .06); }
+.diagram-gate--coral .diagram-gate-body { stroke: var(--coral); }
+.diagram-gate-title { fill: var(--mint-pale); font: 650 8px var(--mono); letter-spacing: .6px; }
+.diagram-gate-note { fill: var(--muted); font: 6px var(--mono); }
+.diagram-lane-title { fill: var(--aqua); font-size: 8px; font-weight: 650; }
+.diagram-chip rect { fill: rgba(7, 38, 48, .97); stroke: currentColor; }
+.diagram-chip--mint { color: var(--mint); }
+.diagram-chip--aqua { color: var(--aqua); }
+.diagram-chip--lime { color: var(--lime); }
+.diagram-chip-step { fill: currentColor; font-size: 7px; }
+.diagram-chip-title { fill: var(--mint-pale); font: 610 13px var(--display); letter-spacing: -.25px; }
+.diagram-bridge-line { fill: none; stroke: rgba(156, 232, 196, .34); stroke-width: 1; stroke-dasharray: 3 4; }
+.diagram-bridge-joint { fill: #061d28; stroke: var(--lime); }
+.diagram-bridge-label { fill: var(--lime); font-size: 7px; }
+.diagram-trace-key path { stroke: var(--aqua); }
+.diagram-trace-key circle { fill: var(--lime); }
+
+.generated-diagram .diagram-svg { min-width: 0; }
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .generated-diagram:hover .diagram-flow,
+  .diagram-teaser-canvas:hover .diagram-flow { animation: diagramSignal 1.2s linear infinite; }
+}
+
+@keyframes diagramSignal {
+  to { stroke-dashoffset: -18; }
+}
+
+@media (max-width: 700px) {
+  .generated-diagram .diagram-svg {
+    width: 36rem;
+    max-width: none;
+  }
+}
+
 @media (max-width: 350px) {
   .wordmark > span:last-child small { display: none; }
   .wordmark { gap: .55rem; }

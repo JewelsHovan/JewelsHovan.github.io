@@ -23,7 +23,10 @@ test('renders Julien’s personal project garden and public newsletter', () => {
   const atlasTrigger = screen.getByRole('button', { name: /open the diagram atlas/i });
   atlasTrigger.focus();
   fireEvent.click(atlasTrigger);
-  expect(screen.getByRole('dialog', { name: /the harness atlas/i })).toBeInTheDocument();
+  const atlasDialog = screen.getByRole('dialog', { name: /the harness atlas/i });
+  expect(atlasDialog).toBeInTheDocument();
+  expect(within(atlasDialog).getAllByRole('img')).toHaveLength(4);
+  expect(atlasDialog.querySelectorAll('img')).toHaveLength(0);
   expect(screen.getByRole('button', { name: /close the diagram atlas/i })).toHaveFocus();
   expect(screen.getByText(/make a useful idea easy to pass on/i)).toBeInTheDocument();
   const atlasExit = screen.getByRole('button', { name: /back to the garden/i });
@@ -93,6 +96,27 @@ test('keeps field-map focus inside the modal and restores it when closed', () =>
   expect(screen.queryByRole('dialog', { name: /field map/i })).not.toBeInTheDocument();
   expect(document.querySelector('main')).not.toHaveAttribute('inert');
   expect(trigger).toHaveFocus();
+});
+
+test('uses progressive tactile feedback for direct sketch controls', () => {
+  const originalMatchMedia = window.matchMedia;
+  const originalVibrate = navigator.vibrate;
+  window.matchMedia = jest.fn().mockImplementation((query) => ({
+    matches: false,
+    media: query,
+    addEventListener: jest.fn(),
+    removeEventListener: jest.fn(),
+  }));
+  navigator.vibrate = jest.fn();
+
+  render(<App />);
+  fireEvent.click(screen.getByRole('tab', { name: 'Make' }));
+  expect(navigator.vibrate).toHaveBeenLastCalledWith(8);
+  fireEvent.click(screen.getByRole('button', { name: /interactive particle sketch showing make/i }));
+  expect(navigator.vibrate).toHaveBeenLastCalledWith(12);
+
+  window.matchMedia = originalMatchMedia;
+  navigator.vibrate = originalVibrate;
 });
 
 test('supports keyboard control of the live sketch and reduced-motion waypoint navigation', async () => {
