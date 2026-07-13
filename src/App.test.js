@@ -110,9 +110,9 @@ test('uses progressive tactile feedback for direct sketch controls', () => {
   navigator.vibrate = jest.fn();
 
   render(<App />);
-  fireEvent.click(screen.getByRole('tab', { name: 'Make' }));
+  fireEvent.click(screen.getByRole('tab', { name: 'System' }));
   expect(navigator.vibrate).toHaveBeenLastCalledWith(8);
-  fireEvent.click(screen.getByRole('button', { name: /interactive particle sketch showing make/i }));
+  fireEvent.click(screen.getByRole('button', { name: /interactive particle composition showing working system/i }));
   expect(navigator.vibrate).toHaveBeenLastCalledWith(12);
 
   window.matchMedia = originalMatchMedia;
@@ -131,17 +131,17 @@ test('supports keyboard control of the live sketch and reduced-motion waypoint n
   window.scrollTo = jest.fn();
 
   render(<App />);
-  const monogramTab = screen.getByRole('tab', { name: 'JH' });
-  const makeTab = screen.getByRole('tab', { name: 'Make' });
-  act(() => monogramTab.focus());
-  fireEvent.keyDown(monogramTab, { key: 'ArrowRight' });
-  expect(makeTab).toHaveAttribute('aria-selected', 'true');
-  await waitFor(() => expect(makeTab).toHaveFocus());
-  expect(document.getElementById('hero-sketch-panel')).toHaveAttribute('aria-labelledby', 'hero-sketch-tab-make');
-  const sketch = screen.getByRole('button', { name: /interactive particle sketch showing make/i });
+  const threadsTab = screen.getByRole('tab', { name: 'Threads' });
+  const systemTab = screen.getByRole('tab', { name: 'System' });
+  act(() => threadsTab.focus());
+  fireEvent.keyDown(threadsTab, { key: 'ArrowRight' });
+  expect(systemTab).toHaveAttribute('aria-selected', 'true');
+  await waitFor(() => expect(systemTab).toHaveFocus());
+  expect(document.getElementById('hero-sketch-panel')).toHaveAttribute('aria-labelledby', 'hero-sketch-tab-system');
+  const sketch = screen.getByRole('button', { name: /interactive particle composition showing working system/i });
   fireEvent.click(sketch);
-  expect(screen.getByRole('tab', { name: 'Play' })).toHaveAttribute('aria-selected', 'true');
-  expect(screen.getByRole('button', { name: /interactive particle sketch showing play/i })).toBeInTheDocument();
+  expect(screen.getByRole('tab', { name: 'Signal' })).toHaveAttribute('aria-selected', 'true');
+  expect(screen.getByRole('button', { name: /interactive particle composition showing signal report/i })).toBeInTheDocument();
 
   fireEvent.click(screen.getByRole('button', { name: /^open field map$/i }));
   fireEvent.click(screen.getByRole('link', { name: /a bit more/i }));
@@ -154,11 +154,11 @@ test('supports keyboard control of the live sketch and reduced-motion waypoint n
 });
 
 
-test('adds useful routes to each decorative particle mode', () => {
+test('adds useful routes to each particle transformation', () => {
   render(<App />);
-  expect(screen.getByRole('link', { name: /a bit about me/i })).toHaveAttribute('href', '#about');
-  fireEvent.click(screen.getByRole('tab', { name: 'Make' }));
-  expect(screen.getAllByRole('link', { name: /see what i make/i }).some((link) => link.classList.contains('playground-route') && link.getAttribute('href') === '#projects')).toBe(true);
-  fireEvent.click(screen.getByRole('tab', { name: 'Play' }));
-  expect(screen.getByRole('link', { name: /read my field notes/i })).toHaveAttribute('href', '#notes');
+  expect(screen.getByRole('link', { name: /explore my field notes/i })).toHaveAttribute('href', '#notes');
+  fireEvent.click(screen.getByRole('tab', { name: 'System' }));
+  expect(screen.getByRole('link', { name: /see the systems i build/i })).toHaveAttribute('href', '#projects');
+  fireEvent.click(screen.getByRole('tab', { name: 'Signal' }));
+  expect(screen.getByRole('link', { name: /read ai news reports/i })).toHaveAttribute('target', '_blank');
 });

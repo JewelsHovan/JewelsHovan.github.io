@@ -4,28 +4,29 @@ import './HeroPlayground.css';
 
 const sketches = [
   {
-    id: 'monogram',
-    label: 'JH',
-    word: 'JH',
-    note: 'A personal corner of the web.',
-    href: '#about',
-    action: 'A bit about me',
-  },
-  {
-    id: 'make',
-    label: 'Make',
-    word: 'MAKE',
-    note: 'Turn an idea until it becomes tangible.',
-    href: '#projects',
-    action: 'See what I make',
-  },
-  {
-    id: 'play',
-    label: 'Play',
-    word: 'PLAY',
-    note: 'Keep curiosity in the finished thing.',
+    id: 'threads',
+    label: 'Threads',
+    composition: 'loose threads',
+    note: 'Questions and odd ideas worth following.',
     href: '#notes',
-    action: 'Read my field notes',
+    action: 'Explore my field notes',
+  },
+  {
+    id: 'system',
+    label: 'System',
+    composition: 'working system',
+    note: 'Loose pieces becoming something useful.',
+    href: '#projects',
+    action: 'See the systems I build',
+  },
+  {
+    id: 'signal',
+    label: 'Signal',
+    composition: 'signal report',
+    note: 'Finding the useful shape inside the noise.',
+    href: 'https://jewelshovan.github.io/AI-News-Reports/',
+    action: 'Read AI News Reports',
+    external: true,
   },
 ];
 
@@ -44,25 +45,44 @@ function sendTactileFeedback(duration = 8) {
   }
 }
 
-function sampleWord(word, width, height) {
+function sampleComposition(id, width, height) {
   const buffer = document.createElement('canvas');
   buffer.width = Math.max(1, Math.floor(width));
   buffer.height = Math.max(1, Math.floor(height));
   const context = buffer.getContext('2d');
   if (!context) return [];
 
-  const availableWidth = width * 0.78;
-  let fontSize = Math.min(height * 0.54, width * 0.42);
-  context.font = `800 ${fontSize}px "Bricolage Grotesque", sans-serif`;
-  const measured = context.measureText(word).width;
-  if (measured > availableWidth) fontSize *= availableWidth / measured;
-
+  const x = (value) => width * value;
+  const y = (value) => height * value;
   context.clearRect(0, 0, width, height);
-  context.fillStyle = '#ffffff';
-  context.font = `800 ${fontSize}px "Bricolage Grotesque", sans-serif`;
-  context.textAlign = 'center';
-  context.textBaseline = 'middle';
-  context.fillText(word, width / 2, height / 2 - height * 0.015);
+  context.strokeStyle = '#fff';
+  context.fillStyle = '#fff';
+  context.lineCap = 'round';
+  context.lineJoin = 'round';
+
+  if (id === 'threads') {
+    const nodes = [[.2,.34],[.32,.22],[.43,.39],[.29,.57],[.52,.62],[.61,.43],[.72,.3],[.79,.55]];
+    const links = [[0,1],[0,3],[1,2],[2,3],[2,5],[3,4],[4,5],[5,6],[5,7],[6,7]];
+    context.lineWidth = Math.max(5, width * .009);
+    links.forEach(([a,b]) => { context.beginPath(); context.moveTo(x(nodes[a][0]),y(nodes[a][1])); context.quadraticCurveTo(x((nodes[a][0]+nodes[b][0]) / 2),y((nodes[a][1]+nodes[b][1]) / 2 - .035),x(nodes[b][0]),y(nodes[b][1])); context.stroke(); });
+    nodes.forEach(([nx,ny], index) => { context.beginPath(); context.arc(x(nx),y(ny),Math.max(8,width * (index % 3 === 0 ? .025 : .018)),0,Math.PI * 2); context.fill(); });
+  } else if (id === 'system') {
+    const boxes = [[.13,.38,.18,.23],[.41,.18,.2,.2],[.41,.6,.2,.2],[.71,.38,.18,.23]];
+    context.lineWidth = Math.max(5,width * .009);
+    boxes.forEach(([bx,by,bw,bh]) => context.strokeRect(x(bx),y(by),x(bw),y(bh)));
+    [[.31,.495,.41,.28],[.31,.495,.41,.7],[.61,.28,.71,.495],[.61,.7,.71,.495]].forEach(([ax,ay,bx,by]) => { context.beginPath(); context.moveTo(x(ax),y(ay)); context.lineTo(x(bx),y(by)); context.stroke(); });
+    boxes.forEach(([bx,by,bw,bh]) => { context.beginPath(); context.arc(x(bx+bw/2),y(by+bh/2),Math.max(6,width*.012),0,Math.PI*2); context.fill(); });
+  } else {
+    context.lineWidth = Math.max(5,width * .009);
+    for (let index = 0; index < 23; index += 1) {
+      const nx = .12 + ((index * 37) % 23) / 58;
+      const ny = .2 + ((index * 17) % 19) / 32;
+      context.beginPath(); context.arc(x(nx),y(ny),Math.max(3,width*.006),0,Math.PI*2); context.fill();
+    }
+    context.beginPath(); context.moveTo(x(.47),y(.2)); context.lineTo(x(.62),y(.36)); context.lineTo(x(.62),y(.64)); context.lineTo(x(.47),y(.8)); context.stroke();
+    context.strokeRect(x(.62),y(.2),x(.25),y(.6));
+    [.34,.46,.58,.7].forEach((lineY,index) => { context.beginPath(); context.moveTo(x(.67),y(lineY)); context.lineTo(x(index === 0 ? .82 : .79),y(lineY)); context.stroke(); });
+  }
 
   const pixels = context.getImageData(0, 0, buffer.width, buffer.height).data;
   const step = width < 430 ? 4 : 5;
@@ -203,7 +223,7 @@ function HeroPlayground() {
 
     const rebuild = () => {
       if (!width || !height) return;
-      const targets = sampleWord(activeSketchRef.current.word, width, height);
+      const targets = sampleComposition(activeSketchRef.current.id, width, height);
       if (!targets.length) return;
 
       while (particles.length < targets.length) {
@@ -379,7 +399,7 @@ function HeroPlayground() {
         <button
           className="playground-hitarea"
           type="button"
-          aria-label={`Interactive particle sketch showing ${activeSketch.word}. Activate to recompose.`}
+          aria-label={`Interactive particle composition showing ${activeSketch.composition}. Activate to recompose.`}
           onClick={cycleSketch}
         >
           <span className="sr-only">Recompose the particle sketch</span>
@@ -392,7 +412,7 @@ function HeroPlayground() {
         <div className="playground-copy">
           <span>{particleCount ? `${particleCount} little points` : 'A cloud of little points'}</span>
           <p>{activeSketch.note}</p>
-          <a className="playground-route" href={activeSketch.href}>{activeSketch.action} <FiArrowDown size={13} /></a>
+          <a className="playground-route" href={activeSketch.href} target={activeSketch.external ? '_blank' : undefined} rel={activeSketch.external ? 'noreferrer' : undefined}>{activeSketch.action} <FiArrowDown size={13} /></a>
         </div>
         <div className="playground-modes" role="tablist" aria-label="Choose a live sketch">
           {sketches.map((sketch, index) => (
