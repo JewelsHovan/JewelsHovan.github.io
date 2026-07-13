@@ -10,8 +10,10 @@ test('renders Julien’s personal project garden and public newsletter', () => {
     'href',
     'https://jewelshovan.github.io/AI-News-Reports/'
   );
-  expect(screen.getByRole('button', { name: /ai systems/i })).toHaveAttribute('aria-pressed', 'false');
-  expect(screen.getByRole('button', { name: /luccas studio agent/i })).toBeInTheDocument();
+  expect(screen.getByRole('button', { name: /^patterns$/i })).toHaveAttribute('aria-pressed', 'false');
+  expect(screen.getByRole('button', { name: /project memory should keep the why/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /agentic engineering, plainly/i })).toBeInTheDocument();
+  expect(screen.getByText(/bounded, multi-step action toward a goal/i)).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: /before ai, there were web scrapers/i })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: /compass data is where i make things/i })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: /build for someone real/i })).toBeInTheDocument();
@@ -63,14 +65,14 @@ test('moves project detail next to its card when the viewport crosses the narrow
     changeListener();
   });
 
-  const projectButton = screen.getByRole('button', { name: /luccas studio agent/i });
+  const projectButton = screen.getByRole('button', { name: /a request deserves a visible path/i });
   fireEvent.click(projectButton);
-  const detail = document.getElementById('project-detail-luccas-agent');
+  const detail = document.getElementById('project-detail-visible-delivery');
   expect(detail).toBeInTheDocument();
   expect(projectButton.nextElementSibling).toBe(detail);
-  expect(within(detail).getByRole('heading', { name: /luccas studio agent/i })).toBeInTheDocument();
+  expect(within(detail).getByRole('heading', { name: /a request deserves a visible path/i })).toBeInTheDocument();
   expect(projectButton).toHaveAttribute('aria-expanded', 'true');
-  expect(projectButton).toHaveAttribute('aria-controls', 'project-detail-luccas-agent');
+  expect(projectButton).toHaveAttribute('aria-controls', 'project-detail-visible-delivery');
 
   window.matchMedia = originalMatchMedia;
 });
@@ -158,7 +160,15 @@ test('adds useful routes to each particle transformation', () => {
   render(<App />);
   expect(screen.getByRole('link', { name: /explore my field notes/i })).toHaveAttribute('href', '#notes');
   fireEvent.click(screen.getByRole('tab', { name: 'System' }));
-  expect(screen.getByRole('link', { name: /see the systems i build/i })).toHaveAttribute('href', '#projects');
+  expect(screen.getByRole('link', { name: /explore system patterns/i })).toHaveAttribute('href', '#projects');
   fireEvent.click(screen.getByRole('tab', { name: 'Signal' }));
   expect(screen.getByRole('link', { name: /read ai news reports/i })).toHaveAttribute('target', '_blank');
+});
+
+test('opens a field note from its durable hash route', () => {
+  window.history.replaceState(null, '', '#note/the-difficult-bit');
+  render(<App />);
+  expect(screen.getByRole('heading', { name: /i like the difficult bit/i })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: /link to this note/i })).toHaveAttribute('href', '#note/the-difficult-bit');
+  window.history.replaceState(null, '', '/');
 });

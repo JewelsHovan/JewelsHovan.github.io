@@ -28,124 +28,72 @@ const newsletterArchiveUrl = 'https://jewelshovan.github.io/AI-News-Reports/arch
 
 const filters = [
   { id: 'all', label: 'Everything' },
-  { id: 'now', label: 'What I’m making now' },
-  { id: 'systems', label: 'AI systems' },
-  { id: 'workflows', label: 'Ways of working' },
-  { id: 'public', label: 'Things you can visit' },
+  { id: 'now', label: 'Now' },
+  { id: 'patterns', label: 'Patterns' },
+  { id: 'public', label: 'Public things' },
 ];
 
 const projects = [
   {
-    id: 'fluence',
-    name: 'Compass Fluence',
-    eyebrow: 'Project memory',
-    type: 'Internal system',
-    tags: ['now', 'systems'],
+    id: 'project-memory',
+    name: 'Project memory should keep the why.',
+    eyebrow: 'System pattern',
+    type: 'Public-safe pattern',
+    tags: ['now', 'patterns'],
     color: 'mint',
-    short: 'A way to keep what a team decided, why it mattered, and the sources behind it.',
-    detail: 'Fluence keeps the history behind a project close to the work itself: what people decided, why they decided it, and which source material matters. I’m helping build it so a person or an AI assistant can find what they need without digging through a pile of old documents.',
-    proof: 'I like the idea that a project can remember why it became what it is.',
+    pattern: true,
+    short: 'Keep decisions, their reasoning, and the source material close to the work.',
+    detail: 'Useful project memory is not a transcript dump. It keeps the small set of decisions, source material, and unresolved questions that help a person or an AI collaborator make a sensible next move.',
+    proof: 'The next person should be able to understand why the work became what it is.',
   },
   {
-    id: 'hub',
-    name: 'Compass Hub',
-    eyebrow: 'Sharing what a team learns',
-    type: 'Internal system',
-    tags: ['now', 'systems'],
+    id: 'visible-delivery',
+    name: 'A request deserves a visible path.',
+    eyebrow: 'System pattern',
+    type: 'Public-safe pattern',
+    tags: ['now', 'patterns'],
+    color: 'gold',
+    pattern: true,
+    short: 'A request can move through a plan, a manageable change, a preview, and a real decision.',
+    detail: 'When AI helps make a change, the person who asked for it should still be able to clarify the intent, see what is being proposed, try the result, and decide what happens next.',
+    proof: 'Automation is more useful when it leaves the owner more informed, not less.',
+  },
+  {
+    id: 'agent-workbench',
+    name: 'An agent needs a workbench, not just a prompt.',
+    eyebrow: 'System pattern',
+    type: 'Public-safe pattern',
+    tags: ['patterns'],
+    color: 'violet',
+    pattern: true,
+    short: 'Give an agent bounded work, relevant context, tools, checks, and a useful handoff.',
+    detail: 'A capable model still needs an environment designed around the task: the right project context, a limited set of tools, a place to check results, and a short record of what changed.',
+    proof: 'The interesting engineering lives in the conditions around the model.',
+  },
+  {
+    id: 'checked-work',
+    name: 'A useful run should show its checks.',
+    eyebrow: 'System pattern',
+    type: 'Public-safe pattern',
+    tags: ['patterns'],
     color: 'aqua',
-    short: 'A library where people can pass along useful AI tools, instructions, and project knowledge.',
-    detail: 'Compass Hub is a shared library for the useful things a team learns while working with AI: instructions, tools, project memory, and setups worth reusing. It means a good idea can move between people and projects instead of living on one laptop.',
-    proof: 'I enjoy turning one person’s useful discovery into something the rest of the team can pick up.',
-  },
-  {
-    id: 'superpowers',
-    name: 'Pi Compass Superpowers',
-    eyebrow: 'Tools around coding agents',
-    type: 'Internal ecosystem',
-    tags: ['now', 'systems'],
-    color: 'lime',
-    short: 'Tools that help coding agents remember a project, divide work, and check what they changed.',
-    detail: 'This is a collection of tools I’m building around coding agents. They help an agent remember a project, break work into sensible pieces, use a browser, check its results, and leave a clear record for the person working with it.',
-    proof: 'The interesting part is making an AI collaborator easier to understand and steer.',
+    pattern: true,
+    short: 'Plans, tests, previews, and recoveries make AI-assisted work easier to trust.',
+    detail: 'A system should make its route and evidence visible enough for someone to inspect the result, spot a problem, and redirect the work. A confident explanation is not the same as a checked result.',
+    proof: 'The moments where a system catches itself are often the most useful evidence.',
   },
   {
     id: 'news',
     name: 'AI News Reports',
     eyebrow: 'Personal publishing system',
     type: 'Public project',
-    tags: ['now', 'systems', 'public'],
+    tags: ['now', 'public'],
     color: 'coral',
-    short: 'My AI news habit turned into a public newsletter.',
+    short: 'My AI reading habit turned into a public newsletter.',
     detail: 'I made this to follow AI without letting the news take over my week. It collects stories from different sources, helps me compare them, and turns my reading into a digest for the email list and public archive.',
     proof: 'It began as a personal reading habit and became something I could share.',
     link: newsletterUrl,
     linkLabel: 'Read the newsletter',
-  },
-  {
-    id: 'noro',
-    name: 'Noro',
-    eyebrow: 'Making presentations with AI',
-    type: 'Compass build',
-    tags: ['systems'],
-    color: 'violet',
-    short: 'Several AI roles turn a question and its source material into one coherent presentation.',
-    detail: 'Noro helps turn a prompt and a set of source documents into a presentation. Several AI roles handle research, structure, writing, layout, and a final review, while a person stays responsible for what the deck actually says.',
-    proof: 'I’m less interested in generating slides than in helping someone make a coherent point.',
-  },
-  {
-    id: 'analyst',
-    name: 'Data Analyst AI',
-    eyebrow: 'An AI data analyst',
-    type: 'Personal exploration',
-    tags: ['systems'],
-    color: 'blue',
-    short: 'An analysis assistant that makes a plan, checks the data, reviews its work, and writes a report.',
-    detail: 'I built this to explore what an AI data analyst needs beyond a chat box. It plans an analysis, checks the data, reviews its own work, and can return to an earlier step when something does not add up.',
-    proof: 'I wanted the analysis process to be visible, including the moments when it changes its mind.',
-  },
-  {
-    id: 'delivery',
-    name: 'Delivery control plane',
-    eyebrow: 'A visible way to make changes',
-    type: 'Private work project',
-    tags: ['now', 'workflows'],
-    color: 'gold',
-    short: 'A route from a plain-language request to a reviewed change you can preview.',
-    detail: 'I designed a way for someone to describe a change to a group of connected applications, follow it as it is built, try a preview, and decide whether it should go live. AI helps with the work, but the owner can always see and redirect what is happening.',
-    proof: 'The person asking for a change should not lose sight of it once the technical work begins.',
-  },
-  {
-    id: 'luccas-agent',
-    name: 'Luccas Studio Agent',
-    eyebrow: 'Making changes through Discord',
-    type: 'Private studio project',
-    tags: ['now', 'workflows', 'systems'],
-    color: 'coral',
-    short: 'A request-to-release loop that lets a creative studio change its apps from Discord.',
-    detail: 'This lets a creative studio owner ask for a website change from Discord, talk through the details, and see a preview before deciding whether it goes live. The complicated development work stays in the background without hiding the result.',
-    proof: 'I like giving someone a direct relationship with the software they use, even if they do not write code.',
-  },
-  {
-    id: 'lco-os',
-    name: 'LCO Project OS',
-    eyebrow: 'Product + delivery workflow',
-    type: 'Internal system',
-    tags: ['now', 'workflows', 'systems'],
-    color: 'gold',
-    short: 'A shared project view that keeps product managers, designers, and engineers close to the same work.',
-    detail: 'This brings project plans, Jira work, design context, and technical knowledge into one connected view. I’m exploring how product managers, designers, and engineers can stay close to the same work instead of passing partial context between separate tools.',
-    proof: 'A shared picture of the work makes it easier for different people to contribute.',
-  },
-  {
-    id: 'agentic-data',
-    name: 'Ticket → data pipeline',
-    eyebrow: 'AI-assisted data engineering',
-    type: 'Technical experiment',
-    tags: ['systems', 'workflows'],
-    color: 'aqua',
-    short: 'An experiment where an AI agent plans, builds, and checks a working data pipeline.',
-    detail: 'This experiment gives an AI agent a set of data-engineering tickets and asks it to build a working Lakeflow pipeline. You can follow the plan, watch the checks run, see a real failure, and see how the agent recovers.',
-    proof: 'Failures tell you much more about an automated system than a perfect first run.',
   },
   {
     id: 'roadwatch',
@@ -159,28 +107,6 @@ const projects = [
     proof: 'This project taught me to make the underlying data understandable before trying to make it clever.',
     link: 'https://github.com/JewelsHovan/Capstone-SIADS699-Team-RoadWatch',
     linkLabel: 'Explore on GitHub',
-  },
-  {
-    id: 'team-knowledge',
-    name: 'Team Knowledge Assistant',
-    eyebrow: 'Conversational context',
-    type: 'Internal experiment',
-    tags: ['systems'],
-    color: 'violet',
-    short: 'A chat assistant that can answer questions using both the code and the team’s project knowledge.',
-    detail: 'This is a team-chat assistant that can look at both a codebase and the working knowledge around it. I’m exploring whether people can ask useful project questions in the chat they already use instead of opening another tool.',
-    proof: 'Sometimes the friendliest interface is simply the place where the conversation is already happening.',
-  },
-  {
-    id: 'meeting-notes',
-    name: 'Meeting Notes Pipeline',
-    eyebrow: 'Context ingestion',
-    type: 'Internal system',
-    tags: ['workflows', 'systems'],
-    color: 'aqua',
-    short: 'A way to turn meeting transcripts into notes that people and AI assistants can find later.',
-    detail: 'This reads existing meeting transcripts on a schedule and turns them into searchable notes and summaries. It helps a team find what was discussed without treating every passing comment as a permanent decision.',
-    proof: 'Meetings are more useful when the important parts can be found later.',
   },
   {
     id: 'football',
@@ -246,13 +172,14 @@ const workflowViews = {
 
 const waypoints = [
   { id: 'top', index: '00', label: 'Start', detail: 'welcome' },
-  { id: 'now', index: '01', label: 'On my desk', detail: 'what has my attention' },
-  { id: 'roots', index: '02', label: 'How I got here', detail: 'software, data, and AI' },
-  { id: 'harness', index: '03', label: 'A guide to my work', detail: 'what helps AI work well' },
-  { id: 'projects', index: '04', label: 'Project garden', detail: 'things I have made' },
-  { id: 'workflow', index: '05', label: 'How I work', detail: 'from question to something useful' },
-  { id: 'notes', index: '06', label: 'Field notes', detail: 'ideas I am turning over' },
-  { id: 'about', index: '07', label: 'A bit more', detail: 'who I am beyond the projects' },
+  { id: 'agentic', index: '01', label: 'Agentic, plainly', detail: 'a shared definition' },
+  { id: 'now', index: '02', label: 'Now', detail: 'what has my attention' },
+  { id: 'roots', index: '03', label: 'How I got here', detail: 'software, data, and AI' },
+  { id: 'harness', index: '04', label: 'A guide to my work', detail: 'what helps AI work well' },
+  { id: 'projects', index: '05', label: 'Project garden', detail: 'public things and system patterns' },
+  { id: 'workflow', index: '06', label: 'How I work', detail: 'from question to something useful' },
+  { id: 'notes', index: '07', label: 'Field notes', detail: 'ideas I am turning over' },
+  { id: 'about', index: '08', label: 'A bit more', detail: 'who I am beyond the projects' },
 ];
 
 function GeneratedDiagram({ children, notes = [], variant }) {
@@ -279,20 +206,24 @@ function ProjectDetail({ className = '', id, project }) {
       {project.link ? (
         <a className="detail-link" href={project.link} target="_blank" rel="noreferrer">{project.linkLabel} <FiArrowUpRight size={17} /></a>
       ) : (
-        <p className="detail-private"><FiCheck size={15} /> This project is not public, so I have kept the description to what I can share.</p>
+        <p className="detail-private"><FiCheck size={15} /> This is a public-safe pattern: the principle is real; specific implementations stay private.</p>
       )}
     </article>
   );
 }
 
 function useMediaQuery(query) {
-  const readMatch = () => typeof window !== 'undefined' && typeof window.matchMedia === 'function' && window.matchMedia(query).matches;
+  const readMatch = () => {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return false;
+    return Boolean(window.matchMedia(query)?.matches);
+  };
   const [matches, setMatches] = useState(readMatch);
 
   useEffect(() => {
     if (typeof window.matchMedia !== 'function') return undefined;
     const media = window.matchMedia(query);
-    const update = () => setMatches(media.matches);
+    if (!media) return undefined;
+    const update = () => setMatches(Boolean(media.matches));
     update();
     if (media.addEventListener) media.addEventListener('change', update);
     else media.addListener?.(update);
@@ -343,6 +274,16 @@ function App() {
 
   useEffect(() => {
     document.title = 'Julien Hovan | AI systems, projects & field notes';
+  }, []);
+
+  useEffect(() => {
+    const selectNoteFromHash = () => {
+      const noteId = window.location.hash.replace(/^#note\//, '');
+      if (fieldNotes.some((note) => note.id === noteId)) setActiveNoteId(noteId);
+    };
+    selectNoteFromHash();
+    window.addEventListener('hashchange', selectNoteFromHash);
+    return () => window.removeEventListener('hashchange', selectNoteFromHash);
   }, []);
 
   useEffect(() => {
@@ -463,6 +404,11 @@ function App() {
     if (firstVisible) setSelectedProject(firstVisible.id);
   };
 
+  const chooseNote = (noteId) => {
+    setActiveNoteId(noteId);
+    window.history.pushState(null, '', `#note/${noteId}`);
+  };
+
   const toggleFieldMap = (event) => {
     if (!fieldMapOpen) fieldMapTriggerRef.current = event.currentTarget;
     setFieldMapOpen((open) => !open);
@@ -541,31 +487,53 @@ function App() {
           <div className="hero-copy hero-intro">
             <p className="eyebrow"><span className="pulse-dot" /> Hello, I&apos;m Julien</p>
             <h1>I build useful systems and make <em>odd little things.</em></h1>
+            <p className="hero-thesis">I design the context, tools, boundaries, checks, and handoffs that let AI do useful multi-step work without making people lose control.</p>
           </div>
 
           <HeroPlayground />
 
           <div className="hero-copy hero-support">
             <p className="hero-summary">
-              I&apos;m an AI engineer with a background in software and data. I spend a lot of time figuring out how people and AI can work together without making everything feel more complicated. This is where I collect the projects, experiments, and ideas that come out of that.
+              I&apos;m an AI engineer with roots in software and data. This is my working notebook: public projects, useful patterns from private work, and ideas I&apos;m still testing.
             </p>
             <div className="hero-actions">
               <a className="button button-mint" href="#projects">See what I make <FiArrowDown size={18} /></a>
               <a className="soft-link" href={newsletterUrl} target="_blank" rel="noreferrer">Read my AI newsletter <FiArrowUpRight size={16} /></a>
             </div>
-            <p className="hero-sketch-note"><span>Try the sketch</span> Disturb the letters, then follow whichever thread catches your eye.</p>
+            <p className="hero-sketch-note"><span>Try the sketch</span> Disturb the particles, then follow context, system, or signal.</p>
+          </div>
+        </section>
+
+        <section className="agentic-section section-wrap" id="agentic" aria-labelledby="agentic-title">
+          <div className="agentic-intro">
+            <p className="eyebrow"><span className="pulse-dot" /> A shared definition</p>
+            <h2 id="agentic-title">Agentic engineering, plainly.</h2>
+            <p>It is the work of designing software where AI can take bounded, multi-step action toward a goal. The model matters, but so do the conditions around it.</p>
+          </div>
+          <div className="agentic-system">
+            <ol className="agentic-flow" aria-label="A practical agentic engineering loop">
+              <li><span>01</span><b>A real need</b><small>Start with a person, a decision, and a useful outcome.</small></li>
+              <li><span>02</span><b>Relevant context</b><small>Give the work the few rules and sources that matter.</small></li>
+              <li><span>03</span><b>Bounded action</b><small>Let the agent use clear tools in a safe space.</small></li>
+              <li><span>04</span><b>Visible evidence</b><small>Show the plan, result, checks, and what changed.</small></li>
+              <li><span>05</span><b>Human judgment</b><small>Leave room to clarify, redirect, review, or approve.</small></li>
+            </ol>
+            <dl className="agentic-terms">
+              <div><dt>Agent</dt><dd>A model working through a task over several steps with tools and feedback, not just one reply.</dd></div>
+              <div><dt>Context engineering</dt><dd>Selecting the right project history, constraints, and source material for the work at hand.</dd></div>
+              <div><dt>Harness</dt><dd>The workbench around an agent: tools, boundaries, memory, checks, and decision points.</dd></div>
+              <div><dt>Evaluation</dt><dd>Evidence that the system did the useful thing, not merely something convincing.</dd></div>
+            </dl>
           </div>
         </section>
 
         <section className="now-section" id="now">
           <div className="section-wrap now-inner">
-            <div className="now-heading"><p className="eyebrow"><span className="pulse-dot" /> On my desk</p><h2>Lately, I&apos;ve been interested in what helps AI fit into real work.</h2></div>
+            <div className="now-heading"><p className="eyebrow"><span className="pulse-dot" /> Now · July 2026</p><h2>Three questions I&apos;m following right now.</h2></div>
             <div className="now-list">
-              <p><span>↗</span> Helping an AI assistant find the few project details that matter instead of handing it every document.</p>
-              <p><span>↗</span> Giving coding agents memory, routines, and clear moments for a person to step in.</p>
-              <p><span>↗</span> Turning my AI reading habit into a public newsletter that is calmer than the usual news cycle.</p>
-              <p><span>↗</span> Letting a studio owner ask for a website change in Discord and try the result before it goes live.</p>
-              <p><span>↗</span> Helping product, design, and engineering work from the same picture of a project.</p>
+              <p><span>01</span> How do you give an AI collaborator the few project details that matter without burying it in the entire archive?</p>
+              <p><span>02</span> What should a person be able to see, try, and change while an agent is doing multi-step work?</p>
+              <p><span>03</span> Can a calmer AI news habit make it easier to notice what actually matters?</p>
             </div>
           </div>
         </section>
@@ -794,7 +762,7 @@ function App() {
                   type="button"
                   key={note.id}
                   aria-pressed={activeNote?.id === note.id}
-                  onClick={() => setActiveNoteId(note.id)}
+                  onClick={() => chooseNote(note.id)}
                 >
                   <span>{note.label} · {note.date}</span>
                   <b>{note.title}</b>
@@ -807,11 +775,11 @@ function App() {
           </div>
 
           {activeNote && (
-            <article className="note-reader" aria-live="polite">
+            <article className="note-reader" id="note-reader" aria-live="polite">
               <header><span>{activeNote.label}</span><span>{activeNote.date} · {activeNote.readTime}</span></header>
               <h3>{activeNote.title}</h3>
               <div className="note-reader-body">{activeNote.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-              <footer><span>Field Notes is a living corner of this site.</span><span>More when I have something worth writing down.</span></footer>
+              <footer><span>Field Notes is a living corner of this site.</span><a href={`#note/${activeNote.id}`}>Link to this note <FiArrowUpRight size={13} /></a></footer>
             </article>
           )}
         </section>

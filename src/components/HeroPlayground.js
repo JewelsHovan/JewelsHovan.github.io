@@ -7,7 +7,7 @@ const sketches = [
     id: 'threads',
     label: 'Threads',
     composition: 'loose threads',
-    note: 'Questions and odd ideas worth following.',
+    note: 'Relevant context first.',
     href: '#notes',
     action: 'Explore my field notes',
   },
@@ -15,15 +15,15 @@ const sketches = [
     id: 'system',
     label: 'System',
     composition: 'working system',
-    note: 'Loose pieces becoming something useful.',
+    note: 'Bounded work, visible checks.',
     href: '#projects',
-    action: 'See the systems I build',
+    action: 'Explore system patterns',
   },
   {
     id: 'signal',
     label: 'Signal',
     composition: 'signal report',
-    note: 'Finding the useful shape inside the noise.',
+    note: 'Noise becomes a useful signal.',
     href: 'https://jewelshovan.github.io/AI-News-Reports/',
     action: 'Read AI News Reports',
     external: true,
@@ -35,7 +35,7 @@ const particleColors = ['#9ce8c4', '#d9f66c', '#69cdd2', '#f28973', '#a4a2e6'];
 function prefersReducedMotion() {
   return typeof window !== 'undefined'
     && typeof window.matchMedia === 'function'
-    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    && Boolean(window.matchMedia('(prefers-reduced-motion: reduce)')?.matches);
 }
 
 function sendTactileFeedback(duration = 8) {
@@ -69,7 +69,7 @@ function sampleComposition(id, width, height) {
   } else if (id === 'system') {
     const boxes = [[.13,.38,.18,.23],[.41,.18,.2,.2],[.41,.6,.2,.2],[.71,.38,.18,.23]];
     context.lineWidth = Math.max(5,width * .009);
-    boxes.forEach(([bx,by,bw,bh]) => context.strokeRect(x(bx),y(by),x(bw),y(bh)));
+    boxes.forEach(([bx,by,bw,bh]) => { context.strokeRect(x(bx),y(by),x(bw),y(bh)); });
     [[.31,.495,.41,.28],[.31,.495,.41,.7],[.61,.28,.71,.495],[.61,.7,.71,.495]].forEach(([ax,ay,bx,by]) => { context.beginPath(); context.moveTo(x(ax),y(ay)); context.lineTo(x(bx),y(by)); context.stroke(); });
     boxes.forEach(([bx,by,bw,bh]) => { context.beginPath(); context.arc(x(bx+bw/2),y(by+bh/2),Math.max(6,width*.012),0,Math.PI*2); context.fill(); });
   } else {
@@ -390,7 +390,7 @@ function HeroPlayground() {
       }}
     >
       <div className="playground-topline">
-        <p id="hero-playground-title"><span /> Play, then follow a thread</p>
+        <p id="hero-playground-title"><span /> Context → work → signal</p>
         <p>Drag through it · it settles back</p>
       </div>
 
@@ -410,7 +410,7 @@ function HeroPlayground() {
 
       <div className="playground-footer">
         <div className="playground-copy">
-          <span>{particleCount ? `${particleCount} little points` : 'A cloud of little points'}</span>
+          <span>{particleCount ? `${particleCount} PARTICLES IN THIS COMPOSITION` : 'A PARTICLE COMPOSITION'}</span>
           <p>{activeSketch.note}</p>
           <a className="playground-route" href={activeSketch.href} target={activeSketch.external ? '_blank' : undefined} rel={activeSketch.external ? 'noreferrer' : undefined}>{activeSketch.action} <FiArrowDown size={13} /></a>
         </div>
