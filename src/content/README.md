@@ -1,12 +1,12 @@
-# Field Notes prototype
+# Field Notes
 
-This site uses a deliberately small, file-first blog prototype so notes can ship with the rest of the site.
+Field Notes lives in `fieldNotes.js` so the writing stays with the rest of the site.
 
 ## Add a note
 
-1. Open `src/content/fieldNotes.js`.
-2. Copy an entry in the `fieldNotes` array.
-3. Give it a unique `id`, `label`, `date`, `readTime`, `title`, `excerpt`, and an array of paragraph strings in `body`.
-4. Run `npm start` to preview it, then `npm run build` before publishing.
+1. Copy an entry in the `fieldNotes` array.
+2. Give it a unique `id`, `label`, `date`, `readTime`, `title`, and `excerpt`.
+3. Add each paragraph as a string in `body`.
+4. Preview the note with `npm start`, then run `npm run build` before publishing.
 
-The Field Notes index and reader are rendered from this array automatically. Keep paragraphs public-safe; drafts or private research should stay outside this repository until ready to publish.
+Keep drafts and private research outside the repository until they are ready to share.

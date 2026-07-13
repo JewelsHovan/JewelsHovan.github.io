@@ -26,45 +26,45 @@ const newsletterArchiveUrl = 'https://jewelshovan.github.io/AI-News-Reports/arch
 
 const filters = [
   { id: 'all', label: 'Everything' },
-  { id: 'now', label: 'In motion' },
-  { id: 'systems', label: 'Working with agents' },
-  { id: 'workflows', label: 'How it ships' },
-  { id: 'public', label: 'For people' },
+  { id: 'now', label: 'What I’m making now' },
+  { id: 'systems', label: 'AI systems' },
+  { id: 'workflows', label: 'Ways of working' },
+  { id: 'public', label: 'Things you can visit' },
 ];
 
 const projects = [
   {
     id: 'fluence',
     name: 'Compass Fluence',
-    eyebrow: 'Context engineering',
+    eyebrow: 'Project memory',
     type: 'Internal system',
     tags: ['now', 'systems'],
     color: 'mint',
-    short: 'A working context layer for a project’s intent, decisions, and source material.',
-    detail: 'Fluence is a git-native way to keep product intent, decisions, delivery context, and source material close to the work. I’m helping build it so people and agents can find the useful slice when they need it instead of starting from a pile of docs.',
-    proof: 'Useful context should travel with the work, not get buried in old documents.',
+    short: 'A way to keep what a team decided, why it mattered, and the sources behind it.',
+    detail: 'Fluence keeps the history behind a project close to the work itself: what people decided, why they decided it, and which source material matters. I’m helping build it so a person or an AI assistant can find what they need without digging through a pile of old documents.',
+    proof: 'I like the idea that a project can remember why it became what it is.',
   },
   {
     id: 'hub',
     name: 'Compass Hub',
-    eyebrow: 'Memory + shared practice',
+    eyebrow: 'Sharing what a team learns',
     type: 'Internal system',
     tags: ['now', 'systems'],
     color: 'aqua',
-    short: 'A shared place for team memory, skills, agents, and the setup worth reusing.',
-    detail: 'Compass Hub is a files-first place for teams to publish, find, and pull the things that make AI-assisted work less improvised: working memory, skills, agents, and team config. It puts shared knowledge where people already work.',
-    proof: 'When a harness works, its good bits should be easy to pass on.',
+    short: 'A library where people can pass along useful AI tools, instructions, and project knowledge.',
+    detail: 'Compass Hub is a shared library for the useful things a team learns while working with AI: instructions, tools, project memory, and setups worth reusing. It means a good idea can move between people and projects instead of living on one laptop.',
+    proof: 'I enjoy turning one person’s useful discovery into something the rest of the team can pick up.',
   },
   {
     id: 'superpowers',
     name: 'Pi Compass Superpowers',
-    eyebrow: 'Harness engineering',
+    eyebrow: 'Tools around coding agents',
     type: 'Internal ecosystem',
     tags: ['now', 'systems'],
     color: 'lime',
-    short: 'Portable tools for ticketed work, memory, review, and bounded autonomy.',
-    detail: 'I’m building Pi-native packages for the less glamorous side of agentic development: context, delegating work, keeping an eye on it, browser tools, quality checks, memory, and the small automations that keep a loop running.',
-    proof: 'An agent workflow should be easy to inspect, share, and improve after it runs.',
+    short: 'Tools that help coding agents remember a project, divide work, and check what they changed.',
+    detail: 'This is a collection of tools I’m building around coding agents. They help an agent remember a project, break work into sensible pieces, use a browser, check its results, and leave a clear record for the person working with it.',
+    proof: 'The interesting part is making an AI collaborator easier to understand and steer.',
   },
   {
     id: 'news',
@@ -74,54 +74,54 @@ const projects = [
     tags: ['now', 'systems', 'public'],
     color: 'coral',
     short: 'My AI news habit turned into a public newsletter.',
-    detail: 'I use it to follow the field without letting it take over my week. It brings together different sources, works through the research, then turns it into a digest for the email list and public archive.',
-    proof: 'A reading habit that is useful enough to pass on.',
+    detail: 'I made this to follow AI without letting the news take over my week. It collects stories from different sources, helps me compare them, and turns my reading into a digest for the email list and public archive.',
+    proof: 'It began as a personal reading habit and became something I could share.',
     link: newsletterUrl,
     linkLabel: 'Read the newsletter',
   },
   {
     id: 'noro',
     name: 'Noro',
-    eyebrow: 'Multi-agent creation',
+    eyebrow: 'Making presentations with AI',
     type: 'Compass build',
     tags: ['systems'],
     color: 'violet',
-    short: 'A presentation system that turns a prompt and source material into a branded deck.',
-    detail: 'Noro coordinates research, planning, writing, layout choices, image placement, and a check of the finished deck. It takes away some tedious steps while leaving a person in charge of what the deck says and why.',
-    proof: 'Generating slides is easy. Checking that the deck makes sense is the interesting part.',
+    short: 'Several AI roles turn a question and its source material into one coherent presentation.',
+    detail: 'Noro helps turn a prompt and a set of source documents into a presentation. Several AI roles handle research, structure, writing, layout, and a final review, while a person stays responsible for what the deck actually says.',
+    proof: 'I’m less interested in generating slides than in helping someone make a coherent point.',
   },
   {
     id: 'analyst',
     name: 'Data Analyst AI',
-    eyebrow: 'Agentic analysis',
-    type: 'Prototype',
+    eyebrow: 'An AI data analyst',
+    type: 'Personal exploration',
     tags: ['systems'],
     color: 'blue',
-    short: 'A LangGraph workflow that plans, checks its work, iterates, and writes reports.',
-    detail: 'I built this to see what an analysis agent needs beyond a chat box: clear stages, structured state, checkpoints, data checks, and a critique before it calls a result done.',
-    proof: 'Good analysis needs checks and a way back when something goes wrong.',
+    short: 'An analysis assistant that makes a plan, checks the data, reviews its work, and writes a report.',
+    detail: 'I built this to explore what an AI data analyst needs beyond a chat box. It plans an analysis, checks the data, reviews its own work, and can return to an earlier step when something does not add up.',
+    proof: 'I wanted the analysis process to be visible, including the moments when it changes its mind.',
   },
   {
     id: 'delivery',
     name: 'Delivery control plane',
-    eyebrow: 'Client delivery',
-    type: 'Client system',
+    eyebrow: 'A visible way to make changes',
+    type: 'Private work project',
     tags: ['now', 'workflows'],
     color: 'gold',
     short: 'A route from a plain-language request to a reviewed change you can preview.',
-    detail: 'For a connected multi-application client platform, I designed an agent-assisted delivery loop that links requests, source material, implementation, reviews, and release decisions. It lets a nontechnical owner see the work and weigh in without having to become a developer.',
-    proof: 'The people closest to the work can see what is happening and decide what comes next.',
+    detail: 'I designed a way for someone to describe a change to a group of connected applications, follow it as it is built, try a preview, and decide whether it should go live. AI helps with the work, but the owner can always see and redirect what is happening.',
+    proof: 'The person asking for a change should not lose sight of it once the technical work begins.',
   },
   {
     id: 'luccas-agent',
     name: 'Luccas Studio Agent',
-    eyebrow: 'Discord-native delivery',
-    type: 'Client system',
+    eyebrow: 'Making changes through Discord',
+    type: 'Private studio project',
     tags: ['now', 'workflows', 'systems'],
     color: 'coral',
     short: 'A request-to-release loop that lets a creative studio change its apps from Discord.',
-    detail: 'A Discord-native agentic workflow for a non-technical creative owner: describe a change in plain language, refine a code-aware spec, trigger a scoped implementation, review a preview, and explicitly choose whether it ships. It keeps the human in the loop without making them learn the development stack.',
-    proof: 'The person closest to the website can ask for a change, see the result, and decide when it goes live.',
+    detail: 'This lets a creative studio owner ask for a website change from Discord, talk through the details, and see a preview before deciding whether it goes live. The complicated development work stays in the background without hiding the result.',
+    proof: 'I like giving someone a direct relationship with the software they use, even if they do not write code.',
   },
   {
     id: 'lco-os',
@@ -130,20 +130,20 @@ const projects = [
     type: 'Internal system',
     tags: ['now', 'workflows', 'systems'],
     color: 'gold',
-    short: 'A living project surface that keeps PMs, designers, and engineering closer to the same work.',
-    detail: 'A configurable project-management layer that combines shared views of work, Jira synchronization, safe staging, and an agent-ready project knowledge base. The point is to give PMs and designers more agency in the development process without creating a disconnected shadow workflow.',
-    proof: 'Product decisions stay near the implementation instead of getting lost in the handoff between tools and roles.',
+    short: 'A shared project view that keeps product managers, designers, and engineers close to the same work.',
+    detail: 'This brings project plans, Jira work, design context, and technical knowledge into one connected view. I’m exploring how product managers, designers, and engineers can stay close to the same work instead of passing partial context between separate tools.',
+    proof: 'A shared picture of the work makes it easier for different people to contribute.',
   },
   {
     id: 'agentic-data',
     name: 'Ticket → data pipeline',
-    eyebrow: 'Agentic data engineering',
-    type: 'Internal demo',
+    eyebrow: 'AI-assisted data engineering',
+    type: 'Technical experiment',
     tags: ['systems', 'workflows'],
     color: 'aqua',
-    short: 'A visible loop from delivery tickets to a validated, running data pipeline.',
-    detail: 'An end-to-end data-engineering demonstration where an agent turns a set of tickets into dependency-aware work, builds a Lakeflow pipeline, validates it, deploys it, reads real failures, and retries. It makes the value of agentic engineering concrete: not a chat, but a recoverable delivery loop.',
-    proof: 'Automation earns trust when people can see the plan, the checks, the failure, and the recovery.',
+    short: 'An experiment where an AI agent plans, builds, and checks a working data pipeline.',
+    detail: 'This experiment gives an AI agent a set of data-engineering tickets and asks it to build a working Lakeflow pipeline. You can follow the plan, watch the checks run, see a real failure, and see how the agent recovers.',
+    proof: 'Failures tell you much more about an automated system than a perfect first run.',
   },
   {
     id: 'roadwatch',
@@ -153,8 +153,8 @@ const projects = [
     tags: ['public'],
     color: 'blue',
     short: 'An interactive exploration of work-zone data, risk signals, and traffic impact.',
-    detail: 'A data-focused project on how roadwork conditions, traffic, and context can be brought together to help make work zones safer and easier to plan around. It is part of the data-engineering and decision-support thread that still shapes how I approach AI systems today.',
-    proof: 'Before an agent can help, the underlying data needs to become legible enough to make a decision with.',
+    detail: 'RoadWatch brings together roadwork conditions, traffic, and surrounding context to explore what makes a work zone risky. It came from my data-engineering work and still influences how I think about building technology around real decisions.',
+    proof: 'This project taught me to make the underlying data understandable before trying to make it clever.',
     link: 'https://github.com/JewelsHovan/Capstone-SIADS699-Team-RoadWatch',
     linkLabel: 'Explore on GitHub',
   },
@@ -165,9 +165,9 @@ const projects = [
     type: 'Internal experiment',
     tags: ['systems'],
     color: 'violet',
-    short: 'A conversational assistant that joins team chat with the codebase and working knowledge.',
-    detail: 'An exploration of meeting people where they already work: a team-chat assistant that can draw on code and organizational knowledge through an agent SDK and MCP-connected tools. It is another version of the same question—how do we make useful context feel close at hand?',
-    proof: 'The best internal tool is often one that reduces the distance between a question and the relevant context.',
+    short: 'A chat assistant that can answer questions using both the code and the team’s project knowledge.',
+    detail: 'This is a team-chat assistant that can look at both a codebase and the working knowledge around it. I’m exploring whether people can ask useful project questions in the chat they already use instead of opening another tool.',
+    proof: 'Sometimes the friendliest interface is simply the place where the conversation is already happening.',
   },
   {
     id: 'meeting-notes',
@@ -176,9 +176,9 @@ const projects = [
     type: 'Internal system',
     tags: ['workflows', 'systems'],
     color: 'aqua',
-    short: 'A route from meeting transcripts to searchable context that agents can use.',
-    detail: 'A scheduled, read-only workflow that turns existing transcripts into material for search, summaries, and team memory. Important context does not have to disappear after the call.',
-    proof: 'What a team already said should be there for the next decision.',
+    short: 'A way to turn meeting transcripts into notes that people and AI assistants can find later.',
+    detail: 'This reads existing meeting transcripts on a schedule and turns them into searchable notes and summaries. It helps a team find what was discussed without treating every passing comment as a permanent decision.',
+    proof: 'Meetings are more useful when the important parts can be found later.',
   },
   {
     id: 'football',
@@ -201,8 +201,8 @@ const projects = [
     tags: ['public'],
     color: 'coral',
     short: 'An art and reflection space for people living with pain.',
-    detail: 'A full application that uses guided creation, reflective prompts, and careful UX to give people a little more room to work through difficult experiences.',
-    proof: 'Some useful AI tools give people room to process difficult things. Speed is beside the point.',
+    detail: 'Pain+ is an art and reflection space for people living with pain. It uses gentle prompts and guided creation to offer another way to sit with a difficult experience.',
+    proof: 'I wanted to explore AI as a quiet creative aid, not a machine for doing things faster.',
     link: 'https://github.com/JewelsHovan/ArtTherapy-plus',
     linkLabel: 'See the project',
   },
@@ -223,34 +223,34 @@ const projects = [
 
 const workflowViews = {
   context: {
-    label: '01 / Context',
-    title: 'Start with the context behind the request.',
-    body: 'I bring together the things that usually end up scattered: project docs, decisions, tickets, source data, notes from meetings, and the small details behind a request. I do not want one giant brain. I want the useful bit of context to show up when someone starts the work.',
-    trace: ['docs + data', 'the right project context', 'agents start informed'],
+    label: '01 / Understand',
+    title: 'First, I try to understand what is really being asked.',
+    body: 'I gather the useful pieces that tend to be scattered across project documents, decisions, tickets, data, and meeting notes. The aim is not to collect everything. It is to give the person or AI doing the work enough background to make a sensible start.',
+    trace: ['listen to the request', 'find the useful context', 'agree on what good looks like'],
   },
   motion: {
-    label: '02 / Motion',
-    title: 'Let agents help without making the work a black box.',
-    body: 'A useful agent workflow has roles, routines, memory, and clear points where people can step in. I design for the actual work: research, planning, building, reviewing, keeping watch, then learning from what happened.',
-    trace: ['a trigger + a routine', 'agents with jobs', 'review + lessons carried forward'],
+    label: '02 / Make',
+    title: 'Then I give the work a shape people can follow.',
+    body: 'I decide what AI can help with, what needs a person’s judgment, and where we should pause to look at the result. That might include research, planning, coding, review, or simply keeping track of what changed.',
+    trace: ['choose the next step', 'people and AI do their parts', 'stop and look together'],
   },
   delivery: {
-    label: '03 / Delivery',
-    title: 'Make it easy to see what is about to ship.',
-    body: 'Good ideas only count if they make it into the real world. I connect a request to the build, the checks, the preview, GitOps, and the release decision. Teams can move without losing the ability to see, test, or roll back a change.',
-    trace: ['request becomes a plan', 'checks leave evidence', 'preview, release, learn'],
+    label: '03 / Share',
+    title: 'A working result should be easy to see and respond to.',
+    body: 'I connect the original request to a preview, the checks behind it, and a clear decision about what happens next. That way, the person who asked for the work can try it, question it, and change direction before anything becomes final.',
+    trace: ['turn the idea into something visible', 'try it and check it', 'keep, revise, or undo'],
   },
 };
 
 const waypoints = [
-  { id: 'top', index: '00', label: 'Start', detail: 'the front door' },
-  { id: 'now', index: '01', label: 'In motion', detail: 'what I am exploring' },
-  { id: 'roots', index: '02', label: 'Roots', detail: 'where the work started' },
-  { id: 'harness', index: '03', label: 'Harness guide', detail: 'context, tools, proof' },
-  { id: 'projects', index: '04', label: 'Project garden', detail: 'systems and experiments' },
-  { id: 'workflow', index: '05', label: 'How it ships', detail: 'delivery with guardrails' },
-  { id: 'notes', index: '06', label: 'Field notes', detail: 'thinking in public' },
-  { id: 'about', index: '07', label: 'A bit more', detail: 'the person in the loop' },
+  { id: 'top', index: '00', label: 'Start', detail: 'welcome' },
+  { id: 'now', index: '01', label: 'On my desk', detail: 'what has my attention' },
+  { id: 'roots', index: '02', label: 'How I got here', detail: 'software, data, and AI' },
+  { id: 'harness', index: '03', label: 'A guide to my work', detail: 'what helps AI work well' },
+  { id: 'projects', index: '04', label: 'Project garden', detail: 'things I have made' },
+  { id: 'workflow', index: '05', label: 'How I work', detail: 'from question to something useful' },
+  { id: 'notes', index: '06', label: 'Field notes', detail: 'ideas I am turning over' },
+  { id: 'about', index: '07', label: 'A bit more', detail: 'who I am beyond the projects' },
 ];
 
 function GeneratedDiagram({ alt, image, notes = [], variant }) {
@@ -273,11 +273,11 @@ function ProjectDetail({ className = '', id, project }) {
       <p className="detail-label">{project.eyebrow}</p>
       <h3>{project.name}</h3>
       <p className="detail-body">{project.detail}</p>
-      <div className="detail-proof"><span>Why it matters</span><p>{project.proof}</p></div>
+      <div className="detail-proof"><span>What interests me</span><p>{project.proof}</p></div>
       {project.link ? (
         <a className="detail-link" href={project.link} target="_blank" rel="noreferrer">{project.linkLabel} <FiArrowUpRight size={17} /></a>
       ) : (
-        <p className="detail-private"><FiCheck size={15} /> The useful parts are real. The private parts stay private.</p>
+        <p className="detail-private"><FiCheck size={15} /> This project is not public, so I have kept the description to what I can share.</p>
       )}
     </article>
   );
@@ -503,7 +503,7 @@ function App() {
       <header className="site-header">
         <a className="wordmark" href="#top" aria-label="Julien Hovan home">
           <span className="wordmark-orbit"><i /> <b>JH</b></span>
-          <span>Julien Hovan<small>Projects, AI, and things I&apos;m figuring out</small></span>
+          <span>Julien Hovan<small>Things I make and ideas I&apos;m following</small></span>
         </a>
 
         <div className="header-actions">
@@ -524,7 +524,7 @@ function App() {
         {fieldMapOpen && (
           <div className="field-map-panel" id="field-map" ref={fieldMapPanelRef} role="dialog" aria-modal="true" aria-labelledby="field-map-title" aria-describedby="field-map-description">
             <div className="field-map-panel-head"><span id="field-map-title">Field map</span><button type="button" aria-label="Close field map" onClick={closeFieldMap}><FiX size={18} /></button></div>
-            <p id="field-map-description">Pick a waypoint. The map follows you as you move through the garden.</p>
+            <p id="field-map-description">Pick a place to visit, or keep scrolling and wander through.</p>
             <nav aria-label="Field map waypoints">
               <ol>
                 {waypoints.map((waypoint) => <li className={activeWaypoint.id === waypoint.id ? 'active' : ''} key={waypoint.id}><a href={`#${waypoint.id}`} aria-current={activeWaypoint.id === waypoint.id ? 'location' : undefined} onClick={(event) => goToWaypoint(event, waypoint.id)}><span>{waypoint.index}</span><b>{waypoint.label}</b><small>{waypoint.detail}</small></a></li>)}
@@ -537,7 +537,7 @@ function App() {
       <main id="main-content" tabIndex={-1}>
         <section className="hero section-wrap" id="top">
           <div className="hero-copy hero-intro">
-            <p className="eyebrow"><span className="pulse-dot" /> Things I&apos;m working on</p>
+            <p className="eyebrow"><span className="pulse-dot" /> Hello, I&apos;m Julien</p>
             <h1>I build useful systems and make <em>odd little things.</em></h1>
           </div>
 
@@ -545,34 +545,34 @@ function App() {
 
           <div className="hero-copy hero-support">
             <p className="hero-summary">
-              Hi, I&apos;m Julien—an AI engineer who came up through software and data. I build useful systems for people, then come here to experiment, make strange things, and keep learning in public.
+              I&apos;m an AI engineer with a background in software and data. I spend a lot of time figuring out how people and AI can work together without making everything feel more complicated. This is where I collect the projects, experiments, and ideas that come out of that.
             </p>
             <div className="hero-actions">
-              <a className="button button-mint" href="#projects">Explore the garden <FiArrowDown size={18} /></a>
+              <a className="button button-mint" href="#projects">See what I make <FiArrowDown size={18} /></a>
               <a className="soft-link" href={newsletterUrl} target="_blank" rel="noreferrer">Read my AI newsletter <FiArrowUpRight size={16} /></a>
             </div>
-            <p className="hero-sketch-note"><span>Try the sketch</span> Disturb the type. It finds its way home.</p>
+            <p className="hero-sketch-note"><span>Try the sketch</span> Move through the letters and watch them settle back.</p>
           </div>
         </section>
 
         <section className="now-section" id="now">
           <div className="section-wrap now-inner">
-            <div className="now-heading"><p className="eyebrow"><span className="pulse-dot" /> On my desk</p><h2>Lately, I&apos;ve been thinking most about everything around the model.</h2></div>
+            <div className="now-heading"><p className="eyebrow"><span className="pulse-dot" /> On my desk</p><h2>Lately, I&apos;ve been interested in what helps AI fit into real work.</h2></div>
             <div className="now-list">
-              <p><span>↗</span> Taking scattered delivery knowledge and making it useful when agents need it.</p>
-              <p><span>↗</span> Giving agent workflows routines, memory, and someone watching the edges.</p>
-              <p><span>↗</span> Making AI News Reports public, because keeping up with the field is better when it helps someone else too.</p>
-              <p><span>↗</span> Giving a creative studio a Discord-native path from an idea to a preview.</p>
-              <p><span>↗</span> Keeping PMs, designers, and engineers closer to the same live development loop.</p>
+              <p><span>↗</span> Helping an AI assistant find the few project details that matter instead of handing it every document.</p>
+              <p><span>↗</span> Giving coding agents memory, routines, and clear moments for a person to step in.</p>
+              <p><span>↗</span> Turning my AI reading habit into a public newsletter that is calmer than the usual news cycle.</p>
+              <p><span>↗</span> Letting a studio owner ask for a website change in Discord and try the result before it goes live.</p>
+              <p><span>↗</span> Helping product, design, and engineering work from the same picture of a project.</p>
             </div>
           </div>
         </section>
 
         <section className="roots-section section-wrap" id="roots">
           <div className="roots-copy">
-            <p className="eyebrow">A few roots</p>
-            <h2>I didn&apos;t arrive at AI from a single direction.</h2>
-            <p>I&apos;m an AI engineer now, but it began with Python web scrapers and a need to understand how things worked. That curiosity pulled me through software design, data work, architecture, and the systems I make now.</p>
+            <p className="eyebrow">How I got here</p>
+            <h2>Before AI, there were web scrapers, software, and a lot of data.</h2>
+            <p>I started with small Python scripts because I wanted to understand how websites worked. One question led to another, then into software engineering, data systems, and eventually the AI work I do now.</p>
           </div>
           <ol className="roots-trail">
             <li>
@@ -583,7 +583,7 @@ function App() {
             <li>
               <span>02 / Data</span>
               <h3>Data engineer</h3>
-              <p>I learned that a useful system starts beneath the interface—clean inputs, dependable pipelines, and data people can genuinely make decisions with.</p>
+              <p>I learned that a useful system often starts beneath the interface, with clean inputs, dependable pipelines, and data that people can make decisions with.</p>
             </li>
             <li>
               <span>03 / AI</span>
@@ -596,28 +596,28 @@ function App() {
         <section className="compass-section">
           <div className="section-wrap compass-inner">
             <div className="compass-copy">
-              <p className="eyebrow"><span className="pulse-dot" /> Where I build with other people</p>
-              <h2>Compass Data is where difficult ideas become useful things.</h2>
-              <p>Compass works with organizations to design, build, and deploy data and AI projects—from strategy and data foundations to agents, automation, and the software people use every day.</p>
-              <p>My role sits close to the build: I lead software delivery, help turn ambiguous needs into workable systems, and bring the context, checks, and care that make an AI idea hold up outside a demo.</p>
-              <a className="compass-link" href="https://compassdata.ca" target="_blank" rel="noreferrer">Meet Compass Data <FiArrowUpRight size={17} /></a>
+              <p className="eyebrow"><span className="pulse-dot" /> Where I work</p>
+              <h2>Compass Data is where I make things with other people.</h2>
+              <p>Compass is a data and AI company in Montreal. We work with organizations that have a messy question, scattered information, or a process that could be made easier.</p>
+              <p>I lead software delivery there. In practice, that means listening to what someone is trying to do, helping shape the idea, building the system with a team, and making sure the person who asked for it can follow along.</p>
+              <a className="compass-link" href="https://compassdata.ca" target="_blank" rel="noreferrer">Visit Compass Data <FiArrowUpRight size={17} /></a>
             </div>
             <div className="compass-bearings">
-              <article><span>N / Foundations</span><h3>Data that can carry the work.</h3><p>Models, pipelines, and infrastructure that turn scattered inputs into a useful base.</p></article>
-              <article><span>E / Intelligence</span><h3>AI with a job to do.</h3><p>Agents, analytical systems, and automation built around a real decision or workflow.</p></article>
-              <article><span>S / Software</span><h3>Tools people want to open.</h3><p>Business applications and interfaces that make a complicated process feel clearer.</p></article>
-              <article><span>W / Delivery</span><h3>Change people can follow.</h3><p>Shared context, previews, review loops, and a path from request to release.</p></article>
+              <article><span>N / Data</span><h3>Make the information usable.</h3><p>Organize scattered data so people and software can do something sensible with it.</p></article>
+              <article><span>E / AI</span><h3>Give the model a clear role.</h3><p>Build AI around a real question, task, or decision instead of adding it everywhere.</p></article>
+              <article><span>S / Software</span><h3>Make a place people can use.</h3><p>Turn the work behind the scenes into an application or interface that feels clear.</p></article>
+              <article><span>W / Working together</span><h3>Keep the process visible.</h3><p>Share early versions, ask questions, and make room for people to change their minds.</p></article>
             </div>
           </div>
         </section>
 
         <section className="harness-section section-wrap" id="harness">
           <div className="section-heading harness-heading">
-            <div><p className="eyebrow">Harness field guide</p><h2>The model is one instrument. The harness is the practice around it.</h2></div>
-            <p>When I say “harness engineering,” I mean designing the context, tools, memory, checks, and human moments that let an AI system do useful work without becoming a black box.</p>
+            <div><p className="eyebrow">A guide to my AI work</p><h2>The model is one part. I work on everything around it.</h2></div>
+            <p>A model needs instructions, useful background, tools, memory, checks, and places where a person can step in. People sometimes call this a harness. I think of it as giving AI a well-designed place to work.</p>
           </div>
 
-          <div className="harness-axiom"><span>Working rule</span><p>Ambiguity is the enemy of agentic workflows.</p><small>A coding agent cannot resolve a boundary that nobody has named. Give it a clear outcome, the relevant context, and a way to prove the work.</small></div>
+          <div className="harness-axiom"><span>A rule I come back to</span><p>An AI cannot clarify a boundary that nobody has noticed.</p><small>Start with a clear purpose, share the background that matters, and decide how a person will check the result.</small></div>
 
           <div className="harness-explorer">
             <div className="harness-map" role="tablist" aria-label="Explore a practical AI engineering harness">
@@ -640,7 +640,7 @@ function App() {
             </div>
 
             <div className="harness-inspector" id="harness-stage-panel" role="tabpanel" aria-labelledby={`harness-tab-${activeHarnessStage.id}`} aria-live="polite">
-              <div className="harness-inspector-top"><span>{activeHarnessStage.label}</span><span>Live lens</span></div>
+              <div className="harness-inspector-top"><span>{activeHarnessStage.label}</span><span>One part of the picture</span></div>
               <h3>{activeHarnessStage.title}</h3>
               <p>{activeHarnessStage.summary}</p>
               <div className="harness-pairs">
@@ -654,7 +654,7 @@ function App() {
             <div className="diagram-teaser-copy">
               <p className="eyebrow">A picture before the jargon</p>
               <h3>A useful run leaves the next person better prepared.</h3>
-              <p>Turn a human need into shared context, bounded work, evidence, and a handoff. The point is not automation theatre—it&apos;s making useful progress easier to inspect and continue.</p>
+              <p>Start with what a person needs, gather the right background, do a manageable piece of work, and show what happened. The point is to make progress that another person can understand and continue.</p>
               <button className="diagram-atlas-button" type="button" onClick={openHarnessAtlas}>Open the diagram atlas <FiArrowUpRight size={15} /></button>
             </div>
             {/* biome-ignore lint/a11y/noNoninteractiveTabindex: Horizontal diagrams need a keyboard-scrollable viewport. */}
@@ -663,9 +663,9 @@ function App() {
 
           <div className="harness-footer-grid">
             <article className="workshop-card">
-              <p className="eyebrow"><span className="pulse-dot" /> I teach this too</p>
-              <h3>From a workshop table to the working system.</h3>
-              <p>I run practical harness and context-engineering workshops for new people joining Compass Data, and have shared versions of this work in industry rooms and at McGill MMA. The aim is not to make everyone an AI engineer. It&apos;s to help people see what an agentic system is actually made of—and where they should stay involved.</p>
+              <p className="eyebrow"><span className="pulse-dot" /> Talking it through</p>
+              <h3>I like making the technical picture easier to see.</h3>
+              <p>I run practical workshops for people joining Compass Data and have shared versions with industry groups and students at McGill MMA. We take apart an AI system together so people can see what the model does, what surrounds it, and where their own judgment belongs.</p>
             </article>
             <div className="reading-shelf">
               <p className="queue-title">On my reading desk</p>
@@ -676,13 +676,13 @@ function App() {
               ))}
             </div>
           </div>
-          <p className="harness-disclaimer">This is my working model, informed by research and the systems I build—not a claim that every good AI system needs the same stack.</p>
+          <p className="harness-disclaimer">This is how I currently make sense of the work. It keeps changing as I read, build, and learn from other people.</p>
         </section>
 
         <section className="project-section section-wrap" id="projects">
           <div className="section-heading project-heading">
             <div><p className="eyebrow">Project garden</p><h2>Things I&apos;ve made, am making, and keep coming back to.</h2></div>
-            <p>This isn&apos;t a résumé. It&apos;s a rough map of the systems, experiments, and human problems I keep coming back to.</p>
+            <p>Some are part of my work, some began as questions, and some exist because I thought they would be fun to make.</p>
           </div>
 
           <div className="filter-bar" role="toolbar" aria-label="Filter projects">
@@ -725,15 +725,15 @@ function App() {
           </div>
 
           <a className="archive-link" href="https://github.com/JewelsHovan?tab=repositories" target="_blank" rel="noreferrer">
-            There&apos;s more in the archive, too <FiGithub size={17} />
+            Browse more of my projects on GitHub <FiGithub size={17} />
           </a>
         </section>
 
         <section className="workflow-section" id="workflow">
           <div className="section-wrap">
             <div className="section-heading light-heading">
-              <div><p className="eyebrow">How I build</p><h2>I&apos;m always trying to make the next good decision easier.</h2></div>
-              <p>I care about the conditions that let people and agents do better work together.</p>
+              <div><p className="eyebrow">How I work</p><h2>Most projects start with listening, not building.</h2></div>
+              <p>Here is the simple version of how I move from a question to something a person can try.</p>
             </div>
 
             <div className="workflow-shell">
@@ -751,7 +751,7 @@ function App() {
                     onClick={() => setActiveWorkflow(id)}
                     onKeyDown={(event) => moveTabFocus(event, Object.keys(workflowViews), activeWorkflow, setActiveWorkflow, 'workflow-tab')}
                   >
-                    <span>{view.label}</span>{id === 'context' ? 'Roots' : id === 'motion' ? 'Motion' : 'Release'}
+                    <span>{view.label}</span>{id === 'context' ? 'Understand' : id === 'motion' ? 'Make' : 'Share'}
                   </button>
                 ))}
               </div>
@@ -767,16 +767,16 @@ function App() {
 
         <section className="notes-section section-wrap" id="notes">
           <div className="section-heading notes-heading">
-            <div><p className="eyebrow">Field notes</p><h2>A small blog for the things I&apos;m still turning over.</h2></div>
-            <p>Some notes will be practical. Some will be personal. Some will be a useful idea I don&apos;t want to lose before it has somewhere else to go.</p>
+            <div><p className="eyebrow">Field notes</p><h2>A place for ideas I&apos;m still turning over.</h2></div>
+            <p>I write about making software, living with fast-moving technology, and whatever else keeps following me around.</p>
           </div>
 
           <div className="notes-grid">
             <article className="newsletter-card">
               <div className="newsletter-top"><span className="note-spark">✦</span><span>AI NEWS REPORTS</span><span>OPEN ARCHIVE</span></div>
-              <h3>A personal research loop that helps me follow AI without losing the plot.</h3>
-              <p>I read widely, compare notes, and turn the useful bits into a calmer update for the email list and archive. It&apos;s public now, and I&apos;m still tinkering with it.</p>
-              <div className="newsletter-flow"><span>8 source feeds</span><i>→</i><span>research pass</span><i>→</i><span>digest + archive</span></div>
+              <h3>The newsletter I wanted when keeping up with AI started to feel like a second job.</h3>
+              <p>I read across a handful of sources, compare what they are saying, and turn the useful parts into one calmer update. It is as much a way to organize my own thoughts as it is a newsletter.</p>
+              <div className="newsletter-flow"><span>read widely</span><i>→</i><span>compare notes</span><i>→</i><span>write the digest</span></div>
               <div className="newsletter-actions">
                 <a href={newsletterUrl} target="_blank" rel="noreferrer">Subscribe <FiArrowUpRight size={17} /></a>
                 <a href={newsletterArchiveUrl} target="_blank" rel="noreferrer">Browse issues <FiArrowUpRight size={17} /></a>
@@ -785,7 +785,7 @@ function App() {
 
             <aside className="notes-index" aria-label="Field Notes index">
               <p className="queue-title">The notebook</p>
-              <p className="notes-index-intro">A tiny, file-first blog prototype. Pick a note to read it here; add the next one when it&apos;s ready.</p>
+              <p className="notes-index-intro">A few short pieces about what I make, how I think, and what I&apos;m learning along the way.</p>
               {fieldNotes.map((note) => (
                 <button
                   className={activeNote?.id === note.id ? 'active' : ''}
@@ -800,7 +800,7 @@ function App() {
                   <i>{activeNote?.id === note.id ? 'Reading now' : 'Open note'} <FiArrowUpRight size={13} /></i>
                 </button>
               ))}
-              <div className="note-template"><span>Next entry</span><b>{nextNotePrompt.title}</b><p>{nextNotePrompt.body}</p></div>
+              <div className="note-template"><span>A thought for later</span><b>{nextNotePrompt.title}</b><p>{nextNotePrompt.body}</p></div>
             </aside>
           </div>
 
@@ -809,14 +809,14 @@ function App() {
               <header><span>{activeNote.label}</span><span>{activeNote.date} · {activeNote.readTime}</span></header>
               <h3>{activeNote.title}</h3>
               <div className="note-reader-body">{activeNote.body.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}</div>
-              <footer><span>Field Notes is a living corner of this site.</span><span>Add the next one in <code>src/content/fieldNotes.js</code></span></footer>
+              <footer><span>Field Notes is a living corner of this site.</span><span>More when I have something worth writing down.</span></footer>
             </article>
           )}
         </section>
 
         <section className="about-section" id="about">
           <div className="section-wrap about-inner">
-            <div className="about-copy"><p className="eyebrow"><span className="pulse-dot" /> A bit more about me</p><h2>I care enough about a problem to stay with it.</h2><p>I&apos;m happiest somewhere between a product question, a messy workflow, and a blank repository. My path through software and data engineering is why I care as much about reliable foundations as I do about what AI can unlock.</p><p>I tend to get personally attached to the things I build. If a problem is difficult and worth solving, I&apos;ll happily hyperfocus on the tricky part until there&apos;s a useful way through—whether it&apos;s a personal experiment or a serious piece of work for someone else.</p><p>Outside work, I build my own computers and keep learning because I&apos;m interested in the whole shape of technology: the parts inside the machine, the design around it, and the way it changes culture and everyday life.</p><p>Change is coming fast. I want to help people use AI responsibly, with enough context and agency to respond thoughtfully. That&apos;s why consulting fits me: I love making things for people—tools that remove friction from a day, systems that make a hard decision clearer, and workflows that let someone participate without having to become an engineer first.</p><div className="tenet-list"><p className="tenet-title">Core tenets</p><div><span>01</span><p><b>Respect human time.</b><small>Use it carefully, share it well, and spend it where judgment, care, and conversation really matter.</small></p></div><div><span>02</span><p><b>Automate for more life.</b><small>Automate the repeatable parts so there is more room for the work, people, and ideas I actually enjoy.</small></p></div><div><span>03</span><p><b>Keep creative energy in the loop.</b><small>Good systems should make more space for curiosity and making, not turn every minute into output.</small></p></div><p className="tenet-close">It&apos;s a constant struggle. It&apos;s also a fulfilling one.</p></div></div>
+            <div className="about-copy"><p className="eyebrow"><span className="pulse-dot" /> A bit more about me</p><h2>I like staying with a difficult problem until it starts to make sense.</h2><p>I&apos;m happiest somewhere between a product question, a messy workflow, and a blank repository. Because I came through software and data engineering, I tend to care about both the visible experience and all the quiet plumbing underneath it.</p><p>I get attached to the things I build. If a problem feels worthwhile, I can spend a long time on the awkward detail that keeps it from being genuinely useful. That is true whether I am making something for work, for a friend, or just for myself.</p><p>Outside work, I build my own computers, read a lot, and follow technology as a part of culture rather than a separate world. I am interested in what new tools let people do, but also in how they change our habits and expectations.</p><p>AI is moving quickly, and I do not think the answer is to automate every available moment. I want to make tools that give people more understanding and room to act. Sometimes that means removing a tedious step. Sometimes it means slowing the process down enough for someone to make a real choice.</p><div className="tenet-list"><p className="tenet-title">Things I try to remember</p><div><span>01</span><p><b>Respect human time.</b><small>Use it carefully and save it for judgment, care, conversation, and the parts of life that matter.</small></p></div><div><span>02</span><p><b>Automate with a reason.</b><small>Remove repetition when it gives someone more room, not simply because it can be removed.</small></p></div><div><span>03</span><p><b>Leave space to make things.</b><small>A good system should support curiosity and creative work rather than turning every minute into output.</small></p></div><p className="tenet-close">I do not always get the balance right, but I like trying.</p></div></div>
             <div className="about-actions">
               <a className="button button-outline" href={`mailto:${email}?subject=Hello%20Julien`}><FiMail size={17} /> Write to me</a>
               <a href="https://www.linkedin.com/in/julien-hovan/" target="_blank" rel="noreferrer"><FiLinkedin size={18} /> LinkedIn</a>
@@ -831,14 +831,14 @@ function App() {
       {harnessAtlasOpen && (
         <div className="harness-atlas-backdrop" role="presentation">
           <section className="harness-atlas" ref={atlasDialogRef} role="dialog" aria-modal="true" aria-labelledby="harness-atlas-title" aria-describedby="harness-atlas-description">
-            <header className="atlas-header"><div><p className="eyebrow">Expanded field guide</p><h2 id="harness-atlas-title">The harness atlas</h2><p id="harness-atlas-description">Working models from the systems I make: make work legible, give context a shape, build trust through proof, and leave the next person better prepared.</p></div><button type="button" onClick={closeHarnessAtlas} aria-label="Close the diagram atlas"><FiX size={20} /><span>Close</span></button></header>
+            <header className="atlas-header"><div><p className="eyebrow">A closer look</p><h2 id="harness-atlas-title">The harness atlas</h2><p id="harness-atlas-description">Four diagrams that show how I think about AI work: give it context, keep it understandable, check the result, and leave a useful trail for the next person.</p></div><button type="button" onClick={closeHarnessAtlas} aria-label="Close the diagram atlas"><FiX size={20} /><span>Close</span></button></header>
             <div className="atlas-plates">
-              <figure className="atlas-plate"><figcaption><span>Plate 01 · Harness</span><h3>The model is one instrument.</h3><p>A dependable harness gives a model a designed environment: memory, capabilities, protocols, permission boundaries, visibility, and human control.</p></figcaption><GeneratedDiagram variant="harness" image={harnessSystemImage} alt="A circular harness diagram with six labelled areas surrounding a central model core: Memory, Skills + Tools, Observability, Permissions, Human Control, and Protocols." notes={['The model does not get to define its own boundaries.', 'Useful work should leave traces a person can inspect.']} /></figure>
-              <figure className="atlas-plate"><figcaption><span>Plate 02 · Shared work</span><h3>Uncertainty deserves a real loop.</h3><p>Good work does not rush through ambiguity. It discovers, clarifies, plans, reviews, and hands off something the next person can confidently start from.</p></figcaption><GeneratedDiagram variant="discovery" image={discoveryLoopImage} alt="A five-stage discovery and planning flow: Discover, Clarify, Plan, Review, Ready, with arrows showing clarification and revision loops." notes={['Ambiguity is a signal to investigate—not an invitation to guess.', 'A plan can be rejected safely before costly work begins.']} /></figure>
-              <figure className="atlas-plate"><figcaption><span>Plate 03 · Capability</span><h3>Make knowledge usable outside a single mind.</h3><p>We have always extended thought through language, writing, records, and tools. Agentic systems extend capability through shared memory, skills, protocols, and a harness that coordinates them.</p></figcaption><GeneratedDiagram variant="externalization" image={externalizedCapabilityImage} alt="Two parallel timelines: Human externalization (Thought, Writing, Records, Tools, Data) and Agentic externalization (Model, Memory, Skills, Protocols, Harness), connected by flows of knowledge." notes={['Human side: make an idea recordable, inspectable, and shareable.', 'System side: make capability reusable without hiding the human decision.']} /></figure>
-              <figure className="atlas-plate"><figcaption><span>Plate 04 · Trust</span><h3>Keep people present at every gate.</h3><p>Plain-language intent becomes a shared specification, scoped work, visible evidence, and an explicit decision—not a black-box leap to “done.”</p></figcaption><GeneratedDiagram variant="delivery" image={humanGuidedDeliveryImage} alt="A six-stage delivery pipeline with a human guide connected to every stage: Need, Shared Spec, Design, Scoped Work, Evidence, Handoff." notes={['People can clarify, redirect, review, and approve at any point.', 'Evidence earns confidence; automation does not replace accountability.']} /></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 01 · Around the model</span><h3>The model is one part of the system.</h3><p>It also needs memory, tools, clear boundaries, ways to check its work, and a person who can stay in control.</p></figcaption><GeneratedDiagram variant="harness" image={harnessSystemImage} alt="A circular harness diagram with six labelled areas surrounding a central model core: Memory, Skills + Tools, Observability, Permissions, Human Control, and Protocols." notes={['A model should not get to choose its own boundaries.', 'A person should be able to see what the system did.']} /></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 02 · Shared work</span><h3>Uncertainty needs conversation.</h3><p>When a request is unclear, it helps to investigate, ask questions, make a plan, and look at it together before the costly work begins.</p></figcaption><GeneratedDiagram variant="discovery" image={discoveryLoopImage} alt="A five-stage discovery and planning flow: Discover, Clarify, Plan, Review, Ready, with arrows showing clarification and revision loops." notes={['An unclear detail is a reason to ask, not to guess.', 'It is much easier to change a plan than rebuild the wrong thing.']} /></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 03 · Shared knowledge</span><h3>Make a useful idea easy to pass on.</h3><p>People have always used writing, records, and tools to share what they know. AI systems also need memory and reusable instructions, but they should not hide the human choices behind them.</p></figcaption><GeneratedDiagram variant="externalization" image={externalizedCapabilityImage} alt="Two parallel timelines: Human externalization (Thought, Writing, Records, Tools, Data) and Agentic externalization (Model, Memory, Skills, Protocols, Harness), connected by flows of knowledge." notes={['Write down enough for another person to understand the idea.', 'Reuse what works without erasing who made the decision.']} /></figure>
+              <figure className="atlas-plate"><figcaption><span>Plate 04 · Staying involved</span><h3>Keep people present at the important moments.</h3><p>A plain-language request can become a plan, a manageable change, something visible to review, and then a real choice about what happens next.</p></figcaption><GeneratedDiagram variant="delivery" image={humanGuidedDeliveryImage} alt="A six-stage delivery pipeline with a human guide connected to every stage: Need, Shared Spec, Design, Scoped Work, Evidence, Handoff." notes={['People can clarify, redirect, review, and approve along the way.', 'A checked result is more useful than a confident answer.']} /></figure>
             </div>
-            <footer className="atlas-footer"><span>These are teaching diagrams, not a one-size-fits-all architecture.</span><button type="button" onClick={closeHarnessAtlas}>Back to the garden <FiArrowDown size={15} /></button></footer>
+            <footer className="atlas-footer"><span>These diagrams are how I explain the ideas today. They are allowed to change.</span><button type="button" onClick={closeHarnessAtlas}>Back to the garden <FiArrowDown size={15} /></button></footer>
           </section>
         </div>
       )}

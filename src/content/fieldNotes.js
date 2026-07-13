@@ -1,7 +1,3 @@
-// A deliberately small, file-first blog prototype.
-// Add a new object here and it automatically appears in the Field Notes reader.
-// See src/content/README.md for the entry shape and publishing checklist.
-
 export const fieldNotes = [
   {
     id: 'build-for-someone-real',
@@ -26,7 +22,7 @@ export const fieldNotes = [
     body: [
       'I like problems that make you slow down. The tangled ones: where the people, the process, the data, and the software are all pulling in slightly different directions. I can happily hyperfocus on that knot until there is a useful way through it.',
       'That also means I get personally attached to the things I build. It does not matter whether a project starts as a tiny personal experiment or a serious piece of client work. If someone is going to use it, I want the details to hold up and the experience to feel like it was made with them in mind.',
-      'That is a big part of why consulting fits me. I get to make things for people: tools that take friction out of a day, systems that make a difficult decision clearer, and workflows that let someone participate in the work without needing to become an engineer first.',
+      'The part I enjoy most is making something for a person and watching the problem become clearer. Sometimes that means removing friction from an ordinary day. Sometimes it means giving someone a way into technical work without asking them to become an engineer first.',
     ],
   },
   {
@@ -45,6 +41,6 @@ export const fieldNotes = [
 ];
 
 export const nextNotePrompt = {
-  title: 'Your next note can start small.',
-  body: 'Add a title, a short excerpt, and a few paragraphs in src/content/fieldNotes.js. The index and reader update automatically—no CMS required.',
+  title: 'What gets lost when software becomes effortless?',
+  body: 'I keep wondering whether useful friction can help us notice what a tool is doing, and when removing every pause makes it harder to stay involved.',
 };

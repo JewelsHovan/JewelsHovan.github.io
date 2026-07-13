@@ -339,12 +339,12 @@ function HeroPlayground() {
       }}
     >
       <div className="playground-topline">
-        <p id="hero-playground-title"><span /> Live sketch / 01</p>
-        <p>Canvas 2D · spring physics</p>
+        <p id="hero-playground-title"><span /> A small thing to play with</p>
+        <p>Move it around · it settles back</p>
       </div>
 
       <div className="playground-stage" id="hero-sketch-panel" role="tabpanel" aria-labelledby={`hero-sketch-tab-${activeSketch.id}`} ref={stageRef}>
-        <canvas ref={canvasRef} role="presentation" />
+        <canvas ref={canvasRef} />
         <button
           className="playground-hitarea"
           type="button"
@@ -359,7 +359,7 @@ function HeroPlayground() {
 
       <div className="playground-footer">
         <div className="playground-copy">
-          <span>{particleCount || 'Live'} points finding their way back</span>
+          <span>{particleCount ? `${particleCount} little points` : 'A cloud of little points'}</span>
           <p>{activeSketch.note}</p>
         </div>
         <div className="playground-modes" role="tablist" aria-label="Choose a live sketch">

@@ -10,22 +10,22 @@ test('renders Julien’s personal project garden and public newsletter', () => {
     'href',
     'https://jewelshovan.github.io/AI-News-Reports/'
   );
-  expect(screen.getByRole('button', { name: /working with agents/i })).toHaveAttribute('aria-pressed', 'false');
+  expect(screen.getByRole('button', { name: /ai systems/i })).toHaveAttribute('aria-pressed', 'false');
   expect(screen.getByRole('button', { name: /luccas studio agent/i })).toBeInTheDocument();
-  expect(screen.getByRole('heading', { name: /i didn't arrive at ai/i })).toBeInTheDocument();
-  expect(screen.getByRole('heading', { name: /compass data is where difficult ideas/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /before ai, there were web scrapers/i })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /compass data is where i make things/i })).toBeInTheDocument();
   expect(screen.getByRole('heading', { name: /build for someone real/i })).toBeInTheDocument();
   expect(screen.getByText(/perfect code is not the goal/i)).toBeInTheDocument();
   fireEvent.click(screen.getByRole('button', { name: /i like the difficult bit/i }));
   expect(screen.getByRole('heading', { name: /i like the difficult bit/i })).toBeInTheDocument();
-  expect(screen.getByRole('heading', { name: /the model is one instrument/i })).toBeInTheDocument();
-  expect(screen.getByText(/ambiguity is the enemy of agentic workflows/i)).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /the model is one part/i })).toBeInTheDocument();
+  expect(screen.getByText(/an ai cannot clarify a boundary/i)).toBeInTheDocument();
   const atlasTrigger = screen.getByRole('button', { name: /open the diagram atlas/i });
   atlasTrigger.focus();
   fireEvent.click(atlasTrigger);
   expect(screen.getByRole('dialog', { name: /the harness atlas/i })).toBeInTheDocument();
   expect(screen.getByRole('button', { name: /close the diagram atlas/i })).toHaveFocus();
-  expect(screen.getByText(/make knowledge usable outside a single mind/i)).toBeInTheDocument();
+  expect(screen.getByText(/make a useful idea easy to pass on/i)).toBeInTheDocument();
   const atlasExit = screen.getByRole('button', { name: /back to the garden/i });
   atlasExit.focus();
   fireEvent.keyDown(document, { key: 'Tab' });
